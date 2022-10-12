@@ -40,8 +40,17 @@ class Coord2DTest {
         return Math.abs(expected - actual) <= epsilon;
     }
 
+    // effects: determines if two Coord2Ds are sufficiently close enough to each other
+    //          by testing if each individual coordinate is sufficiently close to each
+    //          other. This method will be used for Coord2D equality within test methods
+    //          in this class
+    public boolean areSufficientlyClose(Coord2D expected, Coord2D actual, double epsilon) {
+        return areSufficientlyClose(expected.getX(), actual.getX(), epsilon)
+            && areSufficientlyClose(expected.getY(), actual.getY(), epsilon);
+    }
+
     @Test
-    public void testSufficientClose() {
+    public void testSufficientCloseFloating() {
         assertTrue(areSufficientlyClose(0.00, 1.00 / 9999999999999999999.0, 0.01));
         assertTrue(areSufficientlyClose(3.0, 1.0 + 2.0, 0.001));
         assertTrue(areSufficientlyClose(1000000.123, 1000000.122, 0.1));

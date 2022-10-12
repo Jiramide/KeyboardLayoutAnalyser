@@ -14,7 +14,8 @@ public class Coord2D {
     }
 
     public Coord2D(double x, double y) {
-
+        coordinateX = x;
+        coordinateY = y;
     }
 
     public double getX() {
