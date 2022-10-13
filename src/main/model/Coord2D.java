@@ -19,38 +19,50 @@ public class Coord2D {
     }
 
     public double getX() {
-        return 0; // stub
+        return coordinateX;
     }
 
     public double getY() {
-        return 0; // stub
+        return coordinateY;
     }
 
     public Coord2D add(Coord2D other) {
-        return null; // stub
+        return new Coord2D(getX() + other.getX(), getY() + other.getY());
     }
 
     public Coord2D subtract(Coord2D other) {
-        return null; // stub
+        return new Coord2D(getX() - other.getX(), getY() - other.getY());
     }
 
     public Coord2D scaleBy(double scalar) {
-        return null; // stub
+        return new Coord2D(scalar * getX(), scalar * getY());
     }
 
     public Coord2D negate() {
-        return null; // stub
+        return new Coord2D(-getX(), -getY());
     }
 
     public double getMagnitude() {
-        return 0; // stub
+        double x = getX();
+        double y = getY();
+
+        return Math.sqrt(x * x + y * y);
     }
 
     public Coord2D getUnit() {
-        return null;
+        double x = getX();
+        double y = getY();
+        double magnitude = getMagnitude();
+
+        return new Coord2D(x / magnitude, y / magnitude);
     }
 
     public double dot(Coord2D other) {
-        return 0;
+        return getX() * other.getX() + getY() * other.getY();
+    }
+
+    @Override
+    public boolean equals(Coord2D other) {
+        return (getX() == other.getX()) && (getY() == other.getY());
     }
 }
