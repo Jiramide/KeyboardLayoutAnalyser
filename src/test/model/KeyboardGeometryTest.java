@@ -61,10 +61,10 @@ public class KeyboardGeometryTest {
         assertEquals(0.00, firstKeyCoordinate.getY());
         assertEquals(Finger.LEFT_PINKY, fiveKeyLayout.getFingerAssignment(firstKeyCoordinate));
 
-        Coord2D seventhKeyCoordinate = staggeredNumpad.getCoord(6);
-        assertEquals(1.50, seventhKeyCoordinate.getX());
-        assertEquals(2.00, seventhKeyCoordinate.getY());
-        assertEquals(Finger.RIGHT_INDEX, staggeredNumpad.getFingerAssignment(seventhKeyCoordinate));
+        Coord2D eighthKeyCoordinate = staggeredNumpad.getCoord(7);
+        assertEquals(1.50, eighthKeyCoordinate.getX());
+        assertEquals(2.00, eighthKeyCoordinate.getY());
+        assertEquals(Finger.RIGHT_INDEX, staggeredNumpad.getFingerAssignment(eighthKeyCoordinate));
 
         staggeredNumpad.withContactPoint(99.00, -33.00, Finger.RIGHT_RING);
         Coord2D newlyAddedKey = staggeredNumpad.getCoord(9);
