@@ -35,6 +35,11 @@ public class KeyboardGeometry {
         return false;
     }
 
+    // EFFECTS: determines if a designated position is a valid contact point
+    public boolean isValidContactPoint(double positionX, double positionY) {
+        return false;
+    }
+
     // REQUIRES: geometry.isValidContactPoint(position)
     // EFFECTS: returns the corresponding finger used to press on the contact point / key
     public Finger getFingerAssignment(Coord2D position) {
@@ -47,4 +52,8 @@ public class KeyboardGeometry {
         return null;
     }
 
+    // EFFECTS: returns the number of contact points in this geometry
+    public int getNumContactPoints() {
+        return 0;
+    }
 }
