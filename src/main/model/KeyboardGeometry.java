@@ -30,10 +30,7 @@ public class KeyboardGeometry {
     // MODIFIES: this
     // EFFECTS: add position as a contact point into this keyboard, using finger to press this key.
     public KeyboardGeometry withContactPoint(double positionX, double positionY, Finger finger) {
-        return withContactPoint(
-                new Coord2D(positionX, positionY),
-                finger
-        );
+        return withContactPoint(new Coord2D(positionX, positionY), finger);
     }
 
     // EFFECTS: determines if a designated position is a valid contact point
