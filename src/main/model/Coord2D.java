@@ -62,7 +62,15 @@ public class Coord2D {
     }
 
     @Override
-    public boolean equals(Coord2D other) {
+    public boolean equals(Object obj) {
+        boolean isCoord2D = obj instanceof Coord2D;
+
+        if (!isCoord2D) {
+            return false;
+        }
+
+        Coord2D other = (Coord2D) obj; // safe
+
         return (getX() == other.getX()) && (getY() == other.getY());
     }
 }
