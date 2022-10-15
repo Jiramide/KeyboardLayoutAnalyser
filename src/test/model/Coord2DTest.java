@@ -22,7 +22,7 @@ class Coord2DTest {
 
     @BeforeEach
     public void initializeTests() {
-        origin = new Coord2D(0.00, 0.00);
+        origin = new Coord2D();
 
         firstQuadrant = new Coord2D(3.00, 4.00);
         secondQuadrant = new Coord2D(-3.14, 2.81);
@@ -59,6 +59,15 @@ class Coord2DTest {
         assertFalse(areSufficientlyClose(0.0, 0.1, 0.001));
         assertFalse(areSufficientlyClose(3.0, 1.0 + 2.0 + 0.001, 0.0));
         assertFalse(areSufficientlyClose(0.00, 1000000.00, 1.0));
+    }
+
+    @Test
+    public void testSufficientlyCloseCoord() {
+        assertTrue(areSufficientlyClose(origin, new Coord2D(), 0.01));
+        assertTrue(areSufficientlyClose(onXAxis, new Coord2D(42304.01, 0.00), 0.01));
+
+        assertFalse(areSufficientlyClose(onYAxis, origin, 1.00));
+        assertFalse(areSufficientlyClose(fourthQuadrant, firstQuadrant, 1.00));
     }
 
     @Test
