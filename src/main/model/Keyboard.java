@@ -7,24 +7,33 @@ public class Keyboard {
 
     // EFFECTS: Creates a new Keyboard with the assigned geometry and key layout
     public Keyboard(KeyboardGeometry geometry, String layout) {
-
+        this.geometry = geometry;
+        this.layout = layout;
     }
 
     // EFFECTS: determines if the keyboard contains the key in it's layout
     public boolean hasKey(char key) {
-        return false;
+        int firstIndex = layout.indexOf(key);
+        // according to Java documentation, the method above returns -1
+        // if the character never occurs in the string.
+
+        return firstIndex != -1;
     }
 
     // REQUIRES: char is in layout
     // EFFECTS: returns the associated coordinate (according the geometry) of the key
     public Coord2D getKeyCoord(char key) {
-        return null;
+        int keyIndex = layout.indexOf(key);
+
+        return geometry.getCoord(keyIndex);
     }
 
     // REQUIRES: char is in layout
     // EFFECTS: returns the associated finger (according to the geometry) of the key
     public Finger getKeyFinger(char key) {
-        return null;
+        Coord2D associatedCoordinate = getKeyCoord(key);
+
+        return geometry.getFingerAssignment(associatedCoordinate);
     }
 
 }
