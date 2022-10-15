@@ -105,18 +105,15 @@ class Coord2DTest {
 
         Coord2D firstPlusXAxis = firstQuadrant.add(onXAxis);
 
-        assertTrue(areSufficientlyClose(42307.00, firstPlusXAxis.getX(), TEST_EPSILON));
-        assertTrue(areSufficientlyClose(4.00, firstPlusXAxis.getY(), TEST_EPSILON));
+        assertTrue(areSufficientlyClose(firstPlusXAxis, new Coord2D(42307.00, 4.00), TEST_EPSILON));
 
         Coord2D thirdPlusFourth = thirdQuadrant.add(fourthQuadrant);
 
-        assertTrue(areSufficientlyClose(-800825.012, thirdPlusFourth.getX(), TEST_EPSILON));
-        assertTrue(areSufficientlyClose(-9130453.15, thirdPlusFourth.getY(), TEST_EPSILON));
+        assertTrue(areSufficientlyClose(thirdPlusFourth, new Coord2D(-800825.012, -9130453.15), TEST_EPSILON));
 
         Coord2D xAxisPlusYAxis = onXAxis.add(onYAxis);
 
-        assertTrue(areSufficientlyClose(42304.00, xAxisPlusYAxis.getX(), TEST_EPSILON));
-        assertTrue(areSufficientlyClose(-3845.00, xAxisPlusYAxis.getY(), TEST_EPSILON));
+        assertTrue(areSufficientlyClose(xAxisPlusYAxis, new Coord2D(42304.00, -3845.00), TEST_EPSILON));
     }
 
     @Test
@@ -127,17 +124,7 @@ class Coord2DTest {
         // a + (b + c)
         Coord2D rightAssociativeBrackets = firstQuadrant.add(fourthQuadrant.add(secondQuadrant));
 
-        assertTrue(areSufficientlyClose(
-                leftAssociativeBrackets.getX(),
-                rightAssociativeBrackets.getX(),
-                TEST_EPSILON
-        ));
-
-        assertTrue(areSufficientlyClose(
-                leftAssociativeBrackets.getY(),
-                rightAssociativeBrackets.getY(),
-                TEST_EPSILON
-        ));
+        assertTrue(areSufficientlyClose(leftAssociativeBrackets, rightAssociativeBrackets, TEST_EPSILON));
     }
 
     @Test
@@ -148,28 +135,7 @@ class Coord2DTest {
         Coord2D originPlusFirst = origin.add(firstQuadrant);
         Coord2D originPlusFirstPlusXAxis = origin.add(firstPlusXAxis);
 
-        assertTrue(areSufficientlyClose(
-                firstQuadrant.getX(),
-                originPlusFirst.getX(),
-                TEST_EPSILON
-        ));
-
-        assertTrue(areSufficientlyClose(
-                firstQuadrant.getY(),
-                originPlusFirst.getY(),
-                TEST_EPSILON
-        ));
-
-        assertTrue(areSufficientlyClose(
-                firstPlusXAxis.getX(),
-                originPlusFirstPlusXAxis.getX(),
-                TEST_EPSILON
-        ));
-
-        assertTrue(areSufficientlyClose(
-                firstPlusXAxis.getY(),
-                originPlusFirstPlusXAxis.getY(),
-                TEST_EPSILON
-        ));
+        assertTrue(areSufficientlyClose(firstQuadrant, originPlusFirst, TEST_EPSILON));
+        assertTrue(areSufficientlyClose(firstPlusXAxis, originPlusFirstPlusXAxis, TEST_EPSILON));
     }
 }
