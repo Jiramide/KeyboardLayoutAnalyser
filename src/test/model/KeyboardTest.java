@@ -132,4 +132,44 @@ public class KeyboardTest {
         colemakDHStandard = new Keyboard(standardAlphaKeyboard, colemakDH);
         colemakDHColumnar = new Keyboard(columnarKeyboard, colemakDH);
     }
+
+    @Test
+    public void testHasKey() {
+        assertTrue(qwertyStandard.hasKey('q'));
+        assertTrue(qwertyColumnar.hasKey('g'));
+
+        // Test difference in geometry does not change
+        // existence of keys (which should only be determined
+        // by layout)
+        assertTrue(colemakDHStandard.hasKey('p'));
+        assertTrue(colemakDHColumnar.hasKey('p'));
+
+        assertFalse(qwertyStandard.hasKey('0'));
+        assertFalse(qwertyColumnar.hasKey('!'));
+        assertFalse(colemakDHStandard.hasKey('+'));
+        assertFalse(colemakDHColumnar.hasKey('+'));
+    }
+
+    @Test
+    public void testGetKeyCoord() {
+        assertEquals(new Coord2D(0.00, 0.00), qwertyStandard.getKeyCoord('q'));
+        assertEquals(new Coord2D(0.00, 1.00), qwertyColumnar.getKeyCoord('a'));
+        assertEquals(new Coord2D(5.00, 0.00), colemakDHColumnar.getKeyCoord('j'));
+        assertEquals(new Coord2D(5.00, 0.00), qwertyColumnar.getKeyCoord('y'));
+        assertEquals(new Coord2D(3.00, 1.80), qwertyColumnar.getKeyCoord('v'));
+        assertEquals(new Coord2D(3.50, 2.00), colemakDHStandard.getKeyCoord('v'));
+
+        assertEquals(new Coord2D(3.00, 3.00), colemakDHColumnar.getKeyCoord(' '));
+        assertEquals(new Coord2D(2.50, 3.00), colemakDHStandard.getKeyCoord(' '));
+    }
+
+    @Test
+    public void testGetFinger() {
+        assertEquals(Finger.LEFT_PINKY, qwertyStandard.getKeyFinger('q'));
+        assertEquals(Finger.LEFT_PINKY, qwertyColumnar.getKeyFinger('a'));
+        assertEquals(Finger.RIGHT_INDEX, colemakDHColumnar.getKeyFinger('j'));
+        assertEquals(Finger.RIGHT_INDEX, qwertyColumnar.getKeyFinger('y'));
+        assertEquals(Finger.LEFT_INDEX, qwertyColumnar.getKeyFinger('v'));
+        assertEquals(Finger.LEFT_INDEX, colemakDHStandard.getKeyFinger('v'));
+    }
 }
