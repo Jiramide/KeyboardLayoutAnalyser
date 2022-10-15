@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import model.Coord2D;
 
 import java.lang.Math;
+import java.util.ArrayList;
 
 class Coord2DTest {
 
@@ -64,7 +65,7 @@ class Coord2DTest {
     @Test
     public void testSufficientlyCloseCoord() {
         assertTrue(areSufficientlyClose(origin, new Coord2D(), 0.01));
-        assertTrue(areSufficientlyClose(onXAxis, new Coord2D(42304.01, 0.00), 0.01));
+        assertTrue(areSufficientlyClose(onXAxis, new Coord2D(42304.01, 0.00), 0.1));
 
         assertFalse(areSufficientlyClose(onYAxis, origin, 1.00));
         assertFalse(areSufficientlyClose(fourthQuadrant, firstQuadrant, 1.00));
@@ -136,5 +137,117 @@ class Coord2DTest {
 
         assertTrue(areSufficientlyClose(firstQuadrant, originPlusFirst, TEST_EPSILON));
         assertTrue(areSufficientlyClose(firstPlusXAxis, originPlusFirstPlusXAxis, TEST_EPSILON));
+    }
+
+    @Test
+    public void testAdditionCommutativity() {
+        Coord2D firstPlusXAxis = firstQuadrant.add(onXAxis);
+        Coord2D xAxisPlusFirst = onXAxis.add(firstQuadrant);
+
+        assertTrue(areSufficientlyClose(firstPlusXAxis, xAxisPlusFirst, TEST_EPSILON));
+    }
+
+    @Test
+    public void testSubtraction() {
+        Coord2D firstMinusXAxis = firstQuadrant.subtract(onXAxis);
+        Coord2D expectedFirstMinusX = new Coord2D(-42301.00, 4.00);
+        assertTrue(areSufficientlyClose(expectedFirstMinusX, firstMinusXAxis, TEST_EPSILON));
+
+        Coord2D secondMinusOrigin = secondQuadrant.subtract(origin);
+        Coord2D expectedSecondMinusOrigin = secondQuadrant;
+        assertTrue(areSufficientlyClose(expectedSecondMinusOrigin, secondMinusOrigin, TEST_EPSILON));
+    }
+
+    @Test
+    public void testScaleBy() {
+        Coord2D originScaled = origin.scaleBy(100);
+        Coord2D expectedOriginScaled = new Coord2D(0.00, 0.00);
+        assertTrue(areSufficientlyClose(expectedOriginScaled, originScaled, TEST_EPSILON));
+
+        Coord2D firstScaled = firstQuadrant.scaleBy(100);
+        Coord2D expectedFirstScaled = new Coord2D(300.00, 400.00);
+        assertTrue(areSufficientlyClose(expectedFirstScaled, firstScaled, TEST_EPSILON));
+    }
+
+    @Test
+    public void testNegate() {
+        Coord2D negatedOrigin = origin.negate();
+        Coord2D expectedNegatedOrigin = new Coord2D(0.00, 0.00);
+        assertTrue(areSufficientlyClose(expectedNegatedOrigin, negatedOrigin, TEST_EPSILON));
+
+        Coord2D negatedSecond = secondQuadrant.negate();
+        Coord2D expectedNegatedSecond = new Coord2D(3.14, -2.81);
+        assertTrue(areSufficientlyClose(expectedNegatedSecond, negatedSecond, TEST_EPSILON));
+    }
+
+    @Test
+    public void testGetMagnitude() {
+        double originMagnitude = origin.getMagnitude();
+        double expectedOriginMagnitude = 0.00;
+        assertTrue(areSufficientlyClose(expectedOriginMagnitude, originMagnitude, TEST_EPSILON));
+
+        double firstMagnitude = firstQuadrant.getMagnitude();
+        double expectedFirstMagnitude = 5.00;
+        assertTrue(areSufficientlyClose(expectedFirstMagnitude, firstMagnitude, TEST_EPSILON));
+
+        double secondMagnitude = secondQuadrant.getMagnitude();
+        // (-3.14)^2 + 2.81^2 = 17.7557; sqrt(17.7557) = 4.2137512978343
+        double expectedSecondMagnitude = 4.2137512978343;
+        assertTrue(areSufficientlyClose(expectedSecondMagnitude, secondMagnitude, TEST_EPSILON));
+    }
+
+    @Test
+    public void testGetUnit() {
+        Coord2D unitThird = thirdQuadrant.getUnit();
+        Coord2D expectedUnitThird = new Coord2D(-0.087427929803585, -0.99617084734008);
+        assertTrue(areSufficientlyClose(expectedUnitThird, unitThird, TEST_EPSILON));
+
+        Coord2D unitFourth = fourthQuadrant.getUnit();
+        Coord2D expectedUnitFourth = new Coord2D(0.9999999998, -0.000019999999996);
+        assertTrue(areSufficientlyClose(expectedUnitFourth, unitFourth, TEST_EPSILON));
+
+        Coord2D unitXAxis = onXAxis.getUnit();
+        Coord2D expectedUnitX = new Coord2D(1.00, 0.00);
+        assertTrue(areSufficientlyClose(expectedUnitX, unitXAxis, TEST_EPSILON));
+
+        Coord2D unitYAxis = onYAxis.getUnit();
+        Coord2D expectedUnitY = new Coord2D(0.00, -1.00);
+        assertTrue(areSufficientlyClose(expectedUnitY, unitYAxis, TEST_EPSILON));
+    }
+
+    @Test
+    public void testDot() {
+        double originDotFourth = origin.dot(fourthQuadrant);
+        double expectedOriginDotFourth = 0.00;
+        assertTrue(areSufficientlyClose(expectedOriginDotFourth, originDotFourth, TEST_EPSILON));
+
+        double firstDotThird = firstQuadrant.dot(thirdQuadrant);
+        double expectedFirstDotThird = -38925787.596;
+        assertTrue(areSufficientlyClose(expectedFirstDotThird, firstDotThird, TEST_EPSILON));
+
+        double xDotY = onXAxis.dot(onYAxis);
+        double expectedXDotY = 0.00;
+        assertTrue(areSufficientlyClose(expectedXDotY, xDotY, TEST_EPSILON));
+    }
+
+    @Test
+    public void testEquals() {
+        // Test same-reference
+        assertEquals(origin, origin);
+        assertEquals(firstQuadrant, firstQuadrant);
+
+        // Test different types
+        // Note: assertNotEquals can't be used here since that assertion method
+        // expects both arguments to be of the same type.
+        ArrayList<Coord2D> someOtherType = new ArrayList<>();
+        assertFalse(secondQuadrant.equals(someOtherType));
+        assertFalse(thirdQuadrant.equals(someOtherType));
+
+        // Test diff-ref, same-value
+        Coord2D cloneOfXAxis = new Coord2D(42304.00, 0.00);
+        Coord2D cloneOfYAxis = new Coord2D(0.00, -3845.00);
+
+        assertEquals(onXAxis, cloneOfXAxis);
+        assertEquals(onYAxis, cloneOfYAxis);
     }
 }
