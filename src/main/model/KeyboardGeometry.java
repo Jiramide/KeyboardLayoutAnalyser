@@ -11,6 +11,7 @@ public class KeyboardGeometry {
     private List<Coord2D> contactPoints;
     private List<Finger> fingerAssignments;
 
+    // EFFECTS: constructs an empty KeyboardGeometry
     public KeyboardGeometry() {
         contactPoints = new ArrayList<>();
         fingerAssignments = new ArrayList<>();
