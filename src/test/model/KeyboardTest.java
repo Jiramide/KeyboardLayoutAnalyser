@@ -19,7 +19,6 @@ public class KeyboardTest {
     private Keyboard colemakDHStandard;
     private Keyboard colemakDHColumnar;
 
-    @BeforeEach
     public void constructStandardKeyboard() {
         standardAlphaKeyboard = new KeyboardGeometry();
 
@@ -67,7 +66,6 @@ public class KeyboardTest {
         standardAlphaKeyboard.withContactPoint(2.50, 3.00, Finger.LEFT_THUMB);
     }
 
-    @BeforeEach
     public void constructColumnarKeyboard() {
         // If you are not sure what a Columnar keyboard is, refer to this image
         // https://i.pinimg.com/originals/86/6e/f4/866ef4ec2f59afb3622abf61ad2664ae.jpg
@@ -126,6 +124,9 @@ public class KeyboardTest {
 
     @BeforeEach
     public void initializeKeyboard() {
+        constructStandardKeyboard();
+        constructColumnarKeyboard();
+
         qwertyStandard = new Keyboard(standardAlphaKeyboard, qwerty);
         qwertyColumnar = new Keyboard(columnarKeyboard, qwerty);
 
