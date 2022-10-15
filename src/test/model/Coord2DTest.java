@@ -104,16 +104,16 @@ class Coord2DTest {
         // 5) Commutativity: for all points a, b, a + b = b + a
 
         Coord2D firstPlusXAxis = firstQuadrant.add(onXAxis);
-
-        assertTrue(areSufficientlyClose(firstPlusXAxis, new Coord2D(42307.00, 4.00), TEST_EPSILON));
+        Coord2D expectedFirstPlusX = new Coord2D(42307.00, 4.00);
+        assertTrue(areSufficientlyClose(expectedFirstPlusX, firstPlusXAxis, TEST_EPSILON));
 
         Coord2D thirdPlusFourth = thirdQuadrant.add(fourthQuadrant);
-
-        assertTrue(areSufficientlyClose(thirdPlusFourth, new Coord2D(-800825.012, -9130453.15), TEST_EPSILON));
+        Coord2D expectedThirdPlusFourth = new Coord2D(-800825.012, -9130453.15);
+        assertTrue(areSufficientlyClose(expectedThirdPlusFourth, thirdPlusFourth, TEST_EPSILON));
 
         Coord2D xAxisPlusYAxis = onXAxis.add(onYAxis);
-
-        assertTrue(areSufficientlyClose(xAxisPlusYAxis, new Coord2D(42304.00, -3845.00), TEST_EPSILON));
+        Coord2D expectedXPlusY = new Coord2D(42304.00, -3845.00);
+        assertTrue(areSufficientlyClose(expectedXPlusY, xAxisPlusYAxis, TEST_EPSILON));
     }
 
     @Test
@@ -123,7 +123,6 @@ class Coord2DTest {
         Coord2D leftAssociativeBrackets = (firstQuadrant.add(fourthQuadrant)).add(secondQuadrant);
         // a + (b + c)
         Coord2D rightAssociativeBrackets = firstQuadrant.add(fourthQuadrant.add(secondQuadrant));
-
         assertTrue(areSufficientlyClose(leftAssociativeBrackets, rightAssociativeBrackets, TEST_EPSILON));
     }
 
