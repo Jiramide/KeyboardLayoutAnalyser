@@ -57,6 +57,7 @@ public class Coord2D {
         return Math.sqrt(x * x + y * y);
     }
 
+    // REQUIRES: getMagnitude() > 0.00
     // EFFECTS: returns a Coord2D with the same direction but a magnitude of 1
     public Coord2D getUnit() {
         double x = getX();
@@ -75,6 +76,12 @@ public class Coord2D {
     public boolean equals(Object obj) {
         boolean isCoord2D = obj instanceof Coord2D;
 
+        // reference checking
+        if (this == obj) {
+            return true;
+        }
+
+        // type checking
         if (!isCoord2D) {
             return false;
         }
