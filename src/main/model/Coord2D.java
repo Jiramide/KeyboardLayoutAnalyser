@@ -7,41 +7,49 @@ public class Coord2D {
     private final double coordinateX;
     private final double coordinateY;
 
+    // EFFECTS: constructs a Coord2D located at the origin
     public Coord2D() {
-        // stub
         coordinateX = 0;
         coordinateY = 0;
     }
 
+    // EFFECTS: constructs a Coord2D located at the position (x, y)
     public Coord2D(double x, double y) {
         coordinateX = x;
         coordinateY = y;
     }
 
+    // EFFECTS: returns the X coordinate
     public double getX() {
         return coordinateX;
     }
 
+    // EFFECTS: returns the Y coordinate
     public double getY() {
         return coordinateY;
     }
 
+    // EFFECTS: adds together two Coord2Ds and returns the sum
     public Coord2D add(Coord2D other) {
         return new Coord2D(getX() + other.getX(), getY() + other.getY());
     }
 
+    // EFFECTS: subtracts together two Coord2Ds and returns the difference
     public Coord2D subtract(Coord2D other) {
         return new Coord2D(getX() - other.getX(), getY() - other.getY());
     }
 
+    // EFFECTS: scales the Coord2D by some scalar, lengthening it by a factor of scalar
     public Coord2D scaleBy(double scalar) {
         return new Coord2D(scalar * getX(), scalar * getY());
     }
 
+    // EFFECTS: negates the compoennts of the Coord2D and returns the negated version
     public Coord2D negate() {
         return new Coord2D(-getX(), -getY());
     }
 
+    // EFFECTS: returns the distance between the Coord2D's position and the origin
     public double getMagnitude() {
         double x = getX();
         double y = getY();
@@ -49,6 +57,7 @@ public class Coord2D {
         return Math.sqrt(x * x + y * y);
     }
 
+    // EFFECTS: returns a Coord2D with the same direction but a magnitude of 1
     public Coord2D getUnit() {
         double x = getX();
         double y = getY();
@@ -57,6 +66,7 @@ public class Coord2D {
         return new Coord2D(x / magnitude, y / magnitude);
     }
 
+    // EFFECTS: returns the dot product of two Coord2Ds, defined as the sum of the products of components
     public double dot(Coord2D other) {
         return getX() * other.getX() + getY() * other.getY();
     }
