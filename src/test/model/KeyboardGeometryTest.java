@@ -86,4 +86,13 @@ public class KeyboardGeometryTest {
         staggeredNumpad.withContactPoint(3.50, 2.00, Finger.RIGHT_THUMB);
         assertTrue(staggeredNumpad.isValidContactPoint(new Coord2D(3.50, 2.00)));
     }
+
+    @Test
+    public void testGetFingerAssignment() {
+        assertEquals(Finger.LEFT_THUMB, fiveKeyLayout.getFingerAssignment(new Coord2D(4.00, 0.00)));
+        assertEquals(Finger.LEFT_PINKY, staggeredNumpad.getFingerAssignment(new Coord2D(2.50, 2.00)));
+
+        assertNull(fiveKeyLayout.getFingerAssignment(new Coord2D(3.50, 2.00)));
+        assertNull(fiveKeyLayout.getFingerAssignment(new Coord2D(5.00, 0.00)));
+    }
 }

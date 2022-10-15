@@ -45,17 +45,16 @@ public class KeyboardGeometry {
     }
 
     // REQUIRES: geometry.isValidContactPoint(position)
-    // EFFECTS: returns the corresponding finger used to press on the contact point / key
+    // EFFECTS: returns the corresponding finger used to press on the contact point / key. In the case that
+    //          the pre-condition is not satisfied, null is returned.
     public Finger getFingerAssignment(Coord2D position) {
-        int index = 0;
-
-        for (; index < fingerAssignments.size(); index++) {
+        for (int index = 0; index < fingerAssignments.size(); index++) {
             if (contactPoints.get(index).equals(position)) {
-                break;
+                return fingerAssignments.get(index);
             }
         }
 
-        return fingerAssignments.get(index);
+        return null;
     }
 
     // REQUIRES: 0 <= index < contactPoints.size()
