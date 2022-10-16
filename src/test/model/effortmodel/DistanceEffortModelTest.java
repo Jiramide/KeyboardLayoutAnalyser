@@ -57,30 +57,6 @@ public class DistanceEffortModelTest {
     }
 
     @Test
-    public void testComputePartialEffort() {
-        // It takes 0.00 effort to type in the 'h' and 'e' keys (since the fingers are already on them)
-        assertEquals(0.00, distanceEffortModel.computePartialEffort('h'));
-        assertEquals(0.00, distanceEffortModel.computePartialEffort('e'));
-
-        // It takes 1.00 effort to type in the 'l' key (since the left middle finger has to traverse
-        // 1.00 unit). The position of the left middle finger is now at the L key (1.00, 0.00)
-        assertEquals(1.00, distanceEffortModel.computePartialEffort('l'));
-
-        // It takes 0.00 effort to type in the 'l' key since the finger is already on the 'l' position
-        // after typing in the last one
-        assertEquals(0.00, distanceEffortModel.computePartialEffort('l'));
-
-        // The left index finger (responsible for typing 'o') is currently on 'l'. The distance between
-        // O(0.00, 1.00) and L(2.00, 0.00) is sqrt(5) = 2.2360679774998. The left index is now on
-        // 'o'
-        assertEquals(2.23606797749979, distanceEffortModel.computePartialEffort('o'));
-
-        // The left index finger goes back to 'l'. The distance traversed should be the same regardless
-        // of direction (i.e. L <-> O = O <-> L)
-        assertEquals(2.23606797749979, distanceEffortModel.computePartialEffort('l'));
-    }
-
-    @Test
     public void testComputeTotalEffort() {
         // The total distance your fingers travel when typing "Hello world!" is approximately 9.3
         // Here are the distances as you type, ignoring symbols that don't exist in the layout:
