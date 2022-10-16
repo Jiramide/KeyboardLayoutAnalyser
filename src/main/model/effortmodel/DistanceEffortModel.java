@@ -15,7 +15,14 @@ public class DistanceEffortModel extends EffortModel {
 
     // EFFECTS: creates an EffortModel that operates on a corpus with initial finger positions on the home row
     public DistanceEffortModel(Corpus corpus, Keyboard keyboard) {
+        super(corpus);
 
+        this.keyboard = keyboard;
+        this.fingerPositions = new HashMap<>();
+
+        for (Finger finger : Finger.ALL_FINGERS) {
+            fingerPositions.put(finger, keyboard.getInitialFingerPosition(finger));
+        }
     }
 
     // EFFECTS: computes the effort spent based on the distance spent travelling to press the key
