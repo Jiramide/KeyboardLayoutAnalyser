@@ -39,6 +39,6 @@ public class Keyboard {
     // REQUIRES: finger has initial finger position
     // EFFECTS: returns the initial position of the finger (according to the geometry)
     public Coord2D getInitialFingerPosition(Finger finger) {
-        return new Coord2D();
+        return geometry.getInitialFingerPosition(finger);
     }
 }
