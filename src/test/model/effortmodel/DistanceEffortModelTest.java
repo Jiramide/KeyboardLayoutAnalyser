@@ -96,7 +96,7 @@ public class DistanceEffortModelTest {
         // d: 1
         assertEquals(9.30056307974577, distanceEffortModel.computeTotalEffort(helloWorldCorpus, basicKeyboard));
 
-        assertEquals(0.00, emptyDistance.computeTotalEffort(emptyCorpus, basicKeyboard));
+        assertEquals(0.00, distanceEffortModel.computeTotalEffort(emptyCorpus, basicKeyboard));
     }
 
 }
