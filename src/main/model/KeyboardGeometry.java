@@ -49,7 +49,7 @@ public class KeyboardGeometry {
     // REQUIRES: finger has an initial position set by setInitialFingerPosition
     // EFFECTS: returns the initial position of the finger according to the geometry specified.
     public Coord2D getInitialFingerPosition(Finger finger) {
-        return initialFingerPositions.get(finger);
+        return initialFingerPositions.getOrDefault(finger, new Coord2D());
     }
 
     // EFFECTS: determines if a designated position is a valid contact point
