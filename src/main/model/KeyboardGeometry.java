@@ -41,12 +41,15 @@ public class KeyboardGeometry {
     // MODIFIES: this
     // EFFECTS: sets the initial position of the finger as the given position (like setting the home row)
     public void setInitialFingerPosition(Finger finger, double positionX, double positionY) {
+        Coord2D position = new Coord2D(positionX, positionY);
 
+        initialFingerPositions.put(finger, position);
     }
 
+    // REQUIRES: finger has an initial position set by setInitialFingerPosition
     // EFFECTS: returns the initial position of the finger according to the geometry specified.
     public Coord2D getInitialFingerPosition(Finger finger) {
-        return new Coord2D();
+        return initialFingerPositions.get(finger);
     }
 
     // EFFECTS: determines if a designated position is a valid contact point
