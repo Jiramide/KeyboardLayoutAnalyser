@@ -4,8 +4,15 @@ import model.corpora.Corpus;
 
 public abstract class EffortModel {
 
+    private Corpus corpus;
+
+    // EFFECTS: creates an EffortModel that simulates on a corpus
+    public EffortModel(Corpus corpus) {
+        this.corpus = corpus;
+    }
+
     // EFFECTS: computes the total effort of typing
-    public int computeTotalEffort(Corpus corpus) {
+    public int computeTotalEffort() {
         int totalEffort = 0;
 
         while (!corpus.isFinished()) {
