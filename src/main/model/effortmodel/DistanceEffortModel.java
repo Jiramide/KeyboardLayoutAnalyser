@@ -31,7 +31,7 @@ public class DistanceEffortModel extends EffortModel {
     // REQUIRES: key is in keyboard
     // MODIFIES: this
     // EFFECTS: computes the effort spent based on the distance spent travelling to press the key
-    double computePartialEffort(char key) {
+    protected double computePartialEffort(char key) {
         key = Character.toLowerCase(key);
 
         if (!keyboard.hasKey(key)) {
