@@ -62,6 +62,17 @@ public class KeyboardTest {
                 .withContactPoint(8.50, 2.00, Finger.RIGHT_RING)
                 .withContactPoint(9.50, 2.00, Finger.RIGHT_PINKY);
 
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.LEFT_PINKY, 0.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.LEFT_RING, 1.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.LEFT_MIDDLE, 2.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.LEFT_INDEX, 3.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.LEFT_THUMB, 2.50, 3.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.RIGHT_PINKY, 9.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.RIGHT_RING, 8.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.RIGHT_MIDDLE, 7.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.RIGHT_INDEX, 6.20, 1.00);
+        standardAlphaKeyboard.setInitialFingerPosition(Finger.RIGHT_THUMB, 0.00, 0.00);
+
         // Insert space bar
         standardAlphaKeyboard.withContactPoint(2.50, 3.00, Finger.LEFT_THUMB);
     }
@@ -114,6 +125,17 @@ public class KeyboardTest {
                 .withContactPoint(7.00, 1.50, Finger.RIGHT_MIDDLE)
                 .withContactPoint(8.00, 1.80, Finger.RIGHT_RING)
                 .withContactPoint(9.00, 2.00, Finger.RIGHT_PINKY);
+
+        columnarKeyboard.setInitialFingerPosition(Finger.LEFT_PINKY, 0.00, 1.00);
+        columnarKeyboard.setInitialFingerPosition(Finger.LEFT_RING, 1.00, 0.80);
+        columnarKeyboard.setInitialFingerPosition(Finger.LEFT_MIDDLE, 2.00, 0.50);
+        columnarKeyboard.setInitialFingerPosition(Finger.LEFT_INDEX, 3.00, 0.80);
+        columnarKeyboard.setInitialFingerPosition(Finger.LEFT_THUMB, 3.00, 3.00);
+        columnarKeyboard.setInitialFingerPosition(Finger.RIGHT_PINKY, 9.00, 1.00);
+        columnarKeyboard.setInitialFingerPosition(Finger.RIGHT_RING, 8.00, 0.80);
+        columnarKeyboard.setInitialFingerPosition(Finger.RIGHT_MIDDLE, 7.00, 0.50);
+        columnarKeyboard.setInitialFingerPosition(Finger.RIGHT_INDEX, 6.00, 0.80);
+        columnarKeyboard.setInitialFingerPosition(Finger.RIGHT_THUMB, 0.00, 0.00);
 
         // Insert space bar
         // (note: space bar positions for columnar is very variable,
@@ -172,5 +194,43 @@ public class KeyboardTest {
         assertEquals(Finger.RIGHT_INDEX, qwertyColumnar.getKeyFinger('y'));
         assertEquals(Finger.LEFT_INDEX, qwertyColumnar.getKeyFinger('v'));
         assertEquals(Finger.LEFT_INDEX, colemakDHStandard.getKeyFinger('v'));
+    }
+
+    @Test
+    public void testGetInitialFingerPosition() {
+        // Test for specific values and that layout does not affect initial finger positions
+        Coord2D leftPinkyPosition = new Coord2D(0.00, 1.00);
+        Coord2D leftRingPosition = new Coord2D(1.00, 0.80);
+        Coord2D leftMiddlePosition = new Coord2D(2.00, 0.50);
+        Coord2D leftIndexPosition = new Coord2D(3.00, 0.80);
+        Coord2D leftThumbPosition = new Coord2D(3.00, 3.00);
+        Coord2D rightPinkyPosition = new Coord2D(9.00, 1.00);
+        Coord2D rightRingPosition = new Coord2D(8.00, 0.80);
+        Coord2D rightMiddlePosition = new Coord2D(7.00, 0.50);
+        Coord2D rightIndexPosition = new Coord2D(6.00, 0.80);
+        Coord2D rightThumbPosition = new Coord2D(0.00, 0.00);
+
+        assertEquals(leftPinkyPosition, colemakDHColumnar.getInitialFingerPosition(Finger.LEFT_PINKY));
+        assertEquals(leftRingPosition, colemakDHColumnar.getInitialFingerPosition(Finger.LEFT_RING));
+        assertEquals(leftMiddlePosition, colemakDHColumnar.getInitialFingerPosition(Finger.LEFT_MIDDLE));
+        assertEquals(leftIndexPosition, colemakDHColumnar.getInitialFingerPosition(Finger.LEFT_INDEX));
+        assertEquals(leftThumbPosition, colemakDHColumnar.getInitialFingerPosition(Finger.LEFT_THUMB));
+        assertEquals(rightPinkyPosition, colemakDHColumnar.getInitialFingerPosition(Finger.RIGHT_PINKY));
+        assertEquals(rightRingPosition, colemakDHColumnar.getInitialFingerPosition(Finger.RIGHT_RING));
+        assertEquals(rightMiddlePosition, colemakDHColumnar.getInitialFingerPosition(Finger.RIGHT_MIDDLE));
+        assertEquals(rightIndexPosition, colemakDHColumnar.getInitialFingerPosition(Finger.RIGHT_INDEX));
+        assertEquals(rightThumbPosition, colemakDHColumnar.getInitialFingerPosition(Finger.RIGHT_THUMB));
+
+        assertEquals(leftPinkyPosition, qwertyColumnar.getInitialFingerPosition(Finger.LEFT_PINKY));
+        assertEquals(leftRingPosition, qwertyColumnar.getInitialFingerPosition(Finger.LEFT_RING));
+        assertEquals(leftMiddlePosition, qwertyColumnar.getInitialFingerPosition(Finger.LEFT_MIDDLE));
+        assertEquals(leftIndexPosition, qwertyColumnar.getInitialFingerPosition(Finger.LEFT_INDEX));
+        assertEquals(leftThumbPosition, qwertyColumnar.getInitialFingerPosition(Finger.LEFT_THUMB));
+        assertEquals(rightPinkyPosition, qwertyColumnar.getInitialFingerPosition(Finger.RIGHT_PINKY));
+        assertEquals(rightRingPosition, qwertyColumnar.getInitialFingerPosition(Finger.RIGHT_RING));
+        assertEquals(rightMiddlePosition, qwertyColumnar.getInitialFingerPosition(Finger.RIGHT_MIDDLE));
+        assertEquals(rightIndexPosition, qwertyColumnar.getInitialFingerPosition(Finger.RIGHT_INDEX));
+        assertEquals(rightThumbPosition, qwertyColumnar.getInitialFingerPosition(Finger.RIGHT_THUMB));
+
     }
 }
