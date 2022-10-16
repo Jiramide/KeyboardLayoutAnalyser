@@ -26,6 +26,8 @@ public class DistanceEffortModel extends EffortModel {
     }
 
     @Override
+    // MODIFIES: this
+    // EFFECTS: computes the total effort spent typing out a corpus
     public double computeTotalEffort(Corpus corpus, Keyboard keyboard) {
         return 0.0;
     }
