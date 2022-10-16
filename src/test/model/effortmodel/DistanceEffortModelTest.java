@@ -73,11 +73,11 @@ public class DistanceEffortModelTest {
         // The left index finger (responsible for typing 'o') is currently on 'l'. The distance between
         // O(0.00, 1.00) and L(2.00, 0.00) is sqrt(5) = 2.2360679774998. The left index is now on
         // 'o'
-        assertEquals(2.2360679774998, distanceOnHelloWorld.computePartialEffort('o'));
+        assertEquals(2.23606797749979, distanceOnHelloWorld.computePartialEffort('o'));
 
         // The left index finger goes back to 'l'. The distance traversed should be the same regardless
         // of direction (i.e. L <-> O = O <-> L)
-        assertEquals(2.2360679774998, distanceOnHelloWorld.computePartialEffort('l'));
+        assertEquals(2.23606797749979, distanceOnHelloWorld.computePartialEffort('l'));
     }
 
     @Test
@@ -94,7 +94,7 @@ public class DistanceEffortModelTest {
         // r: 1.4142135623731
         // l: 2.2360679774998
         // d: 1
-        assertEquals(9.3005630797458, distanceOnHelloWorld.computeTotalEffort());
+        assertEquals(9.30056307974577, distanceOnHelloWorld.computeTotalEffort());
 
         assertEquals(0.00, emptyDistance.computeTotalEffort());
     }
