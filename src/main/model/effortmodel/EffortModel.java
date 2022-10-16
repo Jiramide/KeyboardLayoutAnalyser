@@ -1,5 +1,6 @@
 package model.effortmodel;
 
+import model.Keyboard;
 import model.corpora.Corpus;
 import model.corpora.CorpusReader;
 
@@ -11,7 +12,7 @@ public abstract class EffortModel {
     }
 
     // EFFECTS: computes the total effort of typing
-    public double computeTotalEffort(Corpus corpus) {
+    public double computeTotalEffort(Corpus corpus, Keyboard keyboard) {
         CorpusReader reader = corpus.createCorpusReader();
 
         double totalEffort = 0.00;
@@ -27,6 +28,5 @@ public abstract class EffortModel {
 
     public abstract double computePartialEffort(char key);
 
-    public abstract void reset();
 
 }
