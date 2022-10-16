@@ -35,10 +35,12 @@ public class StringCorpusTest {
 
         // "The quick brown fox jumps over the lazy dog." has 44 characters
         for (int consumptionsLeft = 44; consumptionsLeft > 0; consumptionsLeft--) {
+            assertFalse(pangram.isFinished());
             pangram.consume();
         }
 
         assertTrue(pangram.isFinished());
+        assertFalse(helloWorld.isFinished());
     }
 
 }
