@@ -55,6 +55,7 @@ public class StringCorpusTest {
 
         assertEquals('T', pangramReader.consume());
         assertEquals('h', pangramReader.consume());
+        assertEquals('e', pangramReader.consume());
         assertEquals(' ', pangramReader.consume());
         assertEquals('q', pangramReader.consume());
 
