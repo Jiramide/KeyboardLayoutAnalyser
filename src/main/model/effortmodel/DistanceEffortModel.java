@@ -17,7 +17,14 @@ public class DistanceEffortModel extends EffortModel {
     // MODIFIES: this
     // EFFECTS: computes the total effort spent typing out a corpus
     public double computeTotalEffort(Corpus corpus, Keyboard keyboard) {
-        return 0.0;
+        this.keyboard = keyboard;
+        this.fingerPositions = new HashMap<>();
+
+        for (Finger finger : Finger.values()) {
+            fingerPositions.put(finger, keyboard.getInitialFingerPosition(finger));
+        }
+
+        return super(corpus);
     }
 
     @Override
