@@ -27,4 +27,6 @@ public abstract class EffortModel {
 
     public abstract double computePartialEffort(char key);
 
+    public abstract void reset();
+
 }
