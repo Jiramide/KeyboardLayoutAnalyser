@@ -24,6 +24,12 @@ public class KeyboardGeometryTest {
                 .withContactPoint(new Coord2D(3.00, 0.00), Finger.LEFT_INDEX)
                 .withContactPoint(new Coord2D(4.00, 0.00), Finger.LEFT_THUMB);
 
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_PINKY, 0.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_RING, 1.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_MIDDLE, 2.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_INDEX, 3.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_THUMB, 4.00, 0.00);
+
         /*
          * [0:LP] [1:LR] [2:LM]
          *  [3:RT] [4:RM] [5:RP]
@@ -39,6 +45,15 @@ public class KeyboardGeometryTest {
                 .withContactPoint(0.50, 2.00, Finger.LEFT_INDEX)
                 .withContactPoint(1.50, 2.00, Finger.RIGHT_INDEX)
                 .withContactPoint(2.50, 2.00, Finger.LEFT_PINKY);
+
+        staggeredNumpad.setInitialFingerPosition(Finger.LEFT_PINKY, 3.25, 1.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.LEFT_RING, 1.00, 0.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.LEFT_MIDDLE, 3.00, 1.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.LEFT_INDEX, 0.50, 2.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_PINKY, 5.00, 2.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_THUMB, 0.00, 0.00);
+        staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_INDEX, 2.34, 5.67);
+        staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_MIDDLE, 0.50, 0.50);
     }
 
     @Test
@@ -73,6 +88,28 @@ public class KeyboardGeometryTest {
         assertEquals(99.00, newlyAddedKey.getX());
         assertEquals(-33.00, newlyAddedKey.getY());
         assertEquals(Finger.RIGHT_RING, staggeredNumpad.getFingerAssignment(newlyAddedKey));
+    }
+
+    @Test
+    public void testGetInitialFingerPosition() {
+        Coord2D leftPinkyPosition = new Coord2D(0.00, 0.00);
+        Coord2D leftRingPosition = new Coord2D(1.00, 0.00);
+        Coord2D leftMiddlePosition = new Coord2D(2.00, 0.00);
+        Coord2D leftIndexPosition = new Coord2D(3.00, 0.00);
+        Coord2D leftThumbPosition = new Coord2D(4.00, 0.00);
+
+        assertEquals(leftPinkyPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_PINKY));
+        assertEquals(leftRingPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_RING));
+        assertEquals(leftMiddlePosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_MIDDLE));
+        assertEquals(leftIndexPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_INDEX));
+        assertEquals(leftThumbPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_THUMB));
+
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_PINKY, 12345.00, 67890.00);
+        Coord2D newLeftPinkyPosition = new Coord2D(12345.00, 67890.00);
+
+        assertEquals(newLeftPinkyPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_PINKY));
+        assertEquals(newLeftPinkyPosition, fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_PINKY));
+        // Check that getInitialFingerPosition doesn't mutate, only get.
     }
 
     @Test
