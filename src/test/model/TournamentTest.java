@@ -104,8 +104,7 @@ public class TournamentTest {
         assertTrue(helloWorldTournament.hasKeyboard(wordleh));
         assertFalse(helloWorldTournament.hasKeyboard(hwordle));
 
-        helloWorldTournament.removeKeyboard(worldeh);
-
+        helloWorldTournament.removeKeyboard(wordleh);
 
         assertFalse(helloWorldTournament.hasKeyboard(wordleh));
         assertFalse(helloWorldTournament.hasKeyboard(hwordle));
