@@ -25,6 +25,7 @@ public class DistanceEffortModel extends EffortModel {
         }
     }
 
+    // REQUIRES: key is in keyboard
     // EFFECTS: computes the effort spent based on the distance spent travelling to press the key
     public int computePartialEffort(char key) {
         return 0;
