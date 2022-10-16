@@ -12,13 +12,13 @@ import model.corpora.StringCorpus;
 
 public class DistanceEffortModelTest {
 
-    private DistanceEffortModel distanceOnHelloWorld;
-    private DistanceEffortModel emptyDistance;
+    private DistanceEffortModel distanceEffortModel;
 
-    private Corpus helloWorldCorpus;
     private KeyboardGeometry basicKeyboardGeometry;
-    private Keyboard basicKeyboard;
     private String layout;
+    private Keyboard basicKeyboard;
+    private Corpus helloWorldCorpus;
+    private Corpus emptyCorpus;
 
     @BeforeEach
     public void initialize() {
@@ -49,35 +49,35 @@ public class DistanceEffortModelTest {
         layout = "helowrd";
 
         helloWorldCorpus = new StringCorpus("Hello world!");
+        emptyCorpus = new StringCorpus("");
 
         basicKeyboard = new Keyboard(basicKeyboardGeometry, layout);
 
-        distanceOnHelloWorld = new DistanceEffortModel(helloWorldCorpus, basicKeyboard);
-        emptyDistance = new DistanceEffortModel(new StringCorpus(""), basicKeyboard);
+        distanceEffortModel = new DistanceEffortModel();
     }
 
     @Test
     public void testComputePartialEffort() {
         // It takes 0.00 effort to type in the 'h' and 'e' keys (since the fingers are already on them)
-        assertEquals(0.00, distanceOnHelloWorld.computePartialEffort('h'));
-        assertEquals(0.00, distanceOnHelloWorld.computePartialEffort('e'));
+        assertEquals(0.00, distanceEffortModel.computePartialEffort('h'));
+        assertEquals(0.00, distanceEffortModel.computePartialEffort('e'));
 
         // It takes 1.00 effort to type in the 'l' key (since the left middle finger has to traverse
         // 1.00 unit). The position of the left middle finger is now at the L key (1.00, 0.00)
-        assertEquals(1.00, distanceOnHelloWorld.computePartialEffort('l'));
+        assertEquals(1.00, distanceEffortModel.computePartialEffort('l'));
 
         // It takes 0.00 effort to type in the 'l' key since the finger is already on the 'l' position
         // after typing in the last one
-        assertEquals(0.00, distanceOnHelloWorld.computePartialEffort('l'));
+        assertEquals(0.00, distanceEffortModel.computePartialEffort('l'));
 
         // The left index finger (responsible for typing 'o') is currently on 'l'. The distance between
         // O(0.00, 1.00) and L(2.00, 0.00) is sqrt(5) = 2.2360679774998. The left index is now on
         // 'o'
-        assertEquals(2.23606797749979, distanceOnHelloWorld.computePartialEffort('o'));
+        assertEquals(2.23606797749979, distanceEffortModel.computePartialEffort('o'));
 
         // The left index finger goes back to 'l'. The distance traversed should be the same regardless
         // of direction (i.e. L <-> O = O <-> L)
-        assertEquals(2.23606797749979, distanceOnHelloWorld.computePartialEffort('l'));
+        assertEquals(2.23606797749979, distanceEffortModel.computePartialEffort('l'));
     }
 
     @Test
@@ -94,9 +94,9 @@ public class DistanceEffortModelTest {
         // r: 1.4142135623731
         // l: 2.2360679774998
         // d: 1
-        assertEquals(9.30056307974577, distanceOnHelloWorld.computeTotalEffort());
+        assertEquals(9.30056307974577, distanceEffortModel.computeTotalEffort(helloWorldCorpus, basicKeyboard));
 
-        assertEquals(0.00, emptyDistance.computeTotalEffort());
+        assertEquals(0.00, emptyDistance.computeTotalEffort(emptyCorpus, basicKeyboard));
     }
 
 }
