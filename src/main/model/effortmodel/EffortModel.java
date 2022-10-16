@@ -1,22 +1,23 @@
 package model.effortmodel;
 
 import model.corpora.Corpus;
+import model.corpora.CorpusReader;
 
 public abstract class EffortModel {
 
-    private Corpus corpus;
-
     // EFFECTS: creates an EffortModel that simulates on a corpus
-    public EffortModel(Corpus corpus) {
-        this.corpus = corpus;
+    public EffortModel() {
+
     }
 
     // EFFECTS: computes the total effort of typing
-    public double computeTotalEffort() {
+    public double computeTotalEffort(Corpus corpus) {
+        CorpusReader reader = corpus.createCorpusReader();
+
         double totalEffort = 0.00;
 
-        while (!corpus.isFinished()) {
-            char key = corpus.consume();
+        while (!reader.isFinished()) {
+            char key = reader.consume();
 
             totalEffort += computePartialEffort(key);
         }
