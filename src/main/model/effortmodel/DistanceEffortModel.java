@@ -26,6 +26,7 @@ public class DistanceEffortModel extends EffortModel {
     }
 
     // REQUIRES: key is in keyboard
+    // MODIFIES: this
     // EFFECTS: computes the effort spent based on the distance spent travelling to press the key
     public double computePartialEffort(char key) {
         key = Character.toLowerCase(key);
@@ -36,6 +37,12 @@ public class DistanceEffortModel extends EffortModel {
 
         Finger fingerUsed = keyboard.getKeyFinger(key);
         Coord2D keyPosition = keyboard.getKeyCoord(key);
+        Coord2D currentFingerPosition = fingerPositions.get(fingerUsed);
+
+        double distanceTravelled = keyPosition.subtract(currentFingerPosition).getMagnitude();
+        fingerPositions.put(fingerUsed, keyPosition);
+
+        return distanceTravelled;
     }
 
 }
