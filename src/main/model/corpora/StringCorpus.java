@@ -13,7 +13,7 @@ public class StringCorpus implements Corpus {
 
     // EFFECTS: Creates a CorpusReader responsible for going through corpus data
     public StringCorpusReader createCorpusReader() {
-        return null;
+        return new StringCorpusReader();
     }
 
     private class StringCorpusReader implements CorpusReader {
@@ -21,7 +21,7 @@ public class StringCorpus implements Corpus {
         private int index;
 
         public StringCorpusReader() {
-
+            this.index = 0;
         }
 
         // REQUIRES: !isFinished()
