@@ -40,7 +40,7 @@ public class KeyboardGeometry {
 
     // MODIFIES: this
     // EFFECTS: sets the initial position of the finger as the given position (like setting the home row)
-    public void setInitialFingerPosition(Finger finger, Coord2D position) {
+    public void setInitialFingerPosition(Finger finger, double positionX, double positionY) {
 
     }
 
