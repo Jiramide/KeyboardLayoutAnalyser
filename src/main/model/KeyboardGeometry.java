@@ -5,16 +5,20 @@ import model.Finger;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 
 public class KeyboardGeometry {
 
     private List<Coord2D> contactPoints;
     private List<Finger> fingerAssignments;
+    private Map<Finger, Coord2D> initialFingerPositions;
 
     // EFFECTS: constructs an empty KeyboardGeometry
     public KeyboardGeometry() {
         contactPoints = new ArrayList<>();
         fingerAssignments = new ArrayList<>();
+        initialFingerPositions = new HashMap<>();
     }
 
     // REQUIRES: !geometry.isValidContactPoint(position)
@@ -32,6 +36,12 @@ public class KeyboardGeometry {
     // EFFECTS: add position as a contact point into this keyboard, using finger to press this key.
     public KeyboardGeometry withContactPoint(double positionX, double positionY, Finger finger) {
         return withContactPoint(new Coord2D(positionX, positionY), finger);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the initial position of the finger as the given position (like setting the home row)
+    public void setInitialFingerPosition(Finger finger, Coord2D position) {
+
     }
 
     // EFFECTS: determines if a designated position is a valid contact point
