@@ -4,4 +4,6 @@ public interface Corpus {
 
     char consume();
 
+    boolean isFinished();
+
 }

@@ -17,4 +17,9 @@ public class StringCorpus implements Corpus {
         return '\0';
     }
 
+    // EFFECTS: determines if the corpus is finished (i.e. out of content)
+    public boolean isFinished() {
+        return false;
+    }
+
 }
