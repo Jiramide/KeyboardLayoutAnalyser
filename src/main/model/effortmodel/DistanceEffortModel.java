@@ -24,14 +24,14 @@ public class DistanceEffortModel extends EffortModel {
             fingerPositions.put(finger, keyboard.getInitialFingerPosition(finger));
         }
 
-        return super.computeTotalEffort(corpus);
+        return super.computeTotalEffort(corpus, keyboard);
     }
 
     @Override
     // REQUIRES: key is in keyboard
     // MODIFIES: this
     // EFFECTS: computes the effort spent based on the distance spent travelling to press the key
-    public double computePartialEffort(char key) {
+    double computePartialEffort(char key) {
         key = Character.toLowerCase(key);
 
         if (!keyboard.hasKey(key)) {

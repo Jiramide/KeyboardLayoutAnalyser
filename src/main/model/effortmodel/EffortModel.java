@@ -26,7 +26,7 @@ public abstract class EffortModel {
         return totalEffort;
     }
 
-    public abstract double computePartialEffort(char key);
+    abstract double computePartialEffort(char key);
 
 
 }
