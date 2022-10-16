@@ -24,7 +24,7 @@ public class DistanceEffortModel extends EffortModel {
             fingerPositions.put(finger, keyboard.getInitialFingerPosition(finger));
         }
 
-        return super(corpus);
+        return super.computeTotalEffort(corpus);
     }
 
     @Override
