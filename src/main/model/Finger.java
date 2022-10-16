@@ -16,9 +16,10 @@ public enum Finger {
     RIGHT_INDEX(8),
     RIGHT_THUMB(9);
 
-    private static final Finger[] indexToFinger = {
+    public static final Finger[] ALL_FINGERS = {
             LEFT_PINKY, LEFT_RING, LEFT_MIDDLE, LEFT_INDEX, LEFT_THUMB,
-            RIGHT_PINKY, RIGHT_RING, RIGHT_MIDDLE, RIGHT_INDEX, RIGHT_THUMB};
+            RIGHT_PINKY, RIGHT_RING, RIGHT_MIDDLE, RIGHT_INDEX, RIGHT_THUMB,
+    };
 
     private int fingerIndex;
 
@@ -28,7 +29,7 @@ public enum Finger {
 
     // EFFECTS: returns the finger with the given index (for parsing from file)
     public static Finger fromFingerIndex(int fingerIndex) {
-        return indexToFinger[fingerIndex];
+        return ALL_FINGERS[fingerIndex];
     }
 
     // EFFECTS: determines whether the given finger belongs
