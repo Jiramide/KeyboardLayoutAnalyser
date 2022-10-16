@@ -44,6 +44,11 @@ public class KeyboardGeometry {
 
     }
 
+    // EFFECTS: returns the initial position of the finger according to the geometry specified.
+    public Coord2D getInitialFingerPosition(Finger finger) {
+        return new Coord2D();
+    }
+
     // EFFECTS: determines if a designated position is a valid contact point
     public boolean isValidContactPoint(Coord2D position) {
         return contactPoints.contains(position);
