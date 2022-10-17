@@ -8,13 +8,14 @@ import java.util.Scanner;
 
 public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
-    private static final double CHAR_SIZE_IN_UNITS = 0.10;
+    private final double charSizeInUnits;
 
     private Scanner input;
 
-    public KeyboardGeometryIO(Scanner input) {
+    public KeyboardGeometryIO(Scanner input, double charSizeInUnits) {
         super();
 
+        this.charSizeInUnits = charSizeInUnits;
         this.input = input;
     }
 
@@ -47,7 +48,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
     private void printKeyboardShape(KeyboardGeometry shape, double minX, double minY, double maxX, double maxY) {
         System.out.println(" 1.00 unit");
 
-        int numCharForUnit = (int) (1.00 / CHAR_SIZE_IN_UNITS);
+        int numCharForUnit = (int) (1.00 / charSizeInUnits);
 
         System.out.print("\t\t|");
         System.out.print(("-").repeat(numCharForUnit - 1));
@@ -55,8 +56,8 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
         System.out.print("\t\t");
 
-        for (double currentY = minY; currentY <= maxY; currentY += CHAR_SIZE_IN_UNITS) {
-            for (double currentX = minX; currentX <= maxX; currentX += CHAR_SIZE_IN_UNITS) {
+        for (double currentY = minY; currentY <= maxY; currentY += charSizeInUnits) {
+            for (double currentX = minX; currentX <= maxX; currentX += charSizeInUnits) {
                 if (shape.isValidContactPoint(currentX, currentY)) {
                     System.out.print(shape.getFingerAssignment(new Coord2D(currentX, currentY)).getFingerIndex());
                 } else {
@@ -85,10 +86,10 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
             maxY = Math.max(maxY, keyCoordinate.getY());
         }
 
-        minX = roundToNearest(minX, CHAR_SIZE_IN_UNITS);
-        minY = roundToNearest(minY, CHAR_SIZE_IN_UNITS);
-        maxX = roundToNearest(maxX, CHAR_SIZE_IN_UNITS);
-        maxY = roundToNearest(maxY, CHAR_SIZE_IN_UNITS);
+        minX = roundToNearest(minX, charSizeInUnits);
+        minY = roundToNearest(minY, charSizeInUnits);
+        maxX = roundToNearest(maxX, charSizeInUnits);
+        maxY = roundToNearest(maxY, charSizeInUnits);
 
         printKeyboardShape(geometry, minX, minY, maxX, maxY);
     }
@@ -106,7 +107,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
                 int fingerIndex = (int) currentChar - '0';
 
                 geometryToBuild.withContactPoint(
-                        index * CHAR_SIZE_IN_UNITS,
+                        index * charSizeInUnits,
                         coordinateY,
                         Finger.fromFingerIndex(fingerIndex)
                 );
@@ -131,7 +132,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
         while (keepBuilding) {
             keepBuilding = readKeyboardGeometryLine(constructedKeyboardGeometry, coordinateY);
-            coordinateY += CHAR_SIZE_IN_UNITS;
+            coordinateY += charSizeInUnits;
         }
 
         System.out.println("");
@@ -161,7 +162,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         String desc = input.next();
 
         System.out.println("Hello! To build a KeyboardGeometry, please follow the instructions");
-        System.out.println("Each character is treated as " + CHAR_SIZE_IN_UNITS + " units. ");
+        System.out.println("Each character is treated as " + charSizeInUnits + " units. ");
         System.out.println("Each line is considered a single row in the KeyboardGeometry");
         System.out.println("If you want to insert a key at a specific position, type in a number from 0 to 9");
         System.out.println("where the number represents the finger used to press the key.\n");
