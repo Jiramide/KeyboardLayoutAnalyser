@@ -11,6 +11,8 @@ import model.effortmodel.EffortModel;
 
 public class Tournament {
 
+    private int SORTING_MULTIPLIER = 1000000;
+
     private EffortModel effortCalculator;
     private Corpus corpus;
     private List<Keyboard> keyboards;
@@ -54,7 +56,7 @@ public class Tournament {
         ArrayList<Keyboard> keyboardsAsArrayList = (ArrayList<Keyboard>) keyboards;
         List<Keyboard> rankings = (List<Keyboard>) keyboardsAsArrayList.clone();
 
-        rankings.sort((a, b) -> (int) (scores.get(a) - scores.get(b)));
+        rankings.sort((a, b) -> (int) (SORTING_MULTIPLIER * scores.get(a) - SORTING_MULTIPLIER * scores.get(b)));
 
         return rankings;
     }
