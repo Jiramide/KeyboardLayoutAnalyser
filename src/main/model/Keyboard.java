@@ -11,6 +11,16 @@ public class Keyboard {
         this.layout = layout;
     }
 
+    // EFFECTS: returns the geometry of this keyboard
+    public KeyboardGeometry getGeometry() {
+        return geometry;
+    }
+
+    // EFFECTS: returns the layout of this keyboard
+    public String getLayout() {
+        return layout;
+    }
+
     // EFFECTS: determines if the keyboard contains the key in it's layout
     public boolean hasKey(char key) {
         int firstIndex = layout.indexOf(key);
