@@ -1,310 +1,140 @@
 package ui;
 
-import model.*;
+import model.Keyboard;
+import model.KeyboardGeometry;
+import model.Tournament;
 import model.corpora.Corpus;
-import model.corpora.CorpusReader;
-import model.corpora.StringCorpus;
+import model.effortmodel.DistanceEffortModel;
 import model.effortmodel.EffortModel;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Scanner;
 
 public class KeyboardLayoutAnalyserApp {
 
-    private static final double CHAR_SIZE_IN_UNITS = 0.20;
-    private static final int MAX_CORPORA_DISPLAY = 500;
+    private static final double CHAR_SIZE_IN_UNITS = 0.50;
+    private static final int MAX_CORPORA_DISPLAY = 10;
 
-    private List<Display<Corpus>> corpora;
-    private List<Display<KeyboardGeometry>> keyboardGeometries;
-    private List<Display<String>> layouts;
-    private List<Display<EffortModel>> effortModels;
+    private Scanner input;
+
+    private LayoutIO layoutIO;
+    private CorpusIO corpusIO;
+    private KeyboardGeometryIO keyboardGeometryIO;
+    private EffortModelIO effortModelIO;
 
     private boolean keepTakingCommands;
-    private Scanner scanner;
 
     public KeyboardLayoutAnalyserApp() {
+        this.input = new Scanner(System.in);
+
+        input.useDelimiter("\n");
+
+        this.layoutIO = new LayoutIO(input);
+        this.corpusIO = new CorpusIO(input, MAX_CORPORA_DISPLAY);
+        this.keyboardGeometryIO = new KeyboardGeometryIO(input, CHAR_SIZE_IN_UNITS);
+        this.effortModelIO = new EffortModelIO();
+
+        effortModelIO.addEffortModel(new Display<>(
+                "DistanceEffortModel",
+                "Computes total effort by computing how much distance your fingers travel",
+                new DistanceEffortModel()
+        ));
+
         keepTakingCommands = true;
 
-        corpora = new ArrayList<>();
-        keyboardGeometries = new ArrayList<>();
-        layouts = new ArrayList<>();
-
-        scanner = new Scanner(System.in);
-        scanner.useDelimiter("\n");
-
-        runCommands();
+        displayGreeting();
+        processCommands();
     }
 
-    private void runCommands() {
-        displayMenu();
-
-        String command;
-
+    private void processCommands() {
         while (keepTakingCommands) {
             displayCommands();
-
-            command = scanner.next();
+            String command = input.next();
             command = command.toLowerCase(Locale.ROOT);
 
             processCommand(command);
         }
     }
 
+
     private void processCommand(String command) {
-        if (command.equals("vc")) {
-            viewCorpora();
-        } else if (command.equals("ac")) {
-            addCorpus();
-        } else if (command.equals("vk")) {
-            viewKeyboardGeometries();
-        } else if (command.equals("ak")) {
-            addKeyboardGeometry();
-        } else if (command.equals("vl")) {
-            viewLayouts();
+        if (command.equals("vl")) {
+            layoutIO.writeAll();
         } else if (command.equals("al")) {
-            addLayout();
+            layoutIO.read();
+        } else if (command.equals("vc")) {
+            corpusIO.writeAll();
+        } else if (command.equals("ac")) {
+            corpusIO.read();
+        } else if (command.equals("vk")) {
+            keyboardGeometryIO.writeAll();
+        } else if (command.equals("ak")) {
+            keyboardGeometryIO.read();
         } else if (command.equals("ve")) {
-            viewEffortModels();
+            effortModelIO.writeAll();
         } else if (command.equals("t")) {
-            createTournament();
+            runTournament();
+        } else if (command.equals("q")) {
+            keepTakingCommands = false;
         } else {
             alertNotValidCommand(command);
         }
     }
 
-    private void viewEffortModels() {
+    private Tournament createTournament() {
+        System.out.println("Creating tournament!");
+        System.out.print("Corpus name: ");
+        Corpus corpus = corpusIO.getByName(input.next());
+        System.out.println("EffortModel name: ");
+        EffortModel effortModel = effortModelIO.getByName(input.next());
 
-    }
-
-    private String queryName(String type) {
-        System.out.print("Name of new " + type + ": ");
-        return scanner.next();
-    }
-
-    private void createTournament() {
-        System.out.println("Which corpus? ");
-        int corpusIndex = scanner.nextInt();
-        Display<Corpus> corpus = corpora.get(corpusIndex);
-
-        List<Keyboard> keyboards = new ArrayList<>();
+        Tournament tournament = new Tournament(corpus, effortModel);
 
         while (true) {
-            int currentKeyboard = keyboards.size() + 1;
+            System.out.print("KeyboardGeometry name: ");
+            String keyboardGeometryName = input.next();
 
-            System.out.println("Adding keyboard #" + currentKeyboard);
-            System.out.print("Which ")
-        }
-
-
-        Tournament currentTournament = new Tournament();
-    }
-
-    private void alertSuccessAddition(String type, String name) {
-        System.out.println("Successfully added " + type + " '" + name + "'!");
-    }
-
-    private void addLayout() {
-
-        alertSuccessAddition("Layout", name);
-    }
-
-    private void viewLayouts() {
-        System.out.println("Layouts: ");
-        int index = 1;
-
-        for (Display<String> layout : layouts) {
-            System.out.println("\t" + Integer.toString(index) + ". " + layout.getName());
-            System.out.print("\t\t");
-
-            System.out.println(layout.getAssociatedObject());
-
-            index += 1;
-        }
-    }
-
-    private boolean readKeyboardGeometryLine(KeyboardGeometry geometryToBuild, double coordinateY) {
-        String keyboardGeometryLine = scanner.next();
-
-        for (int index = 0; index < keyboardGeometryLine.length(); index++) {
-            char currentChar = keyboardGeometryLine.charAt(index);
-
-            if (currentChar == 'q') {
-                return false;
-            } else if (currentChar != ' ') {
-                int fingerIndex = (int) currentChar - '0';
-
-                geometryToBuild.withContactPoint(
-                        index * CHAR_SIZE_IN_UNITS,
-                        coordinateY,
-                        Finger.fromFingerIndex(fingerIndex)
-                );
+            if (keyboardGeometryName.equals("q")) {
+                break;
             }
-        }
 
-        return true;
-    }
+            System.out.print("Layout name: ");
 
-    private double queryInitialFinger(String coordinateName, Finger finger) {
-        System.out.println(finger + "'s " + coordinateName + " position: ");
-        return scanner.nextDouble();
-    }
-
-    private KeyboardGeometry readKeyboardGeometry() {
-        KeyboardGeometry constructedKeyboardGeometry = new KeyboardGeometry();
-
-        double coordinateY = 0.00;
-        boolean keepBuilding = true;
-
-        while (keepBuilding) {
-            keepBuilding = readKeyboardGeometryLine(constructedKeyboardGeometry, coordinateY);
-            coordinateY += CHAR_SIZE_IN_UNITS;
-        }
-
-        System.out.println("");
-
-        for (Finger finger : Finger.values()) {
-            double fingerX = queryInitialFinger("X", finger);
-            double fingerY = queryInitialFinger("Y", finger);
-
-            constructedKeyboardGeometry.setInitialFingerPosition(
-                    finger,
-                    fingerX,
-                    fingerY
+            Keyboard keyboard = new Keyboard(
+                    keyboardGeometryIO.getByName(keyboardGeometryName),
+                    layoutIO.getByName(input.next())
             );
+
+            tournament.addKeyboard(keyboard);
         }
 
-        return constructedKeyboardGeometry;
+        return tournament;
     }
 
-    private void addKeyboardGeometry() {
-        String name = queryName("KeyboardGeometry");
+    private void runTournament() {
+        Tournament tournament = createTournament();
+        Map<Keyboard, Double> scores = tournament.computeScores();
+        List<Keyboard> ranking = tournament.getSortedRankings();
 
-        System.out.println("Hello! To build a KeyboardGeometry, please follow the instructions");
-        System.out.println("Each character is treated as " + CHAR_SIZE_IN_UNITS + " units. ");
-        System.out.println("Each line is considered a single row in the KeyboardGeometry");
-        System.out.println("If you want to insert a key at a specific position, type in a number from 0 to 9");
-        System.out.println("where the number represents the finger used to press the key.\n");
-        System.out.println("\t0: left pinky   | 5: right pinky");
-        System.out.println("\t1: left ring    | 6: right ring");
-        System.out.println("\t2: left middle  | 7: right middle");
-        System.out.println("\t3: left index   | 8: right index");
-        System.out.println("\t4: left thumb   | 9: right thumb");
-        System.out.println("\nOnce you're done, simple type 'q' and enter, and the geometry is constructed.\n");
-
-        KeyboardGeometry constructedKeyboardGeometry = readKeyboardGeometry();
-        Display<KeyboardGeometry> newKeyboardGeoemetry = new Display<>(name, constructedKeyboardGeometry);
-        keyboardGeometries.add(newKeyboardGeoemetry);
-
-        alertSuccessAddition("KeyboardGeometry", name);
-    }
-
-    private double roundToNearest(double num, double place) {
-        return Math.floor(num / place + 0.5) * place;
-    }
-
-    private void printKeyboardShape(KeyboardGeometry shape, double minX, double minY, double maxX, double maxY) {
-        System.out.println(" 1.00 unit");
-
-        int numCharForUnit = (int) (1.00 / CHAR_SIZE_IN_UNITS);
-
-        System.out.print("\t\t|");
-        System.out.print(("-").repeat(numCharForUnit - 1));
-        System.out.println("|");
-
-        System.out.print("\t\t");
-
-        for (double currentY = minY; currentY <= maxY; currentY += CHAR_SIZE_IN_UNITS) {
-            for (double currentX = minX; currentX <= maxX; currentX += CHAR_SIZE_IN_UNITS) {
-                if (shape.isValidContactPoint(currentX, currentY)) {
-                    System.out.print(shape.getFingerAssignment(new Coord2D(currentX, currentY)).getFingerIndex());
-                } else {
-                    System.out.print(" ");
-                }
-            }
-            System.out.print("\n\t\t");
-        }
-
-        System.out.print("\n");
-    }
-
-    private void printKeyboardGeometry(Display<KeyboardGeometry> geometry) {
-        KeyboardGeometry keyboardShape = geometry.getAssociatedObject();
-
-        double minX = 99999.00;
-        double minY = 99999.00;
-        double maxX = -99999.00;
-        double maxY = -99999.00;
-
-        for (int index = 0; index < keyboardShape.getNumContactPoints(); index++) {
-            Coord2D keyCoordinate = keyboardShape.getCoord(index);
-
-            minX = Math.min(minX, keyCoordinate.getX());
-            minY = Math.min(minY, keyCoordinate.getY());
-            maxX = Math.max(maxX, keyCoordinate.getX());
-            maxY = Math.max(maxY, keyCoordinate.getY());
-        }
-
-        minX = roundToNearest(minX, CHAR_SIZE_IN_UNITS);
-        minY = roundToNearest(minY, CHAR_SIZE_IN_UNITS);
-        maxX = roundToNearest(maxX, CHAR_SIZE_IN_UNITS);
-        maxY = roundToNearest(maxY, CHAR_SIZE_IN_UNITS);
-
-        printKeyboardShape(keyboardShape, minX, minY, maxX, maxY);
-    }
-
-    private void viewKeyboardGeometries() {
-        System.out.println("KeyboardGeometries: ");
         int index = 1;
 
-        for (Display<KeyboardGeometry> geometry : keyboardGeometries) {
-            System.out.println("\t" + Integer.toString(index) + ". " + geometry.getName());
-            System.out.print("\t\t");
+        for (Keyboard keyboard : ranking) {
+            KeyboardGeometry geometry = keyboard.getGeometry();
+            String layout = keyboard.getLayout();
 
-            printKeyboardGeometry(geometry);
+            String geometryName = keyboardGeometryIO.getNameByObject(geometry);
+            String layoutName = layoutIO.getNameByObject(layout);
 
-            index += 1;
-        }
-    }
-
-    private void addCorpus() {
-        String name = queryName("Corpus");
-
-        System.out.print("Content: ");
-        String corpusContent = scanner.next();
-
-        Display<Corpus> newCorpus = new Display<>(name, new StringCorpus(corpusContent));
-        corpora.add(newCorpus);
-
-        alertSuccessAddition("Corpus", name);
-    }
-
-    private void printCorpusContent(Display<Corpus> corpus) {
-        CorpusReader reader = corpus.getAssociatedObject().createCorpusReader();
-
-        int charactersConsumed = 0;
-        while (!reader.isFinished() && charactersConsumed <= MAX_CORPORA_DISPLAY) {
-            charactersConsumed += 1;
-            System.out.print(reader.consume());
-        }
-
-        if (charactersConsumed < MAX_CORPORA_DISPLAY) {
-            System.out.println("");
-        } else {
-            System.out.println(". . .");
-        }
-    }
-
-    private void viewCorpora() {
-        System.out.println("Corpora: ");
-        int index = 1;
-
-        for (Display<Corpus> corpus : corpora) {
-            System.out.println("\t" + Integer.toString(index) + ". " + corpus.getName());
-            System.out.print("\t\t");
-
-            printCorpusContent(corpus);
+            System.out.print("\t");
+            System.out.print(index);
+            System.out.print(". ");
+            System.out.print(geometryName);
+            System.out.print(" with ");
+            System.out.print(layoutName);
+            System.out.print(":\t");
+            System.out.println(scores.get(keyboard));
 
             index += 1;
         }
@@ -320,10 +150,11 @@ public class KeyboardLayoutAnalyserApp {
         System.out.println("KeyboardGeometry:\n\t[vk]: (V)iew (K)eyboardGeometry\n\t[ak]: (A)dd (K)eyboardGeometry");
         System.out.println("Layout:\n\t[vl]: (V)iew (L)ayout\n\t[al]: (A)dd (L)ayout");
         System.out.println("Tournament:\n\t[t]: Create (T)ournament");
+        System.out.println("General:\n\t[q]: Quit");
         System.out.println("");
     }
 
-    private void displayMenu() {
+    private void displayGreeting() {
         System.out.println("Hello! Welcome to the Keyboard Layout Analyser (using) Corpus Crunching");
         System.out.println("a.k.a. K.L.A.C.C! How can I help you today?");
     }

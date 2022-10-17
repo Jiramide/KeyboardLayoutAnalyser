@@ -46,7 +46,8 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     // EFFECTS: prints out the shape of the keyboard geometry
     private void printKeyboardShape(KeyboardGeometry shape, double minX, double minY, double maxX, double maxY) {
-        System.out.println(" 1.00 unit");
+        System.out.print("\n");
+        System.out.println("\t\t 1.00 unit");
 
         int numCharForUnit = (int) (1.00 / charSizeInUnits);
 
