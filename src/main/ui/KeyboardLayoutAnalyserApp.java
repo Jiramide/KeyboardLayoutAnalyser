@@ -16,9 +16,9 @@ import java.util.Scanner;
 
 public class KeyboardLayoutAnalyserApp {
 
-    private static final double CHAR_SIZE_IN_UNITS = 0.10;
+    private static final double CHAR_SIZE_IN_UNITS = 1.0;
     private static final int MAX_CORPORA_DISPLAY = 100;
-    private static final double KEY_EQUALITY_EPSILON = 0.01;
+    private static final double KEY_EQUALITY_EPSILON = 0.05;
 
     private Scanner input;
 
