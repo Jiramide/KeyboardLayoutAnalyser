@@ -1,9 +1,6 @@
 package ui;
 
-import model.Coord2D;
-import model.Finger;
-import model.KeyboardGeometry;
-import model.Tournament;
+import model.*;
 import model.corpora.Corpus;
 import model.corpora.CorpusReader;
 import model.corpora.StringCorpus;
@@ -89,6 +86,17 @@ public class KeyboardLayoutAnalyserApp {
     private void createTournament() {
         System.out.println("Which corpus? ");
         int corpusIndex = scanner.nextInt();
+        Display<Corpus> corpus = corpora.get(corpusIndex);
+
+        List<Keyboard> keyboards = new ArrayList<>();
+
+        while (true) {
+            int currentKeyboard = keyboards.size() + 1;
+
+            System.out.println("Adding keyboard #" + currentKeyboard);
+            System.out.print("Which ")
+        }
+
 
         Tournament currentTournament = new Tournament();
     }
@@ -98,14 +106,6 @@ public class KeyboardLayoutAnalyserApp {
     }
 
     private void addLayout() {
-        String name = queryName("Layout");
-
-        System.out.print("Type in the order of the key positions. Note that this program will fill in");
-        System.out.println(" keyboard geometries line-by-line, left-to-right.");
-
-        String layout = scanner.next();
-        Display<String> newLayout = new Display<>(name, layout);
-        layouts.add(newLayout);
 
         alertSuccessAddition("Layout", name);
     }
