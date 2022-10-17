@@ -47,4 +47,13 @@ public abstract class InputOutput<T> {
         }
     }
 
+    public String getNameByObject(T object) {
+        for (Display<T> display : objects) {
+            if (display.getAssociatedObject().equals(object)) {
+                return display.getName();
+            }
+        }
+
+        return null;
+    }
 }
