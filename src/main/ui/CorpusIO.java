@@ -10,14 +10,14 @@ import java.util.Scanner;
 
 public class CorpusIO extends InputOutput<Corpus> {
 
-    private static final int MAX_CORPUS_CONTENT_LENGTH = 500;
-
+    private final int maxCorpusDisplay;
     private Scanner input;
 
     // EFFECTS: constructs a CorpusIO responsible for printing and reading corpora from console.
-    public CorpusIO(Scanner input) {
+    public CorpusIO(Scanner input, int maxCorpusDisplay) {
         super();
 
+        this.maxCorpusDisplay = maxCorpusDisplay;
         this.input = input;
     }
 
@@ -43,12 +43,12 @@ public class CorpusIO extends InputOutput<Corpus> {
         System.out.print("\t\t");
 
         int charactersConsumed = 0;
-        while (!reader.isFinished() && charactersConsumed < MAX_CORPUS_CONTENT_LENGTH) {
+        while (!reader.isFinished() && charactersConsumed < maxCorpusDisplay) {
             charactersConsumed += 1;
             System.out.print(reader.consume());
         }
 
-        System.out.println((charactersConsumed == MAX_CORPUS_CONTENT_LENGTH) ? ". . ." : "");
+        System.out.println((charactersConsumed == maxCorpusDisplay) ? ". . ." : "");
     }
 
     @Override
