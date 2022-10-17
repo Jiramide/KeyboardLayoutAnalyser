@@ -173,7 +173,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
         for (int index = 0; index < 10; index++) {
             System.out.print("|");
-            System.out.print(("-").repeat(charsInASingleUnit - 1));
+            System.out.print(repeatString("-",charsInASingleUnit - 1));
         }
 
         System.out.println("|...");
