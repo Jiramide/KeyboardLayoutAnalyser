@@ -9,13 +9,15 @@ import java.util.Scanner;
 public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     private final double charSizeInUnits;
+    private final double keyEqualityEpsilon;
 
     private Scanner input;
 
-    public KeyboardGeometryIO(Scanner input, double charSizeInUnits) {
+    public KeyboardGeometryIO(Scanner input, double charSizeInUnits, double keyEqualityEpsilon) {
         super(input);
 
         this.charSizeInUnits = charSizeInUnits;
+        this.keyEqualityEpsilon = keyEqualityEpsilon;
         this.input = input;
     }
 
@@ -44,6 +46,26 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         return Math.floor(num / place + 0.5) * place;
     }
 
+    // REQUIRES: shape.getNumContactPoints() > 0
+    // EFFECTS: returns the nearest Coord2D in the geometry from (coordX, coordY)
+    private Coord2D getNearestCoord2D(KeyboardGeometry shape, double coordX, double coordY) {
+        Coord2D closest = shape.getCoord(0);
+        Coord2D coordinate = new Coord2D(coordX, coordY);
+        double minDistance = closest.subtract(coordinate).getMagnitude();
+
+        for (int index = 1; index < shape.getNumContactPoints(); index++) {
+            Coord2D currentCoordinate = shape.getCoord(index);
+            double distance = currentCoordinate.subtract(coordinate).getMagnitude();
+
+            if (distance < minDistance) {
+                closest = currentCoordinate;
+                minDistance = distance;
+            }
+        }
+
+        return closest;
+    }
+
     // EFFECTS: prints out the shape of the keyboard geometry
     private void printKeyboardShape(KeyboardGeometry shape, double minX, double minY, double maxX, double maxY) {
         System.out.print("\n");
@@ -59,8 +81,11 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
         for (double currentY = minY; currentY <= maxY; currentY += charSizeInUnits) {
             for (double currentX = minX; currentX <= maxX; currentX += charSizeInUnits) {
-                if (shape.isValidContactPoint(currentX, currentY)) {
-                    System.out.print(shape.getFingerAssignment(new Coord2D(currentX, currentY)).getFingerIndex());
+                Coord2D currentPosition = new Coord2D(currentX, currentY);
+                Coord2D closestKeyPosition = getNearestCoord2D(shape, currentX, currentY);
+
+                if (closestKeyPosition.subtract(currentPosition).getMagnitude() < keyEqualityEpsilon) {
+                    System.out.print(shape.getFingerAssignment(closestKeyPosition).getFingerIndex());
                 } else {
                     System.out.print(" ");
                 }
@@ -120,18 +145,39 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     // EFFECTS: queries a position for a finger
     private double queryInitialFinger(String coordinateName, Finger finger) {
-        System.out.println(finger + "'s " + coordinateName + " position: ");
+        System.out.print(finger + "'s " + coordinateName + " position: ");
         return input.nextDouble();
+    }
+
+    // EFFECTS: prints out a line designating the length o a unit
+    private void printUnit() {
+        int charsInASingleUnit = (int) (1.00 / charSizeInUnits);
+
+        System.out.print("  ");
+
+        for (int index = 0; index < 10; index++) {
+            System.out.print("|");
+            System.out.print(("-").repeat(charsInASingleUnit - 1));
+        }
+
+        System.out.println("|...");
     }
 
     // EFFECTS: constructs the keyboard geometry and builds the geometry line by line
     private KeyboardGeometry readKeyboardGeometry() {
+        printUnit();
+
         KeyboardGeometry constructedKeyboardGeometry = new KeyboardGeometry();
 
+        int requiredLinesPerUnit = (int) (1.00 / charSizeInUnits);
+        int lineIndex = 0;
         double coordinateY = 0.00;
         boolean keepBuilding = true;
 
         while (keepBuilding) {
+            printLineMarker(lineIndex, requiredLinesPerUnit);
+            lineIndex += 1;
+
             keepBuilding = readKeyboardGeometryLine(constructedKeyboardGeometry, coordinateY);
             coordinateY += charSizeInUnits;
         }
@@ -142,14 +188,18 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
             double fingerX = queryInitialFinger("X", finger);
             double fingerY = queryInitialFinger("Y", finger);
 
-            constructedKeyboardGeometry.setInitialFingerPosition(
-                    finger,
-                    fingerX,
-                    fingerY
-            );
+            constructedKeyboardGeometry.setInitialFingerPosition(finger, fingerX, fingerY);
         }
 
         return constructedKeyboardGeometry;
+    }
+
+    private void printLineMarker(int lineIndex, int requiredLinesPerUnit) {
+        if (lineIndex % requiredLinesPerUnit == 0) {
+            System.out.print("- ");
+        } else {
+            System.out.print("| ");
+        }
     }
 
     @Override

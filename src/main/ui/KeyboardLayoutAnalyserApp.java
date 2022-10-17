@@ -17,7 +17,8 @@ import java.util.Scanner;
 public class KeyboardLayoutAnalyserApp {
 
     private static final double CHAR_SIZE_IN_UNITS = 0.10;
-    private static final int MAX_CORPORA_DISPLAY = 10;
+    private static final int MAX_CORPORA_DISPLAY = 100;
+    private static final double KEY_EQUALITY_EPSILON = 0.01;
 
     private Scanner input;
 
@@ -35,7 +36,7 @@ public class KeyboardLayoutAnalyserApp {
 
         this.layoutIO = new LayoutIO(input);
         this.corpusIO = new CorpusIO(input, MAX_CORPORA_DISPLAY);
-        this.keyboardGeometryIO = new KeyboardGeometryIO(input, CHAR_SIZE_IN_UNITS);
+        this.keyboardGeometryIO = new KeyboardGeometryIO(input, CHAR_SIZE_IN_UNITS, KEY_EQUALITY_EPSILON);
         this.effortModelIO = new EffortModelIO(input);
 
         addDefaultsForLayout();
