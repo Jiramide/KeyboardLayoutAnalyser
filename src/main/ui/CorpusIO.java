@@ -16,12 +16,14 @@ public class CorpusIO {
 
     private List<Display<Corpus>> corpora;
 
+    // EFFECTS: constructs a CorpusIO responsible for printing and reading corpora from console.
     public CorpusIO(Scanner input) {
         this.input = input;
 
         this.corpora = new ArrayList<>();
     }
 
+    // EFFECTS: writes a single corpus into console
     private void writeCorpus(int corpusIndex, Display<Corpus> corpusDisplay) {
         String name = corpusDisplay.getName();
         String desc = corpusDisplay.getDescription();
@@ -50,6 +52,7 @@ public class CorpusIO {
         System.out.println((charactersConsumed == MAX_CORPUS_CONTENT_LENGTH) ? ". . ." : "");
     }
 
+    // EFFECTS: writes all corpora into console
     public void writeCorpora() {
         int index = 1;
 
@@ -59,6 +62,8 @@ public class CorpusIO {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: reads a corpus from the console and adds it onto the list of available corpora
     public void readCorpus() {
         System.out.print("Corpus name: ");
         String name = input.next();
@@ -76,6 +81,8 @@ public class CorpusIO {
         System.out.println("Successfully added Corpus '" + name + "'!");
     }
 
+    // REQUIRES: name is in corpora
+    // EFFECTS: returns the corpora with the given name
     public Corpus getCorpus(String name) {
         for (Display<Corpus> corpus : corpora) {
             if (corpus.getName().equals(name)) {
@@ -84,6 +91,18 @@ public class CorpusIO {
         }
 
         return null;
+    }
+
+    // REQUIRES: name is in corpora
+    // MODIFIES: this
+    // EFFECTS: removes the corpora with the given name
+    public void removeLayout(String name) {
+        for (Display<Corpus> corpus : corpora) {
+            if (corpus.getName().equals(name)) {
+                corpora.remove(corpus);
+                return;
+            }
+        }
     }
 
 }
