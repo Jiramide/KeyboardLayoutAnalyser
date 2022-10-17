@@ -61,4 +61,5 @@ judging, or layouts that aren't applicable to me (like Neo, which is
 optimized for typing German).
 * [X] As a user, I want to compute specific effort values for typing a certain
 corpora on a specific keyboard.
-* 
+* [X] As a user, I want to add an arbitrary number of keyboards into a tournament
+and see which keyboard has the best effort.
