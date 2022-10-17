@@ -44,11 +44,11 @@ to create a program that takes a layout and judges how 'optimal' it is.
 ---
 ## User Stories
 
-* [ ] As a user, I want to see how frequently used layouts (like QWERTY,
-  Colemak, Dvorak, Workman) are rated against each other.
-* [ ] As a user, I want to create a keyboard layout and add it to a competition
+* [X] As a user, I want to see how layouts (like QWERTY,
+  Colemak, Dvorak, Workman) are rated against each other by letting them compete.
+* [X] As a user, I want to create a keyboard layout and add it to a competition
 between other layouts
-* [ ] As a user, I want to add different corpuses (like language frequencies
+* [X] As a user, I want to add different corpuses (like language frequencies
 for non-English languages) in order to determine which layout is better
 for my specific use case.
 * [ ] As a user, I want to explore different effort models and valuations
@@ -56,6 +56,9 @@ for my specific use case.
 optimize for my typing habits.
 * [ ] As a user, I want to see what flaws are present within a keyboard
 layout (like excessive strain for typing a specific letter).
-* [ ] As a user, I want to remove layouts that I'm not interested in
+* [X] As a user, I want to remove layouts that I'm not interested in
 judging, or layouts that aren't applicable to me (like Neo, which is
 optimized for typing German).
+* [X] As a user, I want to compute specific effort values for typing a certain
+corpora on a specific keyboard.
+* 
