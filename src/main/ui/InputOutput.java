@@ -60,12 +60,14 @@ public abstract class InputOutput<T> {
         return null;
     }
 
-    public T query() {
+    public T query(String message) {
+        System.out.print(message);
+
         String name = input.next();
         T object = getByName(name);
 
         while (object == null) {
-            System.out.println("Invalid name!");
+            System.out.print("Invalid name! " + message);
 
             name = input.next();
             object = getByName(name);
