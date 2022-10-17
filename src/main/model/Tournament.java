@@ -8,10 +8,13 @@ import java.util.HashMap;
 import model.corpora.Corpus;
 import model.effortmodel.EffortModel;
 
-
+/*
+ * A class that represents a Tournament between keyboard layouts
+ * Allows arbitrary addition of keyboards into a tournament
+ */
 public class Tournament {
 
-    private int SORTING_MULTIPLIER = 1000000;
+    private static final int SORTING_MULTIPLIER = 1000000;
 
     private EffortModel effortCalculator;
     private Corpus corpus;
@@ -27,6 +30,7 @@ public class Tournament {
         this.scores = null;
     }
 
+    // EFFECTS: computes the score for a given keyboard (according to the effort model)
     private Double computeScore(Keyboard keyboard) {
         return effortCalculator.computeTotalEffort(corpus, keyboard);
     }

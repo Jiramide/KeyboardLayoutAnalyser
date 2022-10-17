@@ -6,6 +6,9 @@ import model.KeyboardGeometry;
 
 import java.util.Scanner;
 
+/*
+ * A class responsible for IO when it comes to KeyboardGeometries
+ */
 public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     private final double charSizeInUnits;
@@ -13,6 +16,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     private Scanner input;
 
+    // EFFECTS: constructs a KeyboardGeometryIO with the given scanner input, charSizeInUnits, keyEqualityEpsilon
     public KeyboardGeometryIO(Scanner input, double charSizeInUnits, double keyEqualityEpsilon) {
         super(input);
 
@@ -22,6 +26,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
     }
 
     @Override
+    // EFFECTS: writes a single KeyboardGeometry into the console.
     protected void write(int index, Display<KeyboardGeometry> objectToWrite) {
         String name = objectToWrite.getName();
         String desc = objectToWrite.getDescription();
@@ -194,6 +199,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         return constructedKeyboardGeometry;
     }
 
+    // EFFECTS: prints out the vertical line marker, denoting a unit with -
     private void printLineMarker(int lineIndex, int requiredLinesPerUnit) {
         if (lineIndex % requiredLinesPerUnit == 0) {
             System.out.print("- ");

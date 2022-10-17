@@ -8,6 +8,11 @@ import model.Coord2D;
 import model.Finger;
 import model.corpora.Corpus;
 
+/*
+ * DistanceEffortModel is an EffortModel that computes total effort
+ * spent typing a body of text by calculating the distances required
+ * for your fingers to travel.
+ */
 public class DistanceEffortModel extends EffortModel {
 
     private Map<Finger, Coord2D> fingerPositions;

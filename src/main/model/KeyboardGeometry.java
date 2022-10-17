@@ -8,6 +8,12 @@ import java.util.ArrayList;
 import java.util.Map;
 import java.util.HashMap;
 
+/*
+ * A class that represents the shape of a keyboard.
+ * It holds geometry data through a list of points and the finger needed to hit that key.
+ * You can imagine each entry as a button, with the coord being its position
+ * and finger being the finger used to hit the button.
+ */
 public class KeyboardGeometry {
 
     private List<Coord2D> contactPoints;

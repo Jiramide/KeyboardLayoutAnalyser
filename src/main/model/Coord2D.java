@@ -1,7 +1,8 @@
 package model;
 
-// A class representing coordinates in two dimension
-// Implements common vector operations on 2 dimension
+/* A class representing coordinates in two dimension
+ * Implements common vector operations on 2 dimension
+ */
 public class Coord2D {
 
     private final double coordinateX;
@@ -73,6 +74,7 @@ public class Coord2D {
     }
 
     @Override
+    // EFFECTS: determines if this and another object are equal
     public boolean equals(Object obj) {
         boolean isCoord2D = obj instanceof Coord2D;
 

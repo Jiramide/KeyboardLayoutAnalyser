@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+/*
+ * A class that's responsible for dealing with IO when it comes to Corpora
+ */
 public class CorpusIO extends InputOutput<Corpus> {
 
     private final int maxCorpusDisplay;

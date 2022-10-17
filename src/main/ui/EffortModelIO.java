@@ -1,10 +1,11 @@
 package ui;
 
-import model.effortmodel.DistanceEffortModel;
 import model.effortmodel.EffortModel;
-
 import java.util.Scanner;
 
+/*
+ * A class responsible for IO when it comes to EffortModels.
+ */
 public class EffortModelIO extends InputOutput<EffortModel> {
 
     // EFFECTS: constructs a CorpusIO responsible for printing and reading corpora from console.
@@ -13,6 +14,7 @@ public class EffortModelIO extends InputOutput<EffortModel> {
     }
 
     @Override
+    // EFFECTS: writes the name and description of an EffortModel into the console
     protected void write(int index, Display<EffortModel> effortModelDisplay) {
         String name = effortModelDisplay.getName();
         String desc = effortModelDisplay.getDescription();
@@ -29,6 +31,7 @@ public class EffortModelIO extends InputOutput<EffortModel> {
     }
 
     @Override
+    // EFFECTS: does nothing, EffortModels cannot be read from the console.
     public void read() {
 
     }

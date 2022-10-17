@@ -4,6 +4,10 @@ import model.Keyboard;
 import model.corpora.Corpus;
 import model.corpora.CorpusReader;
 
+/*
+ * An effort model is a model used to compute effort spent typing. Effort is the primary
+ * metric used to compare keyboard layouts.
+ */
 public abstract class EffortModel {
 
     // EFFECTS: creates an EffortModel that simulates on a corpus

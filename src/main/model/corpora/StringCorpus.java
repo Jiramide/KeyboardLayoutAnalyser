@@ -1,5 +1,9 @@
 package model.corpora;
 
+/*
+ * The StringCorpus class is a class that implements a Corpus.
+ * It holds Corpus data using a String.
+ */
 public class StringCorpus implements Corpus {
 
     private String content;
@@ -16,6 +20,9 @@ public class StringCorpus implements Corpus {
         return new StringCorpusReader();
     }
 
+    /*
+     * The StringCorpusReader is a class responsible for reading through a StringCorpus
+     */
     private class StringCorpusReader implements CorpusReader {
 
         private int index;

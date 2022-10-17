@@ -2,6 +2,9 @@ package model;
 
 import java.util.ArrayList;
 
+/*
+ * An enum that represents a finger
+ */
 public enum Finger {
 
     LEFT_PINKY(0),

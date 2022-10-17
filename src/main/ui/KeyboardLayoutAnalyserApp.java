@@ -14,6 +14,9 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
+/*
+ * The main app class. Responsible for the user interaction.
+ */
 public class KeyboardLayoutAnalyserApp {
 
     private static final double CHAR_SIZE_IN_UNITS = 1.0;
@@ -29,6 +32,7 @@ public class KeyboardLayoutAnalyserApp {
 
     private boolean keepTakingCommands;
 
+    // EFFECTS: initializes layouts, corpora, keyboards, effort models and runs the command loop
     public KeyboardLayoutAnalyserApp() {
         this.input = new Scanner(System.in);
 
@@ -50,6 +54,8 @@ public class KeyboardLayoutAnalyserApp {
         processCommands();
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds defaults for layouts
     private void addDefaultsForLayout() {
         layoutIO.add(new Display<>("QWERTY", "", "qwertyuiopasdfghjkl;zxcvbnm,./ "));
         layoutIO.add(new Display<>("Colemak-DH", "", "qwfpbjluy;arstgmneioxcdvzkh,./ "));
@@ -57,14 +63,20 @@ public class KeyboardLayoutAnalyserApp {
         layoutIO.add(new Display<>("Workman", "", "qdrwbjfup;ashfgyneoizxmcvkl,./ "));
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds defaults for corpora
     private void addDefaultsForCorpus() {
         corpusIO.add(new Display<>("Hello world", "Hello world", new StringCorpus("Hello world")));
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds defaults for keyboard geometries
     private void addDefaultForKeyboardGeometry() {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds defaults for effort models
     private void addDefaultsForEffortModel() {
         effortModelIO.add(new Display<>(
                 "DistanceEffortModel",
@@ -73,6 +85,7 @@ public class KeyboardLayoutAnalyserApp {
         ));
     }
 
+    // EFFECTS: processes the inputted commands
     private void processCommands() {
         while (keepTakingCommands) {
             displayCommands();
@@ -83,6 +96,7 @@ public class KeyboardLayoutAnalyserApp {
         }
     }
 
+    // EFFECTS: processes the commands responsible for viewing
     private boolean processViewCommand(String command) {
         if (command.equals("vl")) {
             layoutIO.writeAll();
@@ -99,6 +113,7 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    // EFFECTS: processes the commands responsible for adding
     private boolean processAddCommand(String command) {
         if (command.equals("al")) {
             layoutIO.read();
@@ -113,6 +128,7 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    // EFFECTS: processes the command responsible for removing
     private boolean processRemoveCommand(String command) {
         if (command.equals("rl")) {
             layoutIO.remove("Layout name: ");
@@ -127,6 +143,7 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    // EFFECTS: processes a single command
     private void processCommand(String command) {
         boolean processedByView = processViewCommand(command);
         boolean processedByAdd = processAddCommand(command);
@@ -142,6 +159,7 @@ public class KeyboardLayoutAnalyserApp {
         }
     }
 
+    // EFFECTS: creates a tournament
     private Tournament createTournament() {
         System.out.println("Creating tournament!");
 
@@ -165,6 +183,7 @@ public class KeyboardLayoutAnalyserApp {
         return tournament;
     }
 
+    // EFFECTS: runs a tournament
     private void runTournament() {
         Tournament tournament = createTournament();
         Map<Keyboard, Double> scores = tournament.computeScores();
@@ -192,11 +211,13 @@ public class KeyboardLayoutAnalyserApp {
         }
     }
 
+    // EFFECTS: warns that a command is not valid
     private void alertNotValidCommand(String command) {
         System.out.println("Warning! " + command + " is not a valid command. Please refer below for commands:");
         displayCommands();
     }
 
+    // EFFECTS: displays all available commands
     private void displayCommands() {
         // Corpora commands
         System.out.println("Corpora:");
@@ -230,11 +251,13 @@ public class KeyboardLayoutAnalyserApp {
         System.out.println("");
     }
 
+    // EFFECTS: greets the user
     private void displayGreeting() {
         System.out.println("Hello! Welcome to the Keyboard Layout Analyser (using) Corpus Crunching");
         System.out.println("a.k.a. K.L.A.C.C! How can I help you today?");
     }
 
+    // EFFECTS: waves the user goodbye
     private void quit() {
         System.out.println("Bye folks! Happy typing!");
 

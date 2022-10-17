@@ -1,5 +1,9 @@
 package model;
 
+/*
+ * A class that represents a Keyboard. Has a "shape" in the form of a KeybaordGeometry
+ * and a layout in the form of a string.
+ */
 public class Keyboard {
 
     private KeyboardGeometry geometry;

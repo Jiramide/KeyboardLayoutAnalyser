@@ -1,9 +1,10 @@
 package ui;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
+/*
+ * The class responsible for IO when it comes to Layouts
+ */
 public class LayoutIO extends InputOutput<String> {
 
     private Scanner input;
