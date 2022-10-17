@@ -71,6 +71,17 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         return closest;
     }
 
+    // EFFECTS: repeats a string a certain number of times and returns it
+    private String repeatString(String str, int times) {
+        String repeated = "";
+
+        for (int index = 0; index < times; index++) {
+            repeated += str;
+        }
+
+        return str;
+    }
+
     // EFFECTS: prints out the shape of the keyboard geometry
     private void printKeyboardShape(KeyboardGeometry shape, double minX, double minY, double maxX, double maxY) {
         System.out.print("\n");
@@ -79,7 +90,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         int numCharForUnit = (int) (1.00 / charSizeInUnits);
 
         System.out.print("\t\t|");
-        System.out.print(("-").repeat(numCharForUnit - 1));
+        System.out.print(repeatString("-", numCharForUnit - 1));
         System.out.println("|");
 
         System.out.print("\t\t");
