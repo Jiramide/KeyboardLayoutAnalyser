@@ -4,22 +4,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class LayoutIO {
+public class LayoutIO extends InputOutput<String> {
 
     private Scanner input;
-
-    private List<Display<String>> layouts;
 
     // EFFECTS: creates a LayoutIO that's responsible for handling IO with layouts;
     //          consumes commands from the given scanner
     public LayoutIO(Scanner input) {
-        this.input = input;
+        super();
 
-        layouts = new ArrayList<>();
+        this.input = input;
     }
 
     // EFFECTS: writes a single layout to console
-    private void writeLayout(int layoutIndex, Display<String> layout) {
+    private void write(int layoutIndex, Display<String> layout) {
         String name = layout.getName();
         String keyLayout = layout.getAssociatedObject();
 
@@ -32,19 +30,9 @@ public class LayoutIO {
         System.out.println(keyLayout);
     }
 
-    // EFFECTS: writes all layouts to console
-    public void writeLayouts() {
-        int layoutIndex = 1;
-
-        for (Display<String> layout : layouts) {
-            writeLayout(layoutIndex, layout);
-            layoutIndex += 1;
-        }
-    }
-
     // MODIFIES: this
     // EFFECTS: reads a layout from console and adds it into the list of available layouts
-    public void readLayout() {
+    public void read() {
         System.out.print("Layout name: ");
         String name = input.next();
 
@@ -53,33 +41,8 @@ public class LayoutIO {
 
         String layout = input.next();
         Display<String> newLayout = new Display<>(name, "", layout);
-        layouts.add(newLayout);
+        add(newLayout);
 
         System.out.println("Successfully added Layout '" + name + "'!");
     }
-
-    // REQUIRES: name is in layouts
-    // EFFECTS: returns the layout with the given name
-    public String getLayout(String name) {
-        for (Display<String> layout : layouts) {
-            if (layout.getName().equals(name)) {
-                return layout.getAssociatedObject();
-            }
-        }
-
-        return null;
-    }
-
-    // REQUIRES: name is in layouts
-    // MODIFIES: this
-    // EFFECTS: removes the layout with the given name
-    public void removeLayout(String name) {
-        for (Display<String> layout : layouts) {
-            if (layout.getName().equals(name)) {
-                layouts.remove(layout);
-                return;
-            }
-        }
-    }
-
 }
