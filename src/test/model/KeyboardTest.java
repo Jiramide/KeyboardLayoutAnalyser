@@ -157,6 +157,19 @@ public class KeyboardTest {
     }
 
     @Test
+    public void testConstructor() {
+        assertEquals(standardAlphaKeyboard, qwertyStandard.getGeometry());
+        assertEquals(standardAlphaKeyboard, colemakDHStandard.getGeometry());
+        assertEquals(columnarKeyboard, qwertyColumnar.getGeometry());
+        assertEquals(columnarKeyboard, colemakDHColumnar.getGeometry());
+
+        assertEquals(qwerty, qwertyStandard.getLayout());
+        assertEquals(colemakDH, colemakDHStandard.getLayout());
+        assertEquals(qwerty, qwertyColumnar.getLayout());
+        assertEquals(colemakDH, colemakDHColumnar.getLayout());
+    }
+
+    @Test
     public void testHasKey() {
         assertTrue(qwertyStandard.hasKey('q'));
         assertTrue(qwertyColumnar.hasKey('g'));
