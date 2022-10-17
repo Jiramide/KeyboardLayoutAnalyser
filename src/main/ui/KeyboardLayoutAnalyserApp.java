@@ -58,27 +58,48 @@ public class KeyboardLayoutAnalyserApp {
         }
     }
 
-    private void processCommand(String command) {
+    private boolean processViewCommand(String command) {
         if (command.equals("vl")) {
             layoutIO.writeAll();
-        } else if (command.equals("al")) {
-            layoutIO.read();
         } else if (command.equals("vc")) {
             corpusIO.writeAll();
-        } else if (command.equals("ac")) {
-            corpusIO.read();
         } else if (command.equals("vk")) {
             keyboardGeometryIO.writeAll();
-        } else if (command.equals("ak")) {
-            keyboardGeometryIO.read();
         } else if (command.equals("ve")) {
             effortModelIO.writeAll();
-        } else if (command.equals("t")) {
-            runTournament();
-        } else if (command.equals("q")) {
-            keepTakingCommands = false;
         } else {
-            alertNotValidCommand(command);
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean processAddCommand(String command) {
+        if (command.equals("al")) {
+            layoutIO.read();
+        } else if (command.equals("ac")) {
+            corpusIO.read();
+        } else if (command.equals("ak")) {
+            keyboardGeometryIO.read();
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
+    private void processCommand(String command) {
+        boolean processedByView = processViewCommand(command);
+        boolean processedByAdd = processAddCommand(command);
+
+        if (!processedByView && !processedByAdd) {
+            if (command.equals("t")) {
+                runTournament();
+            } else if (command.equals("q")) {
+                quit();
+            } else {
+                alertNotValidCommand(command);
+            }
         }
     }
 
@@ -121,11 +142,11 @@ public class KeyboardLayoutAnalyserApp {
 
             System.out.print("\t");
             System.out.print(index);
-            System.out.print(". ");
+            System.out.print(". Geometry '");
             System.out.print(geometryName);
-            System.out.print(" with ");
+            System.out.print("' with Layout '");
             System.out.print(layoutName);
-            System.out.print(":\t");
+            System.out.print("':\t");
             System.out.println(scores.get(keyboard));
 
             index += 1;
@@ -150,6 +171,12 @@ public class KeyboardLayoutAnalyserApp {
     private void displayGreeting() {
         System.out.println("Hello! Welcome to the Keyboard Layout Analyser (using) Corpus Crunching");
         System.out.println("a.k.a. K.L.A.C.C! How can I help you today?");
+    }
+
+    private void quit() {
+        System.out.println("Bye folks! Happy typing!");
+
+        keepTakingCommands = false;
     }
 
 }
