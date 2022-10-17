@@ -46,6 +46,7 @@ public class Tournament {
         return scores;
     }
 
+    // MODIFIES: this
     // EFFECTS: returns the keyboards sorted by minimum effort
     public List<Keyboard> getSortedRankings() {
         Map<Keyboard, Double> scores = computeScores();
