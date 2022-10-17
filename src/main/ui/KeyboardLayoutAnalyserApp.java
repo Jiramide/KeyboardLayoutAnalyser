@@ -58,7 +58,6 @@ public class KeyboardLayoutAnalyserApp {
         }
     }
 
-
     private void processCommand(String command) {
         if (command.equals("vl")) {
             layoutIO.writeAll();
@@ -85,29 +84,22 @@ public class KeyboardLayoutAnalyserApp {
 
     private Tournament createTournament() {
         System.out.println("Creating tournament!");
-        System.out.print("Corpus name: ");
-        Corpus corpus = corpusIO.getByName(input.next());
-        System.out.println("EffortModel name: ");
-        EffortModel effortModel = effortModelIO.getByName(input.next());
+
+        Corpus corpus = corpusIO.query("Corpus name: ");
+        EffortModel effortModel = effortModelIO.query("EffortModel name: ");
 
         Tournament tournament = new Tournament(corpus, effortModel);
 
-        while (true) {
-            System.out.print("KeyboardGeometry name: ");
-            String keyboardGeometryName = input.next();
+        System.out.print("How many keyboards?: ");
 
-            if (keyboardGeometryName.equals("q")) {
-                break;
-            }
+        int keyboards = input.nextInt();
 
-            System.out.print("Layout name: ");
+        for (int keyboardIndex = 0; keyboardIndex < keyboards; keyboardIndex++) {
+            KeyboardGeometry geometry = keyboardGeometryIO.query("KeyboardGeometry name: ");
+            String layout = layoutIO.query("Layout name: ");
 
-            Keyboard keyboard = new Keyboard(
-                    keyboardGeometryIO.getByName(keyboardGeometryName),
-                    layoutIO.getByName(input.next())
-            );
-
-            tournament.addKeyboard(keyboard);
+            Keyboard newKeyboard = new Keyboard(geometry, layout);
+            tournament.addKeyboard(newKeyboard);
         }
 
         return tournament;
