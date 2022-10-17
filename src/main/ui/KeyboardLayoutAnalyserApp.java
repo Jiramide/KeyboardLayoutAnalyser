@@ -34,7 +34,7 @@ public class KeyboardLayoutAnalyserApp {
         this.layoutIO = new LayoutIO(input);
         this.corpusIO = new CorpusIO(input, MAX_CORPORA_DISPLAY);
         this.keyboardGeometryIO = new KeyboardGeometryIO(input, CHAR_SIZE_IN_UNITS);
-        this.effortModelIO = new EffortModelIO();
+        this.effortModelIO = new EffortModelIO(input);
 
         effortModelIO.addEffortModel(new Display<>(
                 "DistanceEffortModel",
@@ -149,6 +149,7 @@ public class KeyboardLayoutAnalyserApp {
         System.out.println("Corpora:\n\t[vc]: (V)iew (C)orpora\n\t[ac]: (A)dd (C)orpora");
         System.out.println("KeyboardGeometry:\n\t[vk]: (V)iew (K)eyboardGeometry\n\t[ak]: (A)dd (K)eyboardGeometry");
         System.out.println("Layout:\n\t[vl]: (V)iew (L)ayout\n\t[al]: (A)dd (L)ayout");
+        System.out.println("EffortMode:\n\t[ve]: (V)iew (E)ffortModel");
         System.out.println("Tournament:\n\t[t]: Create (T)ournament");
         System.out.println("General:\n\t[q]: Quit");
         System.out.println("");

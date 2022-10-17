@@ -13,7 +13,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
     private Scanner input;
 
     public KeyboardGeometryIO(Scanner input, double charSizeInUnits) {
-        super();
+        super(input);
 
         this.charSizeInUnits = charSizeInUnits;
         this.input = input;

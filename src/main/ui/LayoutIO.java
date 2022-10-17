@@ -11,7 +11,7 @@ public class LayoutIO extends InputOutput<String> {
     // EFFECTS: creates a LayoutIO that's responsible for handling IO with layouts;
     //          consumes commands from the given scanner
     public LayoutIO(Scanner input) {
-        super();
+        super(input);
 
         this.input = input;
     }

@@ -15,7 +15,7 @@ public class CorpusIO extends InputOutput<Corpus> {
 
     // EFFECTS: constructs a CorpusIO responsible for printing and reading corpora from console.
     public CorpusIO(Scanner input, int maxCorpusDisplay) {
-        super();
+        super(input);
 
         this.maxCorpusDisplay = maxCorpusDisplay;
         this.input = input;

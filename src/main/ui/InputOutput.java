@@ -5,9 +5,12 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class InputOutput<T> {
+
+    private Scanner input;
     private List<Display<T>> objects;
 
-    public InputOutput() {
+    public InputOutput(Scanner input) {
+        this.input = input;
         this.objects = new ArrayList<>();
     }
 
@@ -55,5 +58,19 @@ public abstract class InputOutput<T> {
         }
 
         return null;
+    }
+
+    public T query() {
+        String name = input.next();
+        T object = getByName(name);
+
+        while (object == null) {
+            System.out.println("Invalid name!");
+
+            name = input.next();
+            object = getByName(name);
+        }
+
+        return object;
     }
 }

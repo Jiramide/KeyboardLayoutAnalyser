@@ -3,11 +3,13 @@ package ui;
 import model.effortmodel.DistanceEffortModel;
 import model.effortmodel.EffortModel;
 
+import java.util.Scanner;
+
 public class EffortModelIO extends InputOutput<EffortModel> {
 
     // EFFECTS: constructs a CorpusIO responsible for printing and reading corpora from console.
-    public EffortModelIO() {
-        super();
+    public EffortModelIO(Scanner input) {
+        super(input);
     }
 
     @Override
