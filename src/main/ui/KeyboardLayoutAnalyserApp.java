@@ -1,9 +1,11 @@
 package ui;
 
+import model.Finger;
 import model.Keyboard;
 import model.KeyboardGeometry;
 import model.Tournament;
 import model.corpora.Corpus;
+import model.corpora.StringCorpus;
 import model.effortmodel.DistanceEffortModel;
 import model.effortmodel.EffortModel;
 
@@ -14,7 +16,7 @@ import java.util.Scanner;
 
 public class KeyboardLayoutAnalyserApp {
 
-    private static final double CHAR_SIZE_IN_UNITS = 0.50;
+    private static final double CHAR_SIZE_IN_UNITS = 0.10;
     private static final int MAX_CORPORA_DISPLAY = 10;
 
     private Scanner input;
@@ -36,16 +38,38 @@ public class KeyboardLayoutAnalyserApp {
         this.keyboardGeometryIO = new KeyboardGeometryIO(input, CHAR_SIZE_IN_UNITS);
         this.effortModelIO = new EffortModelIO(input);
 
-        effortModelIO.addEffortModel(new Display<>(
-                "DistanceEffortModel",
-                "Computes total effort by computing how much distance your fingers travel",
-                new DistanceEffortModel()
-        ));
+        addDefaultsForLayout();
+        addDefaultsForCorpus();
+        addDefaultForKeyboardGeometry();
+        addDefaultsForEffortModel();
 
         keepTakingCommands = true;
 
         displayGreeting();
         processCommands();
+    }
+
+    private void addDefaultsForLayout() {
+        layoutIO.add(new Display<>("QWERTY", "", "qwertyuiopasdfghjkl;zxcvbnm,./ "));
+        layoutIO.add(new Display<>("Colemak-DH", "", "qwfpbjluy;arstgmneioxcdvzkh,./ "));
+        layoutIO.add(new Display<>("Dvorak", "", "',.pyfgcrlaoeuidhtns;qjkxbmwvz "));
+        layoutIO.add(new Display<>("Workman", "", "qdrwbjfup;ashfgyneoizxmcvkl,./ "));
+    }
+
+    private void addDefaultsForCorpus() {
+        corpusIO.add(new Display<>("Hello world", "Hello world", new StringCorpus("Hello world")));
+    }
+
+    private void addDefaultForKeyboardGeometry() {
+
+    }
+
+    private void addDefaultsForEffortModel() {
+        effortModelIO.add(new Display<>(
+                "DistanceEffortModel",
+                "Computes total effort by computing how much distance your fingers travel",
+                new DistanceEffortModel()
+        ));
     }
 
     private void processCommands() {
