@@ -14,7 +14,7 @@ public abstract class InputOutput<T> {
         this.objects = new ArrayList<>();
     }
 
-    protected void add(Display<T> object) {
+    public void add(Display<T> object) {
         objects.add(object);
     }
 

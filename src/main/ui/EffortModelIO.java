@@ -32,8 +32,4 @@ public class EffortModelIO extends InputOutput<EffortModel> {
     public void read() {
 
     }
-
-    public void addEffortModel(Display<EffortModel> effortModelDisplay) {
-        add(effortModelDisplay);
-    }
 }
