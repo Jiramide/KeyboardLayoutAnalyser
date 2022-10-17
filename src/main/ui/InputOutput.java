@@ -50,6 +50,13 @@ public abstract class InputOutput<T> {
         }
     }
 
+    public void remove(String message) {
+        System.out.print(message);
+
+        String name = input.next();
+        removeByName(name);
+    }
+
     public String getNameByObject(T object) {
         for (Display<T> display : objects) {
             if (display.getAssociatedObject().equals(object)) {

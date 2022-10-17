@@ -88,6 +88,20 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    private boolean processRemoveCommand(String command) {
+        if (command.equals("rl")) {
+            layoutIO.remove("Layout name: ");
+        } else if (command.equals("rc")) {
+            corpusIO.remove("Corpus name: ");
+        } else if (command.equals("rk")) {
+            keyboardGeometryIO.remove("KeyboardGeometry name: ");
+        } else {
+            return false;
+        }
+
+        return true;
+    }
+
     private void processCommand(String command) {
         boolean processedByView = processViewCommand(command);
         boolean processedByAdd = processAddCommand(command);
@@ -159,12 +173,35 @@ public class KeyboardLayoutAnalyserApp {
     }
 
     private void displayCommands() {
-        System.out.println("Corpora:\n\t[vc]: (V)iew (C)orpora\n\t[ac]: (A)dd (C)orpora");
-        System.out.println("KeyboardGeometry:\n\t[vk]: (V)iew (K)eyboardGeometry\n\t[ak]: (A)dd (K)eyboardGeometry");
-        System.out.println("Layout:\n\t[vl]: (V)iew (L)ayout\n\t[al]: (A)dd (L)ayout");
-        System.out.println("EffortMode:\n\t[ve]: (V)iew (E)ffortModel");
-        System.out.println("Tournament:\n\t[t]: Create (T)ournament");
-        System.out.println("General:\n\t[q]: Quit");
+        // Corpora commands
+        System.out.println("Corpora:");
+        System.out.println("\t[vc]: (V)iew (C)orpora");
+        System.out.println("\t[ac]: (A)dd (C)orpora");
+        System.out.println("\t[rc]: (R)emove (C)orpora");
+
+        // KeyboardGeometry commands
+        System.out.println("KeyboardGeometry:");
+        System.out.println("\t[vk]: (V)iew (K)eyboardGeometry");
+        System.out.println("\t[ak]: (A)dd (K)eyboardGeometry");
+        System.out.println("\t[rk]: (R)emove (K)eyboardGeometry");
+
+        // Layout commands
+        System.out.println("Layout:");
+        System.out.println("\t[vl]: (V)iew (L)ayout");
+        System.out.println("\t[al]: (A)dd (L)ayout");
+        System.out.println("\t[rl]: (R)emove (L)ayout");
+
+        // EffortModel commands
+        System.out.println("EffortModel:");
+        System.out.println("\t[ve]: (V)iew (E)ffortModel");
+
+        // Tournament commands
+        System.out.println("Tournament:");
+        System.out.println("\t[t]: Run tournament");
+
+        // Misc. commands
+        System.out.println("General:");
+        System.out.println("\t[q]: Quit");
         System.out.println("");
     }
 
