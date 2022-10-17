@@ -17,7 +17,7 @@ public class LayoutIO extends InputOutput<String> {
     }
 
     // EFFECTS: writes a single layout to console
-    private void write(int layoutIndex, Display<String> layout) {
+    protected void write(int layoutIndex, Display<String> layout) {
         String name = layout.getName();
         String keyLayout = layout.getAssociatedObject();
 
