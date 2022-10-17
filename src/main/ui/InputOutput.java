@@ -5,10 +5,6 @@ import java.util.List;
 import java.util.Scanner;
 
 public abstract class InputOutput<T> {
-
-
-    private Scanner input;
-
     private List<Display<T>> objects;
 
     public InputOutput() {
