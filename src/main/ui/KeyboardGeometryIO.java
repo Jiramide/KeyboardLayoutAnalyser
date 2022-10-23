@@ -79,7 +79,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
             repeated += str;
         }
 
-        return str;
+        return repeated;
     }
 
     // EFFECTS: prints out the shape of the keyboard geometry

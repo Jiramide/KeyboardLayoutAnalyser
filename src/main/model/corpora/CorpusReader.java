@@ -1,5 +1,8 @@
 package model.corpora;
 
+/*
+ * An interface for a class that reads through Corpus data
+ */
 public interface CorpusReader {
 
     // MODIFIES: this
