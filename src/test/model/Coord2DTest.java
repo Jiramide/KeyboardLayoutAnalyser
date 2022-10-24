@@ -260,20 +260,20 @@ class Coord2DTest {
         expectedOrigin.put("x", 0.0);
         expectedOrigin.put("y", 0.0);
 
-        assertEquals(expectedOrigin, origin.toJson());
+        assertTrue(expectedOrigin.similar(origin.toJson()));
 
         JSONObject expectedFirst = new JSONObject();
 
         expectedFirst.put("x", 3.00);
         expectedFirst.put("y", 4.00);
 
-        assertEquals(expectedFirst, firstQuadrant.toJson());
+        assertTrue(expectedFirst.similar(firstQuadrant.toJson()));
 
         JSONObject expectedThird = new JSONObject();
 
         expectedThird.put("x", -801325.012);
         expectedThird.put("y", -9130453.14);
 
-        assertEquals(expectedThird, thirdQuadrant.toJson());
+        assertTrue(expectedThird.similar(thirdQuadrant.toJson()));
     }
 }

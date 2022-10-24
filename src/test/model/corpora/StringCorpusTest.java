@@ -82,7 +82,7 @@ public class StringCorpusTest {
 
         expected.put("content", "The quick brown fox jumps over the lazy dog.");
 
-        assertEquals(expected, pangram.toJson());
+        assertTrue(expected.similar(pangram.toJson()));
     }
 
 }

@@ -200,6 +200,6 @@ public class KeyboardGeometryTest {
         expectedFiveKeyLayout.put("keys", keys);
         expectedFiveKeyLayout.put("initialFingerPositions", fingerPositions);
 
-        assertEquals(expectedFiveKeyLayout, fiveKeyLayout.toJson());
+        assertTrue(expectedFiveKeyLayout.similar(fiveKeyLayout.toJson()));
     }
 }
