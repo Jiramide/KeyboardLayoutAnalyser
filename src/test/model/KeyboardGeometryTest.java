@@ -197,6 +197,12 @@ public class KeyboardGeometryTest {
         fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_INDEX).toJson());
         fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_THUMB).toJson());
 
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.RIGHT_PINKY).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.RIGHT_RING).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.RIGHT_MIDDLE).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.RIGHT_INDEX).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.RIGHT_THUMB).toJson());
+
         expectedFiveKeyLayout.put("keys", keys);
         expectedFiveKeyLayout.put("initialFingerPositions", fingerPositions);
 
