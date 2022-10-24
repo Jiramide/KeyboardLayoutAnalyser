@@ -63,3 +63,7 @@ optimized for typing German).
 corpora on a specific keyboard.
 * [X] As a user, I want to add an arbitrary number of keyboards into a tournament
 and see which keyboard has the best effort.
+* [ ] As a user, I want to be able to save the keyboard geometries, layouts and
+corpora that I've created.
+* [ ] As a user, I want to be able to load the saved geometries, layouts and
+corpora that I've saved.
