@@ -1,10 +1,13 @@
 package model.corpora;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * The StringCorpus class is a class that implements a Corpus.
  * It holds Corpus data using a String.
  */
-public class StringCorpus implements Corpus {
+public class StringCorpus implements Corpus, Writable {
 
     private String content;
     private int contentSize;
@@ -18,6 +21,12 @@ public class StringCorpus implements Corpus {
     // EFFECTS: Creates a CorpusReader responsible for going through corpus data
     public StringCorpusReader createCorpusReader() {
         return new StringCorpusReader();
+    }
+
+    // EFFECTS: returns this corpus as a JSONObject
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 
     /*

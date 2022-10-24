@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /* A class representing coordinates in two dimension
  * Implements common vector operations on 2 dimension
  */
-public class Coord2D {
+public class Coord2D implements Writable {
 
     private final double coordinateX;
     private final double coordinateY;
@@ -91,5 +94,11 @@ public class Coord2D {
         Coord2D other = (Coord2D) obj; // safe
 
         return (getX() == other.getX()) && (getY() == other.getY());
+    }
+
+    @Override
+    // EFFECTS: returns this Coord2D as a JSONObject
+    public JSONObject toJson() {
+        return null;
     }
 }

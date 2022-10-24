@@ -1,11 +1,14 @@
 package ui;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * A simple class that holds display data for objects. Includes a name
  * and description for objects that don't contain those fields (which
  * is useful for UI).
  */
-public class Display<T> {
+public class Display<T extends Writable> implements Writable {
 
     private String name;
     private String description;
@@ -31,6 +34,13 @@ public class Display<T> {
     // EFFECTS: returns the associated object of the display
     public T getAssociatedObject() {
         return associatedObject;
+    }
+
+    // EFFECTS: serializes the internal object and attaches its name and description
+    //          into the JSONObject, then returns that JSONObject
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 
 }

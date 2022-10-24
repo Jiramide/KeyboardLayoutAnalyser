@@ -2,6 +2,8 @@ package model;
 
 import model.Coord2D;
 import model.Finger;
+import org.json.JSONObject;
+import persistence.Writable;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -14,7 +16,7 @@ import java.util.HashMap;
  * You can imagine each entry as a button, with the coord being its position
  * and finger being the finger used to hit the button.
  */
-public class KeyboardGeometry {
+public class KeyboardGeometry implements Writable {
 
     private List<Coord2D> contactPoints;
     private List<Finger> fingerAssignments;
@@ -90,5 +92,11 @@ public class KeyboardGeometry {
     // EFFECTS: returns the number of contact points in this geometry
     public int getNumContactPoints() {
         return contactPoints.size();
+    }
+
+    // EFFECTS: returns this keyboard geometry as a JSONObject
+    @Override
+    public JSONObject toJson() {
+        return null;
     }
 }
