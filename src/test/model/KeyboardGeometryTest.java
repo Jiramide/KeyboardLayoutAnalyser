@@ -214,6 +214,9 @@ public class KeyboardGeometryTest {
         fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_INDEX).toJson());
         fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_THUMB).toJson());
 
+        expectedFiveKeyLayout.put("keys", keys);
+        expectedFiveKeyLayout.put("initialFingerPositions", fingerPositions);
+
         assertEquals(expectedFiveKeyLayout, fiveKeyLayout.toJson());
     }
 }
