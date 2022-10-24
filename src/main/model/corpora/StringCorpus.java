@@ -26,7 +26,11 @@ public class StringCorpus implements Corpus, Writable {
     // EFFECTS: returns this corpus as a JSONObject
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject corpusJson = new JSONObject();
+
+        corpusJson.put("content", content);
+
+        return corpusJson;
     }
 
     /*

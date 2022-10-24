@@ -99,6 +99,11 @@ public class Coord2D implements Writable {
     @Override
     // EFFECTS: returns this Coord2D as a JSONObject
     public JSONObject toJson() {
-        return null;
+        JSONObject coord2DJson = new JSONObject();
+
+        coord2DJson.put("x", coordinateX);
+        coord2DJson.put("y", coordinateY);
+
+        return coord2DJson;
     }
 }

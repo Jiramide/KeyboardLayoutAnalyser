@@ -2,6 +2,7 @@ package model;
 
 import model.Coord2D;
 import model.Finger;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -97,6 +98,35 @@ public class KeyboardGeometry implements Writable {
     // EFFECTS: returns this keyboard geometry as a JSONObject
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject keyboardGeometryJson = new JSONObject();
+
+        int numContactPoints = getNumContactPoints();
+
+        keyboardGeometryJson.put("numContactPoints", numContactPoints);
+
+        JSONArray keys = new JSONArray();
+
+        for (int keyIndex = 0; keyIndex < numContactPoints; keyIndex++) {
+            Coord2D keyCoordinate = getCoord(keyIndex);
+            Finger keyFinger = getFingerAssignment(keyCoordinate);
+
+            JSONObject keyJson = keyCoordinate.toJson();
+            keyJson.put("finger", keyFinger.getFingerIndex());
+            keys.put(keyJson);
+        }
+
+        JSONArray fingerPositions = new JSONArray();
+
+        for (int fingerIndex = 0; fingerIndex < 10; fingerIndex++) {
+            Finger finger = Finger.fromFingerIndex(fingerIndex);
+
+            Coord2D fingerInitialPosition = getInitialFingerPosition(finger);
+            fingerPositions.put(fingerInitialPosition.toJson());
+        }
+
+        keyboardGeometryJson.put("keys", keys);
+        keyboardGeometryJson.put("initialFingerPositions", fingerPositions);
+
+        return keyboardGeometryJson;
     }
 }

@@ -8,7 +8,7 @@ import persistence.Writable;
  * and description for objects that don't contain those fields (which
  * is useful for UI).
  */
-public class Display<T extends Writable> implements Writable {
+public class Display<T> implements Writable {
 
     private String name;
     private String description;
@@ -36,10 +36,26 @@ public class Display<T extends Writable> implements Writable {
         return associatedObject;
     }
 
-    // EFFECTS: serializes the internal object and attaches its name and description
-    //          into the JSONObject, then returns that JSONObject
+    // EFFECTS: If the object inside implements Writable, serializes the internal object
+    //          and attaches its name and description into the JSONObject, then returns that JSONObject,
+    //          otherwise, returns null
     @Override
     public JSONObject toJson() {
+        if (associatedObject instanceof Writable) {
+            // honestly I don't really like this implementation, so I'll put a TODO here to clean it up:
+            // 1) make this class have an upper bound of Writable for the type parameter T
+            // 2) or make a separate interface for displayable objects that holds their name and desc
+            // Probably go with #2. Seems a lot cleaner, but hopefully this temporary measure works
+            // for now.
+            Writable writableObject = (Writable) getAssociatedObject();
+
+            JSONObject object = writableObject.toJson();
+            object.put("name", getName());
+            object.put("description", getDescription());
+
+            return object;
+        }
+
         return null;
     }
 
