@@ -1,6 +1,8 @@
 package model.corpora;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,6 +69,20 @@ public class StringCorpusTest {
 
         assertTrue(pangramReader.isFinished());
         assertFalse(otherPangramReader.isFinished());
+    }
+
+    @Test
+    public void testToJson() {
+        /*
+         {
+            content: "The quick brown fox jumps over the lazy dog."
+         }
+         */
+        JSONObject expected = new JSONObject();
+
+        expected.put("content", "The quick brown fox jumps over the lazy dog.");
+
+        assertEquals(expected, pangram.toJson());
     }
 
 }
