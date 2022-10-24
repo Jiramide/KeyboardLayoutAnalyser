@@ -1,6 +1,8 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -249,5 +251,29 @@ class Coord2DTest {
 
         assertEquals(onXAxis, cloneOfXAxis);
         assertEquals(onYAxis, cloneOfYAxis);
+    }
+
+    @Test
+    public void testToJson() {
+        JSONObject expectedOrigin = new JSONObject();
+
+        expectedOrigin.put("x", 0.0);
+        expectedOrigin.put("y", 0.0);
+
+        assertEquals(expectedOrigin, origin.toJson());
+
+        JSONObject expectedFirst = new JSONObject();
+
+        expectedFirst.put("x", 3.00);
+        expectedFirst.put("y", 4.00);
+
+        assertEquals(expectedFirst, firstQuadrant.toJson());
+
+        JSONObject expectedThird = new JSONObject();
+
+        expectedThird.put("x", -801325.012);
+        expectedThird.put("y", -9130453.14);
+
+        assertEquals(expectedThird, thirdQuadrant.toJson());
     }
 }
