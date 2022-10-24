@@ -151,23 +151,6 @@ public class KeyboardGeometryTest {
             ]
          }
          */
-
-        /*
-         * [0:LP] [1:LR] [2:LM] [3:LI] [4:LT]
-         */
-        fiveKeyLayout
-                .withContactPoint(new Coord2D(0.00, 0.00), Finger.LEFT_PINKY)
-                .withContactPoint(new Coord2D(1.00, 0.00), Finger.LEFT_RING)
-                .withContactPoint(new Coord2D(2.00, 0.00), Finger.LEFT_MIDDLE)
-                .withContactPoint(new Coord2D(3.00, 0.00), Finger.LEFT_INDEX)
-                .withContactPoint(new Coord2D(4.00, 0.00), Finger.LEFT_THUMB);
-
-        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_PINKY, 0.00, 0.00);
-        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_RING, 1.00, 0.00);
-        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_MIDDLE, 2.00, 0.00);
-        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_INDEX, 3.00, 0.00);
-        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_THUMB, 4.00, 0.00);
-
         JSONObject expectedFiveKeyLayout = new JSONObject();
 
         expectedFiveKeyLayout.put("numContactPoints", 5);
