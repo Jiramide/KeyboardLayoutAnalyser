@@ -1,6 +1,9 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -131,5 +134,86 @@ public class KeyboardGeometryTest {
 
         assertNull(fiveKeyLayout.getFingerAssignment(new Coord2D(3.50, 2.00)));
         assertNull(fiveKeyLayout.getFingerAssignment(new Coord2D(5.00, 0.00)));
+    }
+
+    @Test
+    public void testToJson() {
+        /*
+         {
+            numContactPoints: int,
+            keys: [
+                { x: double, y: double, finger: int },
+                ...
+            ],
+            initialFingerPositions: [
+                { x: double, y: double },
+                ...
+            ]
+         }
+         */
+
+        /*
+         * [0:LP] [1:LR] [2:LM] [3:LI] [4:LT]
+         */
+        fiveKeyLayout
+                .withContactPoint(new Coord2D(0.00, 0.00), Finger.LEFT_PINKY)
+                .withContactPoint(new Coord2D(1.00, 0.00), Finger.LEFT_RING)
+                .withContactPoint(new Coord2D(2.00, 0.00), Finger.LEFT_MIDDLE)
+                .withContactPoint(new Coord2D(3.00, 0.00), Finger.LEFT_INDEX)
+                .withContactPoint(new Coord2D(4.00, 0.00), Finger.LEFT_THUMB);
+
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_PINKY, 0.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_RING, 1.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_MIDDLE, 2.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_INDEX, 3.00, 0.00);
+        fiveKeyLayout.setInitialFingerPosition(Finger.LEFT_THUMB, 4.00, 0.00);
+
+        JSONObject expectedFiveKeyLayout = new JSONObject();
+
+        expectedFiveKeyLayout.put("numContactPoints", 5);
+
+        JSONObject key1 = new JSONObject();
+        JSONObject key2 = new JSONObject();
+        JSONObject key3 = new JSONObject();
+        JSONObject key4 = new JSONObject();
+        JSONObject key5 = new JSONObject();
+
+        key1.put("x", 0.00);
+        key1.put("y", 0.00);
+        key1.put("finger", Finger.LEFT_PINKY.getFingerIndex());
+
+        key2.put("x", 1.00);
+        key2.put("y", 0.00);
+        key2.put("finger", Finger.LEFT_RING.getFingerIndex());
+
+        key3.put("x", 2.00);
+        key3.put("y", 0.00);
+        key3.put("finger", Finger.LEFT_MIDDLE.getFingerIndex());
+
+        key4.put("x", 3.00);
+        key4.put("y", 0.00);
+        key4.put("finger", Finger.LEFT_INDEX.getFingerIndex());
+
+        key5.put("x", 4.00);
+        key5.put("y", 0.00);
+        key5.put("finger", Finger.LEFT_THUMB.getFingerIndex());
+
+        JSONArray keys = new JSONArray();
+
+        keys.put(key1);
+        keys.put(key2);
+        keys.put(key3);
+        keys.put(key4);
+        keys.put(key5);
+
+        JSONArray fingerPositions = new JSONArray();
+
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_PINKY).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_RING).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_MIDDLE).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_INDEX).toJson());
+        fingerPositions.put(fiveKeyLayout.getInitialFingerPosition(Finger.LEFT_THUMB).toJson());
+
+        assertEquals(expectedFiveKeyLayout, fiveKeyLayout.toJson());
     }
 }
