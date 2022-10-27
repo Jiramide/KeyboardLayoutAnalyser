@@ -47,6 +47,8 @@ public class WriterTest {
             assertEquals(coord, readCoord);
         } catch (IOException e) {
             fail("IOException should not have been thrown!");
+        } catch (InvalidParseException e) {
+            fail("This should not happen; this is an issue with the test rather than the implementation.");
         }
     }
 
