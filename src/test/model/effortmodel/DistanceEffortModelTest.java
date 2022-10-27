@@ -22,7 +22,7 @@ public class DistanceEffortModelTest {
 
     @BeforeEach
     public void initialize() {
-        basicKeyboardGeometry = new KeyboardGeometry();
+        basicKeyboardGeometry = new KeyboardGeometry("BasicKeyboardGeometry", "");
 
         /*
          * [0:LP] [1:LM] [2:LI]
@@ -54,6 +54,19 @@ public class DistanceEffortModelTest {
         basicKeyboard = new Keyboard(basicKeyboardGeometry, layout);
 
         distanceEffortModel = new DistanceEffortModel();
+    }
+
+    @Test
+    public void testNameIsCorrect() {
+        assertEquals("DistanceEffortModel", distanceEffortModel.getName());
+    }
+
+    @Test
+    public void testDescIsCorrect() {
+        assertEquals(
+                "Computes effort by measuring total distance your fingers travel.",
+                distanceEffortModel.getDescription()
+        );
     }
 
     @Test
