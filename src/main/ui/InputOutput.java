@@ -1,6 +1,6 @@
 package ui;
 
-import model.Nameable;
+import model.INameable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Scanner;
  * these objects into the console. This is the base class that's inherited by the
  * other *IO classes and acts as a convenient way to not retype writeAll, query, etc.
  */
-public abstract class InputOutput<T extends Nameable> {
+public abstract class InputOutput<T extends INameable> {
 
     private Scanner input;
     private List<T> objects;
