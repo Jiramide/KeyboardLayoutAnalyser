@@ -24,10 +24,9 @@ public class CorpusIO extends InputOutput<Corpus> {
 
     @Override
     // EFFECTS: writes a single corpus into console
-    protected void write(int corpusIndex, Display<Corpus> corpusDisplay) {
-        String name = corpusDisplay.getName();
-        String desc = corpusDisplay.getDescription();
-        Corpus corpus = corpusDisplay.getAssociatedObject();
+    protected void write(int corpusIndex, Corpus corpus) {
+        String name = corpus.getName();
+        String desc = corpus.getDescription();
         CorpusReader reader = corpus.createCorpusReader();
 
         // print name
@@ -65,7 +64,7 @@ public class CorpusIO extends InputOutput<Corpus> {
         System.out.print("Content: ");
         String corpusContent = input.next();
 
-        Display<Corpus> newCorpus = new Display<>(name, desc, new StringCorpus(name, desc, corpusContent));
+        Corpus newCorpus = new StringCorpus(name, desc, corpusContent);
         add(newCorpus);
 
         System.out.println("Successfully added Corpus '" + name + "'!");

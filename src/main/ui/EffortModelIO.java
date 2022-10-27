@@ -15,9 +15,9 @@ public class EffortModelIO extends InputOutput<EffortModel> {
 
     @Override
     // EFFECTS: writes the name and description of an EffortModel into the console
-    protected void write(int index, Display<EffortModel> effortModelDisplay) {
-        String name = effortModelDisplay.getName();
-        String desc = effortModelDisplay.getDescription();
+    protected void write(int index, EffortModel effortModel) {
+        String name = effortModel.getName();
+        String desc = effortModel.getDescription();
 
         // print name
         System.out.print("\t");

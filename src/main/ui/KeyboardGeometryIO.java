@@ -27,10 +27,9 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
 
     @Override
     // EFFECTS: writes a single KeyboardGeometry into the console.
-    protected void write(int index, Display<KeyboardGeometry> objectToWrite) {
-        String name = objectToWrite.getName();
-        String desc = objectToWrite.getDescription();
-        KeyboardGeometry geometry = objectToWrite.getAssociatedObject();
+    protected void write(int index, KeyboardGeometry keyboardGeometry) {
+        String name = keyboardGeometry.getName();
+        String desc = keyboardGeometry.getDescription();
 
         // print name
         System.out.print("\t");
@@ -43,7 +42,7 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         System.out.println(desc);
 
         // print keyboard geometry
-        printKeyboardGeometry(geometry);
+        printKeyboardGeometry(keyboardGeometry);
     }
 
     // EFFECTS: rounds the given number to the nearest place
@@ -180,10 +179,11 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
     }
 
     // EFFECTS: constructs the keyboard geometry and builds the geometry line by line
-    private KeyboardGeometry readKeyboardGeometry() {
+    //          the constructed keyboard geometry has the given name and description
+    private KeyboardGeometry readKeyboardGeometry(String name, String desc) {
         printUnit();
 
-        KeyboardGeometry constructedKeyboardGeometry = new KeyboardGeometry();
+        KeyboardGeometry constructedKeyboardGeometry = new KeyboardGeometry(name, desc);
 
         int requiredLinesPerUnit = (int) (1.00 / charSizeInUnits);
         int lineIndex = 0;
@@ -241,9 +241,8 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         System.out.println("\t4: left thumb   | 9: right thumb");
         System.out.println("\nOnce you're done, simple type 'q' and enter, and the geometry is constructed.\n");
 
-        KeyboardGeometry constructedKeyboardGeometry = readKeyboardGeometry();
-        Display<KeyboardGeometry> newKeyboardGeometry = new Display<>(name, desc, constructedKeyboardGeometry);
-        add(newKeyboardGeometry);
+        KeyboardGeometry constructedKeyboardGeometry = readKeyboardGeometry(name, desc);
+        add(constructedKeyboardGeometry);
 
         System.out.println("Successfully added KeyboardGeometry '" + name + "'!");;
     }

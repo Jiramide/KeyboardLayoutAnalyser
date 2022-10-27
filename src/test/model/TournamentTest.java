@@ -29,7 +29,7 @@ public class TournamentTest {
     private Keyboard worldeh;
 
     public void constructKeyboardGeometry() {
-        basicKeyboardGeometry = new KeyboardGeometry();
+        basicKeyboardGeometry = new KeyboardGeometry("BasicKeyboardGeometry", "");
 
         /*
          * [0:LP] [1:LM] [2:LI]
@@ -60,11 +60,11 @@ public class TournamentTest {
 
         constructKeyboardGeometry();
 
-        wordleh = new Keyboard(basicKeyboardGeometry, "wordleh");
-        helowrd = new Keyboard(basicKeyboardGeometry, "helowrd");
-        drwoleh = new Keyboard(basicKeyboardGeometry, "drwoleh");
-        hwordle = new Keyboard(basicKeyboardGeometry, "hwordle");
-        worldeh = new Keyboard(basicKeyboardGeometry, "worldeh");
+        wordleh = new Keyboard(basicKeyboardGeometry, new Layout("", "", "wordleh"));
+        helowrd = new Keyboard(basicKeyboardGeometry, new Layout("", "", "helowrd"));
+        drwoleh = new Keyboard(basicKeyboardGeometry, new Layout("", "", "drwoleh"));
+        hwordle = new Keyboard(basicKeyboardGeometry, new Layout("", "", "hwordle"));
+        worldeh = new Keyboard(basicKeyboardGeometry, new Layout("", "", "worldeh"));
     }
 
     @Test

@@ -7,10 +7,10 @@ package model;
 public class Keyboard {
 
     private KeyboardGeometry geometry;
-    private String layout;
+    private Layout layout;
 
     // EFFECTS: Creates a new Keyboard with the assigned geometry and key layout
-    public Keyboard(KeyboardGeometry geometry, String layout) {
+    public Keyboard(KeyboardGeometry geometry, Layout layout) {
         this.geometry = geometry;
         this.layout = layout;
     }
@@ -21,13 +21,13 @@ public class Keyboard {
     }
 
     // EFFECTS: returns the layout of this keyboard
-    public String getLayout() {
+    public Layout getLayout() {
         return layout;
     }
 
     // EFFECTS: determines if the keyboard contains the key in it's layout
     public boolean hasKey(char key) {
-        int firstIndex = layout.indexOf(key);
+        int firstIndex = layout.getIndexOfKey(key);
         // according to Java documentation, the method above returns -1
         // if the character never occurs in the string.
 
@@ -37,7 +37,7 @@ public class Keyboard {
     // REQUIRES: char is in layout
     // EFFECTS: returns the associated coordinate (according the geometry) of the key
     public Coord2D getKeyCoord(char key) {
-        int keyIndex = layout.indexOf(key);
+        int keyIndex = layout.getIndexOfKey(key);
 
         return geometry.getCoord(keyIndex);
     }

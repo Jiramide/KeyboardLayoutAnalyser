@@ -7,8 +7,8 @@ import org.junit.jupiter.api.Test;
 public class KeyboardTest {
 
     // Common layouts
-    private final String qwerty = "qwertyuiopasdfghjkl;zxcvbnm,./ ";
-    private final String colemakDH = "qwfpbjluy;arstgmneioxcdvzkh,./ ";
+    private Layout qwerty;
+    private Layout colemakDH;
     // Keyboard geometries
     private KeyboardGeometry standardAlphaKeyboard;
     private KeyboardGeometry columnarKeyboard;
@@ -148,6 +148,18 @@ public class KeyboardTest {
     public void initializeKeyboard() {
         constructStandardKeyboard();
         constructColumnarKeyboard();
+
+        qwerty = new Layout(
+                "QWERTY",
+                "The quintessential QWERTY layout",
+                "qwertyuiopasdfghjkl;zxcvbnm,./ "
+        );
+
+        colemakDH = new Layout(
+                "Colemak-DH",
+                "Colemak variant that moves D and H",
+                "qwfpbjluy;arstgmneioxcdvzkh,./ "
+        );
 
         qwertyStandard = new Keyboard(standardAlphaKeyboard, qwerty);
         qwertyColumnar = new Keyboard(columnarKeyboard, qwerty);

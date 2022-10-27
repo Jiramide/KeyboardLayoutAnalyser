@@ -1,6 +1,8 @@
 package model.effortmodel;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import model.Layout;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -15,7 +17,7 @@ public class DistanceEffortModelTest {
     private DistanceEffortModel distanceEffortModel;
 
     private KeyboardGeometry basicKeyboardGeometry;
-    private String layout;
+    private Layout layout;
     private Keyboard basicKeyboard;
     private Corpus helloWorldCorpus;
     private Corpus emptyCorpus;
@@ -46,7 +48,7 @@ public class DistanceEffortModelTest {
          * [O ] [W ] [R*]
          *     [D ]
          */
-        layout = "helowrd";
+        layout = new Layout("", "", "helowrd");
 
         helloWorldCorpus = new StringCorpus("Hello world", "Hello world", "Hello world!");
         emptyCorpus = new StringCorpus("Empty", "Literally blank", "");
