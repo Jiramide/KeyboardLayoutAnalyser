@@ -11,6 +11,8 @@ public class Layout extends Nameable {
     //          the given 'layout' string
     public Layout(String name, String description, String layout) {
         super(name, description);
+
+        this.layout = layout;
     }
 
     // EFFECTS: finds the index of the given key in the layout. if the key is not found, return -1.
