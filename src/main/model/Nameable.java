@@ -1,5 +1,7 @@
 package model;
 
+import org.json.JSONObject;
+
 /*
  * Represents a class that can be named; useful for user interaction.
  */
@@ -25,6 +27,11 @@ public abstract class Nameable {
 
     // EFFECTS: returns the description of the object
     public String getDescription() {
+        return null;
+    }
+
+    // EFFECTS: returns a JSONObject with keys "name", "description" mapping to name and description respectively.
+    public JSONObject getBaseJson() {
         return null;
     }
 

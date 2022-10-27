@@ -100,7 +100,7 @@ public class KeyboardGeometry extends Nameable implements Writable {
     // EFFECTS: returns this keyboard geometry as a JSONObject
     @Override
     public JSONObject toJson() {
-        JSONObject keyboardGeometryJson = new JSONObject();
+        JSONObject keyboardGeometryJson = getBaseJson();
 
         int numContactPoints = getNumContactPoints();
 
