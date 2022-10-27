@@ -18,6 +18,10 @@ public class DistanceEffortModel extends EffortModel {
     private Map<Finger, Coord2D> fingerPositions;
     private Keyboard keyboard;
 
+    public DistanceEffortModel() {
+        super("DistanceEffortModel", "Computes effort by measuring total distance your fingers travel.");
+    }
+
     @Override
     // MODIFIES: this
     // EFFECTS: computes the total effort spent typing out a corpus
