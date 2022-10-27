@@ -4,6 +4,7 @@ import org.json.JSONObject;
 
 /*
  * An interface that represents classes that can be serialized into JSON
+ * Code from https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo/blob/master/src/main/persistence/Writable.java
  */
 public interface Writable {
 
