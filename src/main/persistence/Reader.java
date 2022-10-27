@@ -38,22 +38,26 @@ public class Reader {
     }
 
     // EFFECTS: parses a KeyboardGeometry from the given JSONObject
-    private KeyboardGeometry parseKeyboardGeometry(JSONObject jsonObject) {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a KeyboardGeometry
+    private KeyboardGeometry parseKeyboardGeometry(JSONObject jsonObject) throws InvalidParseException {
         return null;
     }
 
     // EFFECTS: parses a Layout from the given JSONObject
-    private Layout parseLayout(JSONObject jsonObject) {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a Layout
+    private Layout parseLayout(JSONObject jsonObject) throws InvalidParseException {
         return null;
     }
 
     // EFFECTS: parses a Coord2D from the given JSONObject
-    private Coord2D parseCoord2D(JSONObject jsonObject) {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a Coord2D
+    private Coord2D parseCoord2D(JSONObject jsonObject) throws InvalidParseException {
         return null;
     }
 
     // EFFECTS: parses a StringCorpus from the given JSONObject
-    private StringCorpus parseStringCorpus(JSONObject jsonObject) {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a StringCorpus
+    private StringCorpus parseStringCorpus(JSONObject jsonObject) throws InvalidParseException {
         return null;
     }
 
@@ -61,7 +65,8 @@ public class Reader {
     // MODIFIES: this
     // EFFECTS: reads a KeyboardGeometry from file and returns it
     //          throws IOException if there was an error in reading the file
-    public KeyboardGeometry readKeyboardGeometry() throws IOException {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a KeyboardGeometry
+    public KeyboardGeometry readKeyboardGeometry() throws IOException, InvalidParseException {
         return null;
     }
 
@@ -69,7 +74,8 @@ public class Reader {
     // MODIFIES: this
     // EFFECTS: reads a Coord2D from file and returns it
     //          throws IOException if there was an error in reading the file
-    public Coord2D readCoord2D() throws IOException {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a Coord2D
+    public Coord2D readCoord2D() throws IOException, InvalidParseException {
         return null;
     }
 
@@ -77,7 +83,8 @@ public class Reader {
     // MODIFIES: this
     // EFFECTS: reads a Layout from file and returns it
     //          throws IOException if there was an error in reading the file
-    public Layout readLayout() throws IOException {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a Layout
+    public Layout readLayout() throws IOException, InvalidParseException {
         return null;
     }
 
@@ -85,7 +92,8 @@ public class Reader {
     // MODIFIES: this
     // EFFECTS: reads a StringCorpus from file and returns it
     //          throws IOException if there was an error in reading the file
-    public StringCorpus readStringCorpus() throws IOException {
+    //          throws an InvalidParseError if you try to read a JSONObject that's not a StringCorpus
+    public StringCorpus readStringCorpus() throws IOException, InvalidParseException {
         return null;
     }
 
