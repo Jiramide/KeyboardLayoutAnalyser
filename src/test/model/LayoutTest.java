@@ -1,6 +1,8 @@
 package model;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.json.JSONObject;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -51,5 +53,16 @@ public class LayoutTest {
         assertEquals(0, colemakDH.getIndexOfKey('q'));
         assertEquals(7, colemakDH.getIndexOfKey('u'));
         assertEquals(-1, colemakDH.getIndexOfKey('1'));
+    }
+
+    @Test
+    public void testToJson() {
+        JSONObject expected = new JSONObject();
+
+        expected.put("name", "QWERTY");
+        expected.put("description", "The quintessential QWERTY layout");
+        expected.put("layout", "qwertyuiopasdfghjkl;zxcvbnm,./ ");
+
+        assertTrue(expected.similar(qwerty.toJson()));
     }
 }
