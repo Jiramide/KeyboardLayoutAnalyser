@@ -101,6 +101,8 @@ public class StringCorpusTest {
          */
         JSONObject expected = new JSONObject();
 
+        expected.put("name", "Pangram");
+        expected.put("description", "A corpus containing each letter at least once");
         expected.put("content", "The quick brown fox jumps over the lazy dog.");
 
         assertTrue(expected.similar(pangram.toJson()));
