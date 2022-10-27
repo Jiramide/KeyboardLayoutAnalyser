@@ -16,11 +16,6 @@ public abstract class Nameable implements INameable {
         this.description = description;
     }
 
-    // EFFECTS: creates a Nameable with the given name and a blank ("") description
-    public Nameable(String name) {
-        this(name, "");
-    }
-
     // EFFECTS: returns the name of the object
     public String getName() {
         return name;
