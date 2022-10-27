@@ -5,7 +5,7 @@ import org.json.JSONObject;
 /*
  * Represents a class that can be named; useful for user interaction.
  */
-public abstract class Nameable {
+public abstract class Nameable implements INameable {
 
     private String name;
     private String description;
