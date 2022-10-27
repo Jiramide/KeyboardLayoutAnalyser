@@ -12,27 +12,33 @@ public abstract class Nameable implements INameable {
 
     // EFFECTS: creates a Nameable with the given name and description
     public Nameable(String name, String description) {
-
+        this.name = name;
+        this.description = description;
     }
 
     // EFFECTS: creates a Nameable with the given name and a blank ("") description
     public Nameable(String name) {
-
+        this(name, "");
     }
 
     // EFFECTS: returns the name of the object
     public String getName() {
-        return null;
+        return name;
     }
 
     // EFFECTS: returns the description of the object
     public String getDescription() {
-        return null;
+        return description;
     }
 
     // EFFECTS: returns a JSONObject with keys "name", "description" mapping to name and description respectively.
     public JSONObject getBaseJson() {
-        return null;
+        JSONObject baseJson = new JSONObject();
+
+        baseJson.put("name", getName());
+        baseJson.put("description", getDescription());
+
+        return baseJson;
     }
 
 }
