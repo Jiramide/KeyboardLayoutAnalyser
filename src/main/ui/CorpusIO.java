@@ -4,8 +4,6 @@ import model.corpora.Corpus;
 import model.corpora.CorpusReader;
 import model.corpora.StringCorpus;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /*
@@ -67,7 +65,7 @@ public class CorpusIO extends InputOutput<Corpus> {
         System.out.print("Content: ");
         String corpusContent = input.next();
 
-        Display<Corpus> newCorpus = new Display<>(name, desc, new StringCorpus(corpusContent));
+        Display<Corpus> newCorpus = new Display<>(name, desc, new StringCorpus(name, desc, corpusContent));
         add(newCorpus);
 
         System.out.println("Successfully added Corpus '" + name + "'!");

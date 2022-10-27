@@ -16,8 +16,8 @@ public class StringCorpusTest {
 
     @BeforeEach
     public void initializeCorpora() {
-        pangram = new StringCorpus("The quick brown fox jumps over the lazy dog.");
-        helloWorld = new StringCorpus("Hello world! Programmed to work and not to feel.");
+        pangram = new StringCorpus("Pangram", "A corpus containing each letter at least once", "The quick brown fox jumps over the lazy dog.");
+        helloWorld = new StringCorpus("Hello world", "Lyrics from LZ's Hello world song", "Hello world! Programmed to work and not to feel.");
 
         pangramReader = pangram.createCorpusReader();
         helloWorldReader = helloWorld.createCorpusReader();

@@ -1,5 +1,6 @@
 package model.corpora;
 
+import model.Nameable;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -7,13 +8,15 @@ import persistence.Writable;
  * The StringCorpus class is a class that implements a Corpus.
  * It holds Corpus data using a String.
  */
-public class StringCorpus implements Corpus, Writable {
+public class StringCorpus extends Nameable implements Corpus, Writable {
 
     private String content;
     private int contentSize;
 
-    // EFFECTS: constructs a StringCorpus with the string as the content
-    public StringCorpus(String content) {
+    // EFFECTS: constructs a StringCorpus with the string as the content and the given name and description
+    public StringCorpus(String name, String description, String content) {
+        super(name, description);
+
         this.content = content;
         this.contentSize = content.length();
     }

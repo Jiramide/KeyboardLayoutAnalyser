@@ -48,8 +48,8 @@ public class DistanceEffortModelTest {
          */
         layout = "helowrd";
 
-        helloWorldCorpus = new StringCorpus("Hello world!");
-        emptyCorpus = new StringCorpus("");
+        helloWorldCorpus = new StringCorpus("Hello world", "Hello world", "Hello world!");
+        emptyCorpus = new StringCorpus("Empty", "Literally blank", "");
 
         basicKeyboard = new Keyboard(basicKeyboardGeometry, layout);
 

@@ -1,6 +1,5 @@
 package ui;
 
-import model.Finger;
 import model.Keyboard;
 import model.KeyboardGeometry;
 import model.Tournament;
@@ -66,7 +65,7 @@ public class KeyboardLayoutAnalyserApp {
     // MODIFIES: this
     // EFFECTS: adds defaults for corpora
     private void addDefaultsForCorpus() {
-        corpusIO.add(new Display<>("Hello world", "Hello world", new StringCorpus("Hello world")));
+        corpusIO.add(new Display<>("Hello world", "Hello world", new StringCorpus(name, desc, "Hello world")));
     }
 
     // MODIFIES: this
@@ -143,12 +142,22 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    private boolean processSaveCommand(String command) {
+        return false;
+    }
+
+    private boolean processLoadCommand(String command) {
+        return false;
+    }
+
     // EFFECTS: processes a single command
     private void processCommand(String command) {
         boolean processedByView = processViewCommand(command);
         boolean processedByAdd = processAddCommand(command);
+        boolean processedBySave = processSaveCommand(command);
+        boolean processedByLoad = processLoadCommand(command);
 
-        if (!processedByView && !processedByAdd) {
+        if (!processedByView && !processedByAdd && !processedBySave && !processedByLoad) {
             if (command.equals("t")) {
                 runTournament();
             } else if (command.equals("q")) {

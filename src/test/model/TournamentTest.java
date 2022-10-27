@@ -9,7 +9,6 @@ import model.corpora.StringCorpus;
 import model.effortmodel.EffortModel;
 import model.effortmodel.DistanceEffortModel;
 
-import java.security.Key;
 import java.util.List;
 import java.util.Map;
 
@@ -53,7 +52,7 @@ public class TournamentTest {
 
     @BeforeEach
     public void initialize() {
-        helloWorldCorpus = new StringCorpus("Hello world!");
+        helloWorldCorpus = new StringCorpus("Hello world", "Hello world", "Hello world!");
 
         distanceEffortModel = new DistanceEffortModel();
 
