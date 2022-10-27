@@ -2,6 +2,7 @@ package ui;
 
 import model.Keyboard;
 import model.KeyboardGeometry;
+import model.Layout;
 import model.Tournament;
 import model.corpora.Corpus;
 import model.corpora.StringCorpus;
@@ -56,16 +57,16 @@ public class KeyboardLayoutAnalyserApp {
     // MODIFIES: this
     // EFFECTS: adds defaults for layouts
     private void addDefaultsForLayout() {
-        layoutIO.add(new Display<>("QWERTY", "", "qwertyuiopasdfghjkl;zxcvbnm,./ "));
-        layoutIO.add(new Display<>("Colemak-DH", "", "qwfpbjluy;arstgmneioxcdvzkh,./ "));
-        layoutIO.add(new Display<>("Dvorak", "", "',.pyfgcrlaoeuidhtns;qjkxbmwvz "));
-        layoutIO.add(new Display<>("Workman", "", "qdrwbjfup;ashfgyneoizxmcvkl,./ "));
+        layoutIO.add(new Layout("QWERTY", "", "qwertyuiopasdfghjkl;zxcvbnm,./ "));
+        layoutIO.add(new Layout("Colemak-DH", "", "qwfpbjluy;arstgmneioxcdvzkh,./ "));
+        layoutIO.add(new Layout("Dvorak", "", "',.pyfgcrlaoeuidhtns;qjkxbmwvz "));
+        layoutIO.add(new Layout("Workman", "", "qdrwbjfup;ashfgyneoizxmcvkl,./ "));
     }
 
     // MODIFIES: this
     // EFFECTS: adds defaults for corpora
     private void addDefaultsForCorpus() {
-        corpusIO.add(new Display<>("Hello world", "Hello world", new StringCorpus(name, desc, "Hello world")));
+        corpusIO.add(new StringCorpus("Hello world", "Hello world", "Hello world"));
     }
 
     // MODIFIES: this
@@ -77,11 +78,7 @@ public class KeyboardLayoutAnalyserApp {
     // MODIFIES: this
     // EFFECTS: adds defaults for effort models
     private void addDefaultsForEffortModel() {
-        effortModelIO.add(new Display<>(
-                "DistanceEffortModel",
-                "Computes total effort by computing how much distance your fingers travel",
-                new DistanceEffortModel()
-        ));
+        effortModelIO.add(new DistanceEffortModel());
     }
 
     // EFFECTS: processes the inputted commands
@@ -183,7 +180,7 @@ public class KeyboardLayoutAnalyserApp {
 
         for (int keyboardIndex = 0; keyboardIndex < keyboards; keyboardIndex++) {
             KeyboardGeometry geometry = keyboardGeometryIO.query("KeyboardGeometry name: ");
-            String layout = layoutIO.query("Layout name: ");
+            Layout layout = layoutIO.query("Layout name: ");
 
             Keyboard newKeyboard = new Keyboard(geometry, layout);
             tournament.addKeyboard(newKeyboard);
@@ -202,7 +199,7 @@ public class KeyboardLayoutAnalyserApp {
 
         for (Keyboard keyboard : ranking) {
             KeyboardGeometry geometry = keyboard.getGeometry();
-            String layout = keyboard.getLayout();
+            Layout layout = keyboard.getLayout();
 
             String geometryName = keyboardGeometryIO.getNameByObject(geometry);
             String layoutName = layoutIO.getNameByObject(layout);
