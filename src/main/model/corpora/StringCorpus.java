@@ -8,7 +8,7 @@ import persistence.Writable;
  * The StringCorpus class is a class that implements a Corpus.
  * It holds Corpus data using a String.
  */
-public class StringCorpus extends Nameable implements Corpus, Writable {
+public class StringCorpus extends Nameable implements Corpus {
 
     private String content;
     private int contentSize;
