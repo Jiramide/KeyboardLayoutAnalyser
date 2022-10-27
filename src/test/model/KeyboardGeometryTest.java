@@ -14,8 +14,8 @@ public class KeyboardGeometryTest {
 
     @BeforeEach
     public void initialize() {
-        fiveKeyLayout = new KeyboardGeometry();
-        staggeredNumpad = new KeyboardGeometry();
+        fiveKeyLayout = new KeyboardGeometry("FiveKeyLayout", "Has 5 keys");
+        staggeredNumpad = new KeyboardGeometry("StaggeredNumpad", "Numpad, but staggered");
 
         /*
          * [0:LP] [1:LR] [2:LM] [3:LI] [4:LT]
@@ -57,6 +57,18 @@ public class KeyboardGeometryTest {
         staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_THUMB, 0.00, 0.00);
         staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_INDEX, 2.34, 5.67);
         staggeredNumpad.setInitialFingerPosition(Finger.RIGHT_MIDDLE, 0.50, 0.50);
+    }
+
+    @Test
+    public void testGetName() {
+        assertEquals("FiveKeyLayout", fiveKeyLayout.getName());
+        assertEquals("StaggeredNumpad", staggeredNumpad.getName());
+    }
+
+    @Test
+    public void testGetDescription() {
+        assertEquals("Has 5 keys", fiveKeyLayout.getDescription());
+        assertEquals("Numpad, but staggered", staggeredNumpad.getDescription());
     }
 
     @Test

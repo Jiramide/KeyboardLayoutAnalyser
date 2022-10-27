@@ -17,14 +17,16 @@ import java.util.HashMap;
  * You can imagine each entry as a button, with the coord being its position
  * and finger being the finger used to hit the button.
  */
-public class KeyboardGeometry implements Writable {
+public class KeyboardGeometry extends Nameable implements Writable {
 
     private List<Coord2D> contactPoints;
     private List<Finger> fingerAssignments;
     private Map<Finger, Coord2D> initialFingerPositions;
 
-    // EFFECTS: constructs an empty KeyboardGeometry
-    public KeyboardGeometry() {
+    // EFFECTS: constructs an empty KeyboardGeometry with the given name and description
+    public KeyboardGeometry(String name, String description) {
+        super(name, description);
+
         contactPoints = new ArrayList<>();
         fingerAssignments = new ArrayList<>();
         initialFingerPositions = new HashMap<>();

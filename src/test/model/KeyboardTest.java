@@ -20,7 +20,7 @@ public class KeyboardTest {
     private Keyboard colemakDHColumnar;
 
     public void constructStandardKeyboard() {
-        standardAlphaKeyboard = new KeyboardGeometry();
+        standardAlphaKeyboard = new KeyboardGeometry("StandardAlphaKeyboard", "Standard keyboard");
 
         // Construct standard keyboard, with Q as the origin
         // Insert top row
@@ -84,7 +84,7 @@ public class KeyboardTest {
         // like a matrix layout with column staggering.
         // The column offset follows this pattern: +0.00, -0.20, -0.50, -0.20, +0.00
 
-        columnarKeyboard = new KeyboardGeometry();
+        columnarKeyboard = new KeyboardGeometry("ColumnarKeyboard", "Column staggered keyboard");
 
         // Construct a columnar keyboard with Q as the origin.
         // Insert top row
