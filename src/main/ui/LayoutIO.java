@@ -1,11 +1,13 @@
 package ui;
 
+import model.Layout;
+
 import java.util.Scanner;
 
 /*
  * The class responsible for IO when it comes to Layouts
  */
-public class LayoutIO extends InputOutput<String> {
+public class LayoutIO extends InputOutput<Layout> {
 
     private Scanner input;
 
@@ -18,9 +20,9 @@ public class LayoutIO extends InputOutput<String> {
     }
 
     // EFFECTS: writes a single layout to console
-    protected void write(int layoutIndex, Display<String> layout) {
+    protected void write(int layoutIndex, Layout layout) {
         String name = layout.getName();
-        String keyLayout = layout.getAssociatedObject();
+        String keyLayout = layout.getLayoutString();
 
         System.out.print("\t");
         System.out.print(layoutIndex);
@@ -41,7 +43,9 @@ public class LayoutIO extends InputOutput<String> {
         System.out.println(" keyboard geometries line-by-line, left-to-right.");
 
         String layout = input.next();
-        Display<String> newLayout = new Display<>(name, "", layout);
+
+        Layout newLayout = new Layout(name, "", layout);
+
         add(newLayout);
 
         System.out.println("Successfully added Layout '" + name + "'!");
