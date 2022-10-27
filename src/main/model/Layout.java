@@ -31,6 +31,10 @@ public class Layout extends Nameable implements Writable {
     // EFFECTS: returns this layout as a JSONObject
     @Override
     public JSONObject toJson() {
-        return null;
+        JSONObject layoutJson = getBaseJson();
+
+        layoutJson.put("layout", getLayoutString());
+
+        return layoutJson;
     }
 }
