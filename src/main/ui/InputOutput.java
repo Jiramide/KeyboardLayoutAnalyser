@@ -1,5 +1,7 @@
 package ui;
 
+import model.Nameable;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -9,10 +11,10 @@ import java.util.Scanner;
  * these objects into the console. This is the base class that's inherited by the
  * other *IO classes and acts as a convenient way to not retype writeAll, query, etc.
  */
-public abstract class InputOutput<T> {
+public abstract class InputOutput<T extends Nameable> {
 
     private Scanner input;
-    private List<Display<T>> objects;
+    private List<T> objects;
 
     // EFFECTS: constructs an InputOutput object with the given scanner as the input method
     public InputOutput(Scanner input) {
@@ -22,17 +24,17 @@ public abstract class InputOutput<T> {
 
     // MODIFIES: this
     // EFFECTS: adds the object into the list of tracked objects
-    public void add(Display<T> object) {
+    public void add(T object) {
         objects.add(object);
     }
 
-    protected abstract void write(int index, Display<T> objectToWrite);
+    protected abstract void write(int index, T objectToWrite);
 
     // EFFECTS: writes all of the tracked objects into the console.
     public void writeAll() {
         int index = 1;
 
-        for (Display<T> display : objects) {
+        for (T display : objects) {
             write(index, display);
             index += 1;
         }
@@ -43,9 +45,9 @@ public abstract class InputOutput<T> {
     // REQUIRES: name is in InputOutput
     // EFFECTS: finds the object with the given name and returns it
     public T getByName(String name) {
-        for (Display<T> display : objects) {
-            if (display.getName().equals(name)) {
-                return display.getAssociatedObject();
+        for (T object : objects) {
+            if (object.getName().equals(name)) {
+                return object;
             }
         }
 
@@ -56,9 +58,9 @@ public abstract class InputOutput<T> {
     // MODIFIES: this
     // EFFECTS: finds the object with the given name and removes it
     public void removeByName(String name) {
-        for (Display<T> display : objects) {
-            if (display.getName().equals(name)) {
-                objects.remove(display);
+        for (T object : objects) {
+            if (object.getName().equals(name)) {
+                objects.remove(object);
                 return;
             }
         }
@@ -74,10 +76,10 @@ public abstract class InputOutput<T> {
     }
 
     // EFFECTS: returns the name associated with an object
-    public String getNameByObject(T object) {
-        for (Display<T> display : objects) {
-            if (display.getAssociatedObject().equals(object)) {
-                return display.getName();
+    public String getNameByObject(T objectToFind) {
+        for (T object : objects) {
+            if (object.equals(objectToFind)) {
+                return object.getName();
             }
         }
 
