@@ -1,9 +1,12 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 /*
  * A class representing a permutation of keys (aka a keyboard layout).
  */
-public class Layout extends Nameable {
+public class Layout extends Nameable implements Writable {
 
     private String layout;
 
@@ -25,4 +28,9 @@ public class Layout extends Nameable {
         return layout;
     }
 
+    // EFFECTS: returns this layout as a JSONObject
+    @Override
+    public JSONObject toJson() {
+        return null;
+    }
 }
