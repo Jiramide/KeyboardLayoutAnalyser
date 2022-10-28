@@ -17,29 +17,33 @@ public class Writer {
 
     // EFFECTS: constructs a closed writer set to write at the given file location
     public Writer(String location) {
-
+        this.fileLocation = location;
     }
 
     // REQUIRES: !isOpen
     // MODIFIES: this
     // EFFECTS: opens the Writer, allowing it to be written into
-    public void open() throws FileNotFoundException, IOException {
-
+    public void open() throws IOException {
+        writer = new BufferedWriter(new FileWriter(fileLocation));
     }
 
     // REQUIRES: isOpen
     // MODIFIES: this
     // EFFECTS: writes the given JSONObject into the file, and closes the Writer
-    private void writeJson(JSONObject jsonObject) {
+    private void writeJson(JSONObject jsonObject) throws IOException {
+        String json = jsonObject.toString(TAB);
 
+        writer.write(json);
     }
 
     // REQUIRES: isOpen
     // MODIFIES: this
     // EFFECTS: converts the given Writable into it's JSON formatting and writes it into file. The writer gets
     //          closed afterwards
-    public void write(Writable writable) {
-
+    public void write(Writable writable) throws IOException {
+        writeJson(writable.toJson());
+        writer.flush();
+        writer.close();
     }
 
 }
