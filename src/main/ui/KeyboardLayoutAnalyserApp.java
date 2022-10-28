@@ -19,7 +19,7 @@ import java.util.Scanner;
  */
 public class KeyboardLayoutAnalyserApp {
 
-    private static final double CHAR_SIZE_IN_UNITS = 1.0;
+    private static final double CHAR_SIZE_IN_UNITS = 0.10;
     private static final int MAX_CORPORA_DISPLAY = 100;
     private static final double KEY_EQUALITY_EPSILON = 0.05;
 
@@ -186,10 +186,17 @@ public class KeyboardLayoutAnalyserApp {
     private void processCommand(String command) {
         boolean processedByView = processViewCommand(command);
         boolean processedByAdd = processAddCommand(command);
+        boolean processedByRemove = processRemoveCommand(command);
         boolean processedBySave = processSaveCommand(command);
         boolean processedByLoad = processLoadCommand(command);
 
-        if (!processedByView && !processedByAdd && !processedBySave && !processedByLoad) {
+        boolean hasBeenProcessed = processedByView
+                || processedByAdd
+                || processedByRemove
+                || processedBySave
+                || processedByLoad;
+
+        if (!hasBeenProcessed) {
             if (command.equals("t")) {
                 runTournament();
             } else if (command.equals("q")) {
