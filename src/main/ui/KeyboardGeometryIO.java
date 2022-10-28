@@ -3,7 +3,14 @@ package ui;
 import model.Coord2D;
 import model.Finger;
 import model.KeyboardGeometry;
+import model.corpora.Corpus;
+import org.json.JSONException;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /*
@@ -245,5 +252,35 @@ public class KeyboardGeometryIO extends InputOutput<KeyboardGeometry> {
         add(constructedKeyboardGeometry);
 
         System.out.println("Successfully added KeyboardGeometry '" + name + "'!");;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reads a file, parses it into a KeyboardGeometry and stores it
+    public void loadFromFile(String name) {
+        Path path = Paths.get(".", "data", "KeyboardGeometries", name + ".kg.json");
+        Reader reader = new Reader(path.toString());
+
+        try {
+            KeyboardGeometry loaded = reader.readKeyboardGeometry();
+            add(loaded);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: That wasn't a valid file!");
+        } catch (JSONException e) {
+            System.out.println("[ERROR]: The file you are reading is not a Corpus.");
+        }
+    }
+
+    // EFFECTS: writes the KeyboardGeometry with the given name to file
+    public void saveToFile(String name) {
+        KeyboardGeometry toSave = getByName(name);
+        Path path = Paths.get(".", "data", "KeyboardGeometries", name + ".kg.json");
+        Writer writer = new Writer(path.toString());
+
+        try {
+            writer.open();
+            writer.write(toSave);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: Something has gone wrong while saving a Corpus.");
+        }
     }
 }

@@ -96,7 +96,7 @@ public class ReaderTest {
     @Test
     public void testReadIncorrectType() {
         try {
-            Reader reader = new Reader("./data/KeyboardGeometries/StandardAlphaKeyboard.json");
+            Reader reader = new Reader("./data/KeyboardGeometries/StandardAlphaKeyboard.kg.json");
             reader.readLayout();
 
             fail("Expected IOException");
@@ -173,7 +173,7 @@ public class ReaderTest {
     @Test
     public void testReadKeyboardGeometry() {
         try {
-            Reader kgReader = new Reader("./data/KeyboardGeometries/StandardAlphaKeyboard.json");
+            Reader kgReader = new Reader("./data/KeyboardGeometries/StandardAlphaKeyboard.kg.json");
             KeyboardGeometry kg = kgReader.readKeyboardGeometry();
 
             assertEquals("StandardAlphaKeyboard", kg.getName());

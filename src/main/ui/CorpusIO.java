@@ -3,7 +3,13 @@ package ui;
 import model.corpora.Corpus;
 import model.corpora.CorpusReader;
 import model.corpora.StringCorpus;
+import org.json.JSONException;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /*
@@ -68,5 +74,35 @@ public class CorpusIO extends InputOutput<Corpus> {
         add(newCorpus);
 
         System.out.println("Successfully added Corpus '" + name + "'!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reads a file, parses it into a Corpus and stores it
+    public void loadFromFile(String name) {
+        Path path = Paths.get(".", "data", "Corpora", name + ".corpus.json");
+        Reader reader = new Reader(path.toString());
+
+        try {
+            Corpus loaded = reader.readStringCorpus();
+            add(loaded);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: That wasn't a valid file!");
+        } catch (JSONException e) {
+            System.out.println("[ERROR]: The file you are reading is not a Corpus.");
+        }
+    }
+
+    // EFFECTS: writes the Corpus with the given name to file
+    public void saveToFile(String name) {
+        Corpus toSave = getByName(name);
+        Path path = Paths.get(".", "data", "Corpora", name + ".corpus.json");
+        Writer writer = new Writer(path.toString());
+
+        try {
+            writer.open();
+            writer.write(toSave);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: Something has gone wrong while saving a Corpus.");
+        }
     }
 }

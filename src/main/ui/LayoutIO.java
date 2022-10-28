@@ -1,7 +1,14 @@
 package ui;
 
 import model.Layout;
+import model.corpora.Corpus;
+import org.json.JSONException;
+import persistence.Reader;
+import persistence.Writer;
 
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Scanner;
 
 /*
@@ -49,5 +56,35 @@ public class LayoutIO extends InputOutput<Layout> {
         add(newLayout);
 
         System.out.println("Successfully added Layout '" + name + "'!");
+    }
+
+    // MODIFIES: this
+    // EFFECTS: reads a file, parses it into a Layout and stores it
+    public void loadFromFile(String name) {
+        Path path = Paths.get(".", "data", "Layout", name + ".layout.json");
+        Reader reader = new Reader(path.toString());
+
+        try {
+            Layout loaded = reader.readLayout();
+            add(loaded);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: That wasn't a valid file!");
+        } catch (JSONException e) {
+            System.out.println("[ERROR]: The file you are reading is not a Corpus.");
+        }
+    }
+
+    // EFFECTS: writes the Corpus with the given name to file
+    public void saveToFile(String name) {
+        Layout toSave = getByName(name);
+        Path path = Paths.get(".", "data", "Layout", name + ".layout.json");
+        Writer writer = new Writer(path.toString());
+
+        try {
+            writer.open();
+            writer.write(toSave);
+        } catch (IOException e) {
+            System.out.println("[ERROR]: Something has gone wrong while saving a Corpus.");
+        }
     }
 }
