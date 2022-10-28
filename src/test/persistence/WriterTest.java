@@ -4,8 +4,8 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import model.Finger;
 import model.KeyboardGeometry;
+import org.json.JSONException;
 import org.junit.jupiter.api.Test;
-
 
 import model.Coord2D;
 import model.corpora.Corpus;
@@ -47,7 +47,7 @@ public class WriterTest {
             assertEquals(coord, readCoord);
         } catch (IOException e) {
             fail("IOException should not have been thrown!");
-        } catch (InvalidParseException e) {
+        } catch (JSONException e) {
             fail("This should not happen; this is an issue with the test rather than the implementation.");
         }
     }
@@ -74,7 +74,7 @@ public class WriterTest {
             assertEquals(ly.getLayoutString(), readLy.getLayoutString());
         } catch (IOException e) {
             fail("IOException should not have been thrown!");
-        } catch (InvalidParseException e) {
+        } catch (JSONException e) {
             fail("This should not happen; this is an issue with the test rather than the implementation.");
         }
     }
@@ -88,12 +88,12 @@ public class WriterTest {
                     "The quick brown fox jumps over the lazy dog"
             );
 
-            Writer corpusWriter = new Writer("./data/corpora/testCorpora.corpus.json");
+            Writer corpusWriter = new Writer("./data/Corpora/testCorpora.corpus.json");
 
             corpusWriter.open();
             corpusWriter.write(corpus);
 
-            Reader corpusReader = new Reader("./data/corpora/testCorpora.corpus.json");
+            Reader corpusReader = new Reader("./data/Corpora/testCorpora.corpus.json");
             StringCorpus readCorpus = corpusReader.readStringCorpus();
 
             CorpusReader reader1 = corpus.createCorpusReader();
@@ -110,7 +110,7 @@ public class WriterTest {
             }
         } catch (IOException e) {
             fail("IOException should not have been thrown!");
-        } catch (InvalidParseException e) {
+        } catch (JSONException e) {
             fail("This should not happen; this is an issue with the test rather than the implementation.");
         }
     }
@@ -164,7 +164,7 @@ public class WriterTest {
             }
         } catch (IOException e) {
             fail("IOException should not have been thrown!");
-        } catch (InvalidParseException e) {
+        } catch (JSONException e) {
             fail("This should not happen; this is an issue with the test rather than the implementation.");
         }
     }
