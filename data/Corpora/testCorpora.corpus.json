@@ -1,0 +1,5 @@
+{
+  "name": "Pangram",
+  "description": "A corpus containing all letters at least once",
+  "content": "The quick brown fox jumps over the lazy dog"
+}
