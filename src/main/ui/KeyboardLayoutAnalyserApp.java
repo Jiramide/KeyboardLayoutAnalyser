@@ -139,12 +139,47 @@ public class KeyboardLayoutAnalyserApp {
         return true;
     }
 
+    // EFFECTS: processes the commands responsible for saving
     private boolean processSaveCommand(String command) {
-        return false;
+        if (command.equals("sl")) {
+            System.out.print("Layout name: ");
+            String name = input.next();
+            layoutIO.saveToFile(name);
+        } else if (command.equals("sc")) {
+            System.out.print("Corpus name: ");
+            String name = input.next();
+            corpusIO.saveToFile(name);
+        } else if (command.equals("sk")) {
+            System.out.print("KeyboardGeometry name: ");
+            String name = input.next();
+            keyboardGeometryIO.saveToFile(name);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
+    // MODIFIES: this
+    // EFFECTS: processes the commands responsible for loading
     private boolean processLoadCommand(String command) {
-        return false;
+        if (command.equals("ll")) {
+            System.out.print("Layout name: ");
+            String name = input.next();
+            layoutIO.loadFromFile(name);
+        } else if (command.equals("lc")) {
+            System.out.print("Corpus name: ");
+            String name = input.next();
+            corpusIO.loadFromFile(name);
+        } else if (command.equals("lk")) {
+            System.out.print("KeyboardGeometry name: ");
+            String name = input.next();
+            keyboardGeometryIO.loadFromFile(name);
+        } else {
+            return false;
+        }
+
+        return true;
     }
 
     // EFFECTS: processes a single command
@@ -223,25 +258,41 @@ public class KeyboardLayoutAnalyserApp {
         displayCommands();
     }
 
-    // EFFECTS: displays all available commands
-    private void displayCommands() {
-        // Corpora commands
+    // EFFECTS: displays commands relevant to corpora
+    private void displayCorporaCommands() {
         System.out.println("Corpora:");
         System.out.println("\t[vc]: (V)iew (C)orpora");
         System.out.println("\t[ac]: (A)dd (C)orpora");
         System.out.println("\t[rc]: (R)emove (C)orpora");
+        System.out.println("\t[lc]: (L)oad (C)orpora");
+        System.out.println("\t[sc]: (S)ave (C)orpora");
+    }
 
-        // KeyboardGeometry commands
+    // EFFECTS: displays commands relevant to keyboard geometry
+    private void displayKeyboardGeometryCommands() {
         System.out.println("KeyboardGeometry:");
         System.out.println("\t[vk]: (V)iew (K)eyboardGeometry");
         System.out.println("\t[ak]: (A)dd (K)eyboardGeometry");
         System.out.println("\t[rk]: (R)emove (K)eyboardGeometry");
+        System.out.println("\t[lk]: (L)oad (K)eyboardGeometry");
+        System.out.println("\t[sk]: (S)ave (K)eyboardGeometry");
+    }
 
-        // Layout commands
+    // EFFECTS: displays commands relevant to layout
+    private void displayLayoutCommands() {
         System.out.println("Layout:");
         System.out.println("\t[vl]: (V)iew (L)ayout");
         System.out.println("\t[al]: (A)dd (L)ayout");
         System.out.println("\t[rl]: (R)emove (L)ayout");
+        System.out.println("\t[ll]: (L)oad (L)ayout");
+        System.out.println("\t[sl]: (S)ave (L)ayout");
+    }
+
+    // EFFECTS: displays all available commands
+    private void displayCommands() {
+        displayCorporaCommands();
+        displayKeyboardGeometryCommands();
+        displayLayoutCommands();
 
         // EffortModel commands
         System.out.println("EffortModel:");
