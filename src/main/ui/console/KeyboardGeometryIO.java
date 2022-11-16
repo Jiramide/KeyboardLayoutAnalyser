@@ -1,9 +1,8 @@
-package ui;
+package ui.console;
 
 import model.Coord2D;
 import model.Finger;
 import model.KeyboardGeometry;
-import model.corpora.Corpus;
 import org.json.JSONException;
 import persistence.Reader;
 import persistence.Writer;

@@ -1,7 +1,6 @@
-package ui;
+package ui.console;
 
 import model.Layout;
-import model.corpora.Corpus;
 import org.json.JSONException;
 import persistence.Reader;
 import persistence.Writer;

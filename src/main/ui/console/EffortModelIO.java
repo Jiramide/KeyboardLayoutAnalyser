@@ -1,4 +1,4 @@
-package ui;
+package ui.console;
 
 import model.effortmodel.EffortModel;
 import java.util.Scanner;
