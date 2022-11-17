@@ -52,11 +52,19 @@ public class SelectionPanel extends JPanel {
     }
 
     private void createTitle() {
+        title = new JPanel();
+        title.setLayout(new BoxLayout(title, BoxLayout.PAGE_AXIS));
+
+        JLabel titlePhoto = new JLabel(MainWindow.ICON);
+        titlePhoto.setVisible(true);
+        titlePhoto.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         JLabel titleLabel = new JLabel(MainWindow.TITLE);
         titleLabel.setVisible(true);
         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        title = titleLabel;
+        title.add(titlePhoto);
+        title.add(titleLabel);
     }
 
     // MODIFIES: this
