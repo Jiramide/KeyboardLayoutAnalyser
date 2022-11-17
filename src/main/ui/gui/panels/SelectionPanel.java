@@ -52,17 +52,17 @@ public class SelectionPanel extends JPanel {
     //          and adds them into the panel
     private void createNavigationButtons() {
         corporaButton = parent.createNavigationButton(Page.CorporaMain);
-        corporaButton.setText("Corpora");
+        corporaButton.setText("📕    Corpora");
         corporaButton.setVisible(true);
         corporaButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         keyboardButton = parent.createNavigationButton(Page.KeyboardMain);
-        keyboardButton.setText("Keyboard");
+        keyboardButton.setText("⌨    Keyboard");
         keyboardButton.setVisible(true);
         keyboardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
         tournamentButton = parent.createNavigationButton(Page.Tournament);
-        tournamentButton.setText("Tournament");
+        tournamentButton.setText("🏆    Tournament");
         tournamentButton.setVisible(true);
         tournamentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
