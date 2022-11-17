@@ -25,6 +25,8 @@ public class CorporaMainPanel extends JPanel {
 
     private BoxLayout boxLayout;
 
+    private CorporaViewPanel viewPanel;
+
     private JComponent header;
     private JList<String> list;
     private DefaultListModel<String> listModel;
@@ -35,6 +37,9 @@ public class CorporaMainPanel extends JPanel {
 
         this.parent = parent;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
+        viewPanel = new CorporaViewPanel(parent,this);
+
+        parent.addPage(Page.CorporaView, viewPanel);
 
         setLayout(boxLayout);
         setVisible(true);
@@ -42,7 +47,6 @@ public class CorporaMainPanel extends JPanel {
         createList();
         createInteractionButtons();
         layoutComponents();
-        setupInteractions();
     }
 
     private void layoutComponents() {
@@ -50,12 +54,77 @@ public class CorporaMainPanel extends JPanel {
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(list);
         add(Box.createVerticalGlue());
-        // add(Box.createRigidArea(new Dimension(0, 10)));
         add(interactionButtons);
     }
 
-    private void setupInteractions() {
+    private JButton createInteractionButton(String text, ActionListener actionListener) {
+        JButton interactionButton = new JButton(text);
+        interactionButton.setVisible(true);
+        interactionButton.addActionListener(actionListener);
 
+        return interactionButton;
+    }
+
+    private JButton createRemoveButton() {
+        return createInteractionButton(
+                "➖    Remove",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        List<String> corporaToRemove = list.getSelectedValuesList();
+
+                        for (String corpusName : corporaToRemove) {
+                            removeCorpus(corpusName);
+                        }
+                    }
+                }
+        );
+    }
+
+    private JButton createLoadButton() {
+        return createInteractionButton(
+                "🔃    Load",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String corpusName = JOptionPane.showInputDialog("Corpus name:");
+                        loadFromFile(corpusName);
+                    }
+                }
+        );
+    }
+
+    private JButton createViewButton() {
+        return createInteractionButton(
+                "👁    View",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        Corpus corpus = getCorpusByName(list.getSelectedValue());
+
+                        if (corpus != null) {
+                            viewPanel.setCorpus(corpus);
+                            parent.goTo(Page.CorporaView);
+                        }
+                    }
+                }
+        );
+    }
+
+    private JButton createSaveButton() {
+        return createInteractionButton(
+                "💾    Save",
+                new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        List<String> corporaToSave = list.getSelectedValuesList();
+
+                        for (String corpusName : corporaToSave) {
+                            saveToFile(corpusName);
+                        }
+                    }
+                }
+        );
     }
 
     private void createInteractionButtons() {
@@ -71,54 +140,10 @@ public class CorporaMainPanel extends JPanel {
             }
         });
 
-        JButton removeButton = new JButton();
-        removeButton.setText("Remove");
-        removeButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                removeCorpus(list.getSelectedValue());
-            }
-        });
-
-        JButton loadButton = new JButton();
-        loadButton.setText("Load");
-        loadButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String corpusName = JOptionPane.showInputDialog("Corpus name: ");
-                loadFromFile(corpusName);
-            }
-        });
-
-        JButton viewButton = new JButton();
-        viewButton.setText("View");
-        viewButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String corpusName = list.getSelectedValue();
-                Corpus corpus = getCorpusByName(corpusName);
-
-                if (corpus != null) {
-                    CorpusReader reader = corpus.createCorpusReader();
-                    StringBuilder stringBuilder = new StringBuilder();
-
-                    while (!reader.isFinished()) {
-                        stringBuilder.append(reader.consume());
-                    }
-
-                    System.out.println(stringBuilder.toString());
-                }
-            }
-        });
-
-        JButton saveButton = new JButton();
-        saveButton.setText("Save");
-        saveButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveToFile(list.getSelectedValue());
-            }
-        });
+        JButton removeButton = createRemoveButton();
+        JButton loadButton = createLoadButton();
+        JButton viewButton = createViewButton();
+        JButton saveButton = createSaveButton();
 
         interactionButtons.add(Box.createHorizontalGlue());
         interactionButtons.add(testAddButton);
