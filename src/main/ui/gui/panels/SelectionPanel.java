@@ -18,6 +18,7 @@ public class SelectionPanel extends JPanel {
 
     private BoxLayout boxLayout;
 
+    private JComponent title;
     private JButton corporaButton;
     private JButton keyboardButton;
     private JButton tournamentButton;
@@ -31,6 +32,7 @@ public class SelectionPanel extends JPanel {
 
         setLayout(boxLayout);
         setVisible(true);
+        createTitle();
         createNavigationButtons();
         layoutComponents();
     }
@@ -39,12 +41,22 @@ public class SelectionPanel extends JPanel {
     // EFFECTS: adds the components in proper order with spacing elements to provide a bit of style
     private void layoutComponents() {
         add(Box.createVerticalGlue());
+        add(title);
+        add(Box.createRigidArea(SELECTION_BUTTON_SPACING));
         add(corporaButton);
         add(Box.createRigidArea(SELECTION_BUTTON_SPACING));
         add(keyboardButton);
         add(Box.createRigidArea(SELECTION_BUTTON_SPACING));
         add(tournamentButton);
         add(Box.createVerticalGlue());
+    }
+
+    private void createTitle() {
+        JLabel titleLabel = new JLabel(MainWindow.TITLE);
+        titleLabel.setVisible(true);
+        titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        title = titleLabel;
     }
 
     // MODIFIES: this
