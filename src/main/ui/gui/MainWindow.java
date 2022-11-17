@@ -53,11 +53,11 @@ public class MainWindow {
     private void setUpPaddedPanel() {
         frame.setLayout(new BorderLayout());
 
-        Component padding = Box.createRigidArea(new Dimension(SIDE_PADDING, SIDE_PADDING));
-        frame.add(padding, BorderLayout.PAGE_START);
-        frame.add(padding, BorderLayout.BEFORE_LINE_BEGINS);
-        frame.add(padding, BorderLayout.PAGE_END);
-        frame.add(padding, BorderLayout.AFTER_LINE_ENDS);
+        Dimension sidePaddingDimension = new Dimension(SIDE_PADDING, SIDE_PADDING);
+        frame.add(Box.createRigidArea(sidePaddingDimension), BorderLayout.PAGE_START);
+        frame.add(Box.createRigidArea(sidePaddingDimension), BorderLayout.BEFORE_LINE_BEGINS);
+        frame.add(Box.createRigidArea(sidePaddingDimension), BorderLayout.PAGE_END);
+        frame.add(Box.createRigidArea(sidePaddingDimension), BorderLayout.AFTER_LINE_ENDS);
 
         frame.add(mainPanel, BorderLayout.CENTER);
 
