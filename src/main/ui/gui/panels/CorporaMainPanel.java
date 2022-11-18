@@ -29,6 +29,7 @@ public class CorporaMainPanel extends JPanel {
     private BoxLayout boxLayout;
 
     private CorporaViewPanel viewPanel;
+    private CorporaCreationPanel creationPanel;
 
     private JComponent header;
     private JScrollPane listScrollPane;
@@ -42,9 +43,11 @@ public class CorporaMainPanel extends JPanel {
 
         this.parent = parent;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
-        viewPanel = new CorporaViewPanel(parent,this);
+        viewPanel = new CorporaViewPanel(this, parent);
+        creationPanel = new CorporaCreationPanel(this, parent);
 
         parent.addPage(Page.CorporaView, viewPanel);
+        parent.addPage(Page.CorporaCreation, creationPanel)
 
         setLayout(boxLayout);
         setVisible(true);
