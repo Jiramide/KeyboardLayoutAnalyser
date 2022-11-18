@@ -2,6 +2,7 @@ package ui.gui.panels;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -127,6 +128,7 @@ public class TournamentCreationPanel extends JPanel {
             setUpGeometryLabel();
             setupLayoutLabel();
             setUpInteractionButtons();
+            setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
             layoutComponents();
             setVisible(true);
         }
