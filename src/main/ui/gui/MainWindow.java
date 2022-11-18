@@ -137,7 +137,9 @@ public class MainWindow {
         KeyboardCreation,
         KeyboardView,
 
-        Tournament
+        Tournament,
+        TournamentCreation,
+        TournamentView,
     }
 
     private static final Map<Page, String> PAGE_TO_ID_MAP = Map.of(
@@ -151,6 +153,8 @@ public class MainWindow {
             Page.KeyboardCreation, "KeyboardCreation",
             Page.KeyboardView, "KeyboardView",
 
-            Page.Tournament, "Tournament"
+            Page.Tournament, "Tournament",
+            Page.TournamentCreation, "TournamentCreation",
+            Page.TournamentView, "TournamentView"
     );
 }
