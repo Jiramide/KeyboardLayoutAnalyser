@@ -47,7 +47,7 @@ public class CorporaMainPanel extends JPanel {
         creationPanel = new CorporaCreationPanel(this, parent);
 
         parent.addPage(Page.CorporaView, viewPanel);
-        parent.addPage(Page.CorporaCreation, creationPanel)
+        parent.addPage(Page.CorporaCreation, creationPanel);
 
         setLayout(boxLayout);
         setVisible(true);
