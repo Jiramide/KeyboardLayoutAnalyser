@@ -31,6 +31,7 @@ public class TournamentPanel extends JPanel {
     private JPanel interactionButtons;
 
     private TournamentCreationPanel tournamentCreationPanel;
+    private TournamentViewPanel tournamentViewPanel;
 
     // EFFECTS: creates a TournamentPanel which is parented to the MainWindow
     public TournamentPanel(App app) {
@@ -39,8 +40,10 @@ public class TournamentPanel extends JPanel {
         this.app = app;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         tournamentCreationPanel = new TournamentCreationPanel(app, this);
+        tournamentViewPanel = new TournamentViewPanel(app, this);
 
         app.getMainWindow().addPage(Page.TournamentCreation, tournamentCreationPanel);
+        app.getMainWindow().addPage(Page.TournamentView, tournamentViewPanel);
 
         setLayout(boxLayout);
         createHeader();
@@ -71,6 +74,34 @@ public class TournamentPanel extends JPanel {
         return newTournamentButton;
     }
 
+    // EFFECTS: creates a button resposible for viewing
+    private JButton createViewButton() {
+        JButton viewButton = app.getMainWindow().createNavigationButton(Page.TournamentView);
+        viewButton.setText("👁    View tournament");
+
+        TournamentPanel panel = this;
+
+        viewButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (tournamentJList.getSelectedValue() != null) {
+                    tournamentViewPanel.setTournament(tournamentJList.getSelectedValue());
+                } else {
+                    JOptionPane.showMessageDialog(
+                            panel,
+                            "Please select a tournament",
+                            "Error viewing tournament",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+
+                    app.getMainWindow().goTo(Page.Tournament);
+                }
+            }
+        });
+
+        return viewButton;
+    }
+
     // MODIFIES: this
     // EFFECTS: creates the set of interaction buttons that allow you to interact with tournaments
     //          and create tournaments
@@ -79,10 +110,11 @@ public class TournamentPanel extends JPanel {
         interactionButtons.setLayout(new BoxLayout(interactionButtons, BoxLayout.LINE_AXIS));
 
         JButton newTournamentButton = createNewTournamentButton();
+        JButton viewButton = createViewButton();
 
         interactionButtons.add(Box.createHorizontalGlue());
         interactionButtons.add(newTournamentButton);
-        interactionButtons.add(Box.createHorizontalGlue());
+        interactionButtons.add(viewButton);
 
         interactionButtons.setVisible(true);
         interactionButtons.setAlignmentX(Component.LEFT_ALIGNMENT);
