@@ -7,6 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
@@ -57,6 +58,7 @@ public class TournamentCreationPanel extends JPanel {
 
         this.app = app;
         this.parent = parent;
+        keyboardsInfo = new ArrayList<>();
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
@@ -78,7 +80,15 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: clears all input fields
     public void clear() {
+        createCorporaChoices();
+        createEffortModelChoices();
+        createKeyboardGeometryChoices();
+        createLayoutChoices();
 
+        corpusChooser.setModel(new DefaultComboBoxModel<>(corporaChoices));
+        effortModelChooser.setModel(new DefaultComboBoxModel<>(effortModelChoices));
+        keyboardChooser.setModel(new DefaultComboBoxModel<>(keyboardGeometryChoices));
+        layoutChooser.setModel(new DefaultComboBoxModel<>(layoutChoices));
     }
 
     // EFFECTS: creates a tournament from the input fields
@@ -143,6 +153,7 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates the combo box for corpora
     private void setUpCorpusChooser() {
+        new JComboBox<>(new DefaultComboBoxModel<>());
         corpusChooser = new JComboBox<>(corporaChoices);
         corpusChooser.setVisible(true);
 
@@ -236,7 +247,7 @@ public class TournamentCreationPanel extends JPanel {
                 .stream()
                 .map(GET_NAME)
                 .collect(Collectors.toList())
-                .toArray();
+                .toArray(new String[0]);
     }
 
     // MODIFIES: this
@@ -248,7 +259,7 @@ public class TournamentCreationPanel extends JPanel {
                 .stream()
                 .map(GET_NAME)
                 .collect(Collectors.toList())
-                .toArray();
+                .toArray(new String[0]);
     }
 
     // MODIFIES: this
@@ -260,7 +271,7 @@ public class TournamentCreationPanel extends JPanel {
                 .stream()
                 .map(GET_NAME)
                 .collect(Collectors.toList())
-                .toArray();
+                .toArray(new String[0]);
     }
 
     // MODIFIES: this
@@ -272,7 +283,7 @@ public class TournamentCreationPanel extends JPanel {
                 .stream()
                 .map(GET_NAME)
                 .collect(Collectors.toList())
-                .toArray();
+                .toArray(new String[0]);
     }
 
     // MODIFIES: this
@@ -293,6 +304,8 @@ public class TournamentCreationPanel extends JPanel {
         additionFields.add(layoutChooser);
         additionFields.add(Box.createHorizontalGlue());
         additionFields.add(addKeyboardButton);
+
+        keyboardsPanel.add(additionFields);
 
         keyboards = new JScrollPane(keyboardsPanel);
         keyboards.setVisible(true);

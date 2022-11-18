@@ -40,6 +40,8 @@ public class TournamentPanel extends JPanel {
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
         tournamentCreationPanel = new TournamentCreationPanel(app, this);
 
+        app.getMainWindow().addPage(Page.TournamentCreation, tournamentCreationPanel);
+
         setLayout(boxLayout);
         createHeader();
         createList();
@@ -58,6 +60,13 @@ public class TournamentPanel extends JPanel {
     private JButton createNewTournamentButton() {
         JButton newTournamentButton = app.getMainWindow().createNavigationButton(Page.TournamentCreation);
         newTournamentButton.setText("➕    Create new tournament");
+
+        newTournamentButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tournamentCreationPanel.clear();
+            }
+        });
 
         return newTournamentButton;
     }
