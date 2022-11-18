@@ -95,15 +95,15 @@ public class MainWindow {
     // MODIFIES: this
     // EFFECTS: adds a page with the associated Page enum
     public void addPage(Page page, JComponent panel) {
-        mainPanel.add(panel, PAGE_TO_ID_MAP.get(page));
+        mainPanel.add(panel, getPageId(page));
     }
 
 
     // MODIFIES: this
     // EFFECTS: shows the page panel associated with the page enum
     public void goTo(Page destination) {
-        System.out.println("going to " + PAGE_TO_ID_MAP.get(destination));
-        cardLayout.show(mainPanel, PAGE_TO_ID_MAP.get(destination));
+        System.out.println("going to " + getPageId(destination));
+        cardLayout.show(mainPanel, getPageId(destination));
     }
 
     // EFFECTS: creates a button which, upon clicked, will go to the page passed
@@ -142,19 +142,7 @@ public class MainWindow {
         TournamentView,
     }
 
-    private static final Map<Page, String> PAGE_TO_ID_MAP = Map.of(
-            Page.Selection, "Selection",
-
-            Page.CorporaMain, "CorporaMain",
-            Page.CorporaCreation, "CorporaCreation",
-            Page.CorporaView, "CorporaView",
-
-            Page.KeyboardMain, "KeyboardMain",
-            Page.KeyboardCreation, "KeyboardCreation",
-            Page.KeyboardView, "KeyboardView",
-
-            Page.Tournament, "Tournament",
-            Page.TournamentCreation, "TournamentCreation",
-            Page.TournamentView, "TournamentView"
-    );
+    private static String getPageId(Page page) {
+        return page.toString();
+    }
 }
