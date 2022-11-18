@@ -185,7 +185,7 @@ public class TournamentPanel extends JPanel {
                 keyboardNames.add(keyboard.getGeometry().getName() + " with " + keyboard.getLayout().getName());
             }
 
-            JList<String> keyboards = new JList<>((String[]) keyboardNames.toArray());
+            JList<String> keyboards = new JList<>(keyboardNames.toArray(new String[0]));
 
             return new JScrollPane(keyboards);
         }
@@ -215,6 +215,8 @@ public class TournamentPanel extends JPanel {
 
             JLabel title = new JLabel("🏆  Tournament #" + (index + 1));
             title.setVisible(true);
+
+            header.add(title);
 
             header.setAlignmentX(Component.LEFT_ALIGNMENT);
             header.setVisible(true);
