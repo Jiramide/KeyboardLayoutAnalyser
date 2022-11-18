@@ -30,6 +30,8 @@ public class CorporaCreationPanel extends JPanel {
     public CorporaCreationPanel(CorporaMainPanel parent, MainWindow mainWindow) {
         super();
 
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
         this.mainWindow = mainWindow;
         this.parent = parent;
 
@@ -54,6 +56,8 @@ public class CorporaCreationPanel extends JPanel {
     private void layoutComponents() {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
+        add(metadata);
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(corpusContentScroll);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(interactionButtons);
@@ -76,6 +80,7 @@ public class CorporaCreationPanel extends JPanel {
         header.add(title);
 
         header.setVisible(true);
+        header.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     // MODIFIES: this
@@ -164,6 +169,4 @@ public class CorporaCreationPanel extends JPanel {
 
         return createButton;
     }
-
-
 }
