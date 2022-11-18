@@ -16,6 +16,7 @@ import model.Tournament;
 import model.corpora.Corpus;
 
 import model.corpora.StringCorpus;
+import model.effortmodel.EffortModel;
 import ui.gui.panels.*;
 
 /*
@@ -37,6 +38,7 @@ public class MainWindow {
     private List<Corpus> corpora = new ArrayList<>();
     private List<KeyboardGeometry> keyboardGeometries = new ArrayList<>();
     private List<Layout> layouts = new ArrayList<>();
+    private List<EffortModel> effortModels = new ArrayList<>();
 
     // EFFECTS: creates a MainWindow
     public MainWindow() {
@@ -92,12 +94,16 @@ public class MainWindow {
         return layouts;
     }
 
+    // EFFECTS: returns the list of effort models that the application is working on
+    public List<EffortModel> getEffortModels() {
+        return effortModels;
+    }
+
     // MODIFIES: this
     // EFFECTS: adds a page with the associated Page enum
     public void addPage(Page page, JComponent panel) {
         mainPanel.add(panel, getPageId(page));
     }
-
 
     // MODIFIES: this
     // EFFECTS: shows the page panel associated with the page enum
@@ -136,6 +142,14 @@ public class MainWindow {
         KeyboardMain,
         KeyboardCreation,
         KeyboardView,
+
+        KeyboardGeometryMain,
+        KeyboardGeometryCreation,
+        KeyboardGeometryView,
+
+        LayoutMain,
+        LayoutCreation,
+        LayoutView,
 
         Tournament,
         TournamentCreation,
