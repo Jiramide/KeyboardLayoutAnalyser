@@ -91,13 +91,19 @@ public class CorporaCreationPanel extends JPanel {
         metadata.setLayout(new BoxLayout(metadata, BoxLayout.PAGE_AXIS));
 
         corpusNameLine = new JPanel();
-        corpusNameLine.setLayout(new BoxLayout(corpusNameLine, BoxLayout.X_AXIS));
+        corpusNameLine.setLayout(new BoxLayout(corpusNameLine, BoxLayout.LINE_AXIS));
 
         corpusNameTitle = new JLabel("Name: ");
         corpusNameTitle.setVisible(true);
 
         corpusName = new JTextField();
-        corpusNameLine.setPreferredSize(new Dimension(0, 12));
+        // BoxLayout does not obey preferredSize's height if you're working in a LINE_AXIS context,
+        // so the next best thing is to set the maximum size to cap the height, while making the
+        // width stupidly large so that it (realistically) doesn't get affected by this capping.
+        // 1 pt (font) is said to be 0.75 pixels, so the computation fontSize / 0.75 works to get the
+        // pixels required to represent this font. An additional 5 pixels is added in order to ensure
+        // that all letters get reasonably displayed (i.e. those that hang below like j)
+        corpusName.setMaximumSize(new Dimension(999999999, (int) (corpusName.getFont().getSize() / 0.75) + 5));
 
         corpusNameLine.add(corpusNameTitle);
         corpusNameLine.add(Box.createRigidArea(new Dimension(10, 0)));
