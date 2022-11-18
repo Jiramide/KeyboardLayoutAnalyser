@@ -139,31 +139,31 @@ public class CorporaMainPanel extends JPanel {
         );
     }
 
+    // EFFECTS: creates a create button
+    private JButton createCreateButton() {
+        JButton addButton = parent.createNavigationButton(Page.CorporaCreation);
+        addButton.setText("➕    Create");
+
+        return addButton;
+    }
+
     // MODIFIES: this
     // EFFECTS: creates all interaction buttons for the panel
     private void createInteractionButtons() {
         interactionButtons = new JPanel();
         interactionButtons.setLayout(new BoxLayout(interactionButtons, BoxLayout.LINE_AXIS));
 
-        JButton testAddButton = new JButton();
-        testAddButton.setText("test add");
-        testAddButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                addCorpus(new StringCorpus("test add" + listModel.getSize(), "test", "add"));
-            }
-        });
-
+        JButton createButton = createCreateButton();
         JButton removeButton = createRemoveButton();
         JButton loadButton = createLoadButton();
         JButton viewButton = createViewButton();
         JButton saveButton = createSaveButton();
 
         interactionButtons.add(Box.createHorizontalGlue());
-        interactionButtons.add(testAddButton);
+        interactionButtons.add(createButton);
         interactionButtons.add(removeButton);
-        interactionButtons.add(loadButton);
         interactionButtons.add(viewButton);
+        interactionButtons.add(loadButton);
         interactionButtons.add(saveButton);
 
         interactionButtons.setVisible(true);
