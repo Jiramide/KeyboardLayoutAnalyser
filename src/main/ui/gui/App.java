@@ -15,7 +15,7 @@ public class App {
         return mainWindow;
     }
 
-    // EFFECTSY returns the app state that the app is using
+    // EFFECTS: returns the app state that the app is using
     public AppState getAppState() {
         return appState;
     }
