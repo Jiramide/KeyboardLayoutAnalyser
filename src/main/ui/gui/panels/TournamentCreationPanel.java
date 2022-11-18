@@ -28,6 +28,11 @@ public class TournamentCreationPanel extends JPanel {
     private List<KeyboardGeometry> keyboardGeometries;
     private List<Layout> layouts;
 
+    private String[] corporaChoices;
+    private String[] effortModelChoices;
+    private String[] keyboardGeometryChoices;
+    private String[] layoutChoices;
+
     private JPanel header;
     private JButton backButton;
     private JLabel title;
@@ -70,7 +75,20 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates the header that contains the back button and title
     private void setUpHeader() {
+        header = new JPanel();
+        header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
+        backButton = mainWindow.createNavigationButton(Page.Tournament);
+        backButton.setText("<");
+
+        title = new JLabel("🏆  Create tournament");
+
+        header.add(backButton);
+        header.add(Box.createRigidArea(new Dimension(10, 0)));
+        header.add(title);
+
+        header.setVisible(true);
+        header.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     // MODIFIES: this
@@ -78,6 +96,60 @@ public class TournamentCreationPanel extends JPanel {
     private void setUpMetadata() {
 
     }
+
+    // MODIFIES: this
+    // EFFECTS: creates the list of choices for corpora
+    private void createCorporaChoices() {
+        List<Corpus> corpora = mainWindow.getCorpora();
+        List<String> corporaNames = new ArrayList<>();
+
+        for (Corpus corpus : corpora) {
+            corporaNames.add(corpus.getName());
+        }
+
+        corporaChoices = (String[]) corporaNames.toArray();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the list of choices for effort models
+    private void createEffortModelChoices() {
+        List<EffortModel> effortModels = mainWindow.getEffortModels();
+        List<String> effortModelsNames = new ArrayList<>();
+
+        for (EffortModel effortModel : effortModels) {
+            effortModelsNames.add(effortModel.getName());
+        }
+
+        effortModelChoices = (String[]) effortModelsNames.toArray();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the list of choices for keyboard geometries
+    private void createKeyboardGeometryChoices() {
+        List<KeyboardGeometry> keyboardGeometries = mainWindow.getKeyboardGeometries();
+        List<String> keyboardGeometryNames = new ArrayList<>();
+
+        for (KeyboardGeometry geometry : keyboardGeometries) {
+            keyboardGeometryNames.add(geometry.getName());
+        }
+
+        effortModelChoices = (String[]) keyboardGeometryNames.toArray();
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the list of choices for effort models
+    private void createLayoutChoices() {
+        List<Layout> layouts = mainWindow.getLayouts();
+        List<String> layoutNames = new ArrayList<>();
+
+        for (Layout layout : layouts) {
+            layoutNames.add(layout.getName());
+        }
+
+        effortModelChoices = (String[]) layoutNames.toArray();
+    }
+
+
 
     // MODIFIES: this
     // EFFECTS: creates the keyboards list that shows all keyboards
