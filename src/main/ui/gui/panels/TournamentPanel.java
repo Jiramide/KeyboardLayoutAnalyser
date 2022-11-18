@@ -2,6 +2,8 @@ package ui.gui.panels;
 
 import java.awt.*;
 import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,24 +28,46 @@ public class TournamentPanel extends JPanel {
     private JList<Tournament> tournamentJList;
     private JPanel interactionButtons;
 
+    private TournamentCreationPanel tournamentCreationPanel;
+
     // EFFECTS: creates a TournamentPanel which is parented to the MainWindow
     public TournamentPanel(MainWindow parent) {
         super();
 
         this.parent = parent;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
+        tournamentCreationPanel = new TournamentCreationPanel(this, parent);
 
+        setLayout(boxLayout);
         createHeader();
         createList();
         createInteractionButtons();
         layoutComponents();
     }
 
+    // EFFECTS: creates a button responsible for directing you to the TournamentCreation page
+    private JButton createNewTournamentButton() {
+        JButton newTournamentButton = parent.createNavigationButton(Page.TournamentCreation);
+        newTournamentButton.setText("➕    Create new tournament");
+
+        return newTournamentButton;
+    }
+
     // MODIFIES: this
     // EFFECTS: creates the set of interaction buttons that allow you to interact with tournaments
     //          and create tournaments
     private void createInteractionButtons() {
+        interactionButtons = new JPanel();
+        interactionButtons.setLayout(new BoxLayout(interactionButtons, BoxLayout.LINE_AXIS));
 
+        JButton newTournamentButton = createNewTournamentButton();
+
+        interactionButtons.add(Box.createHorizontalGlue());
+        interactionButtons.add(newTournamentButton);
+        interactionButtons.add(Box.createHorizontalGlue());
+
+        interactionButtons.setVisible(true);
+        interactionButtons.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     // MODIFIES: this
@@ -59,6 +83,7 @@ public class TournamentPanel extends JPanel {
 
         tournamentScrollPane = new JScrollPane(tournamentJList);
         tournamentScrollPane.setVisible(true);
+        tournamentScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     // MODIFIES: this
@@ -67,6 +92,8 @@ public class TournamentPanel extends JPanel {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(tournamentScrollPane);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(interactionButtons);
     }
 
     // MODIFIES: this
@@ -86,8 +113,8 @@ public class TournamentPanel extends JPanel {
         header.add(title);
         header.add(Box.createHorizontalGlue());
 
-        header.setAlignmentX(Component.LEFT_ALIGNMENT);
         header.setVisible(true);
+        header.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     /*
