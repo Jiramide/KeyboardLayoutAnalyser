@@ -38,6 +38,7 @@ public class MainWindow {
     private List<KeyboardGeometry> keyboardGeometries = new ArrayList<>();
     private List<Layout> layouts = new ArrayList<>();
 
+    // EFFECTS: creates a MainWindow
     public MainWindow() {
         setUpContentPanel();
         setUpPaddedPanel();
@@ -50,6 +51,8 @@ public class MainWindow {
         goTo(Page.Selection);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the side padding for the content panel so that every page automatically has padding
     private void setUpPaddedPanel() {
         frame.setLayout(new BorderLayout());
 
@@ -66,24 +69,31 @@ public class MainWindow {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the main content panel
     private void setUpContentPanel() {
         mainPanel.setLayout(cardLayout);
 
         mainPanel.setVisible(true);
     }
 
+    // EFFECTS: returns the list of corpora that the application is working on
     public List<Corpus> getCorpora() {
         return corpora;
     }
 
+    // EFFECTS: returns the list of keyboard geometries that the application is working on
     public List<KeyboardGeometry> getKeyboardGeometries() {
         return keyboardGeometries;
     }
 
+    // EFFECTS: returns the list of layouts that the application is working on
     public List<Layout> getLayouts() {
         return layouts;
     }
 
+    // MODIFIES: this
+    // EFFECTS: adds a page with the associated Page enum
     public void addPage(Page page, JComponent panel) {
         mainPanel.add(panel, PAGE_TO_ID_MAP.get(page));
     }
@@ -143,6 +153,4 @@ public class MainWindow {
 
             Page.Tournament, "Tournament"
     );
-
-
 }

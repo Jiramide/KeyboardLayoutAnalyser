@@ -51,6 +51,8 @@ public class SelectionPanel extends JPanel {
         add(Box.createVerticalGlue());
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the title, which contains an image icon on top of a title label
     private void createTitle() {
         title = new JPanel();
         title.setLayout(new BoxLayout(title, BoxLayout.PAGE_AXIS));
@@ -86,6 +88,4 @@ public class SelectionPanel extends JPanel {
         tournamentButton.setVisible(true);
         tournamentButton.setAlignmentX(Component.CENTER_ALIGNMENT);
     }
-
-
 }

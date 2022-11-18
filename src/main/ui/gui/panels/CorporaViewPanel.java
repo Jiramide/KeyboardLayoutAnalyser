@@ -11,6 +11,9 @@ import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel for viewing a corpus' contents
+ */
 public class CorporaViewPanel extends JPanel {
 
     public static final int CHARS_PER_READ_ITERATION = 500;
@@ -26,6 +29,7 @@ public class CorporaViewPanel extends JPanel {
     private JTextArea corpusContent;
     private JButton showMore;
 
+    // EFFECTS: creates a CorporaViewPanel that's parented to a CorporaMainPanel
     public CorporaViewPanel(MainWindow mainWindow, CorporaMainPanel parent) {
         super();
 
@@ -43,6 +47,8 @@ public class CorporaViewPanel extends JPanel {
         setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the header that contains the back button and the corpus' name
     private void setUpHeader() {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
@@ -62,6 +68,8 @@ public class CorporaViewPanel extends JPanel {
         add(header);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates a panel for listing out the content of a corpus, may be truncated
     private void setUpContent() {
         corpusContent = new JTextArea();
         corpusContent.setLineWrap(true);
@@ -74,6 +82,8 @@ public class CorporaViewPanel extends JPanel {
         add(contentScrollPane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets up the button that allows you to show more of the corpus content
     private void setUpShowMore() {
         showMore = new JButton("Show more");
 
@@ -89,6 +99,9 @@ public class CorporaViewPanel extends JPanel {
         add(showMore);
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads more of the corpus content and sets the content panel to display more text
+    //          and disables the show more button if the corpus has been exhausted
     private void performReadIteration() {
         readAndAddToBuffer();
         corpusContent.setText(contentBuffer.toString());
@@ -98,12 +111,16 @@ public class CorporaViewPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: reads more fron the corpus and adds it to the buffer containing everything
     private void readAndAddToBuffer() {
         for (int index = 0; index < CHARS_PER_READ_ITERATION && !reader.isFinished(); index++) {
             contentBuffer.append(reader.consume());
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the corpus and sets up the panel to show this current corpus
     public void setCorpus(Corpus corpus) {
         this.corpus = corpus;
         reader = corpus.createCorpusReader();
@@ -114,5 +131,4 @@ public class CorporaViewPanel extends JPanel {
         showMore.setEnabled(true);
         performReadIteration();
     }
-
 }

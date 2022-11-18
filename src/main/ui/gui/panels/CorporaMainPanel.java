@@ -19,6 +19,9 @@ import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the main panel for corpora
+ */
 public class CorporaMainPanel extends JPanel {
 
     private MainWindow parent;
@@ -33,6 +36,7 @@ public class CorporaMainPanel extends JPanel {
     private DefaultListModel<String> listModel;
     private JComponent interactionButtons;
 
+    // EFFECTS: creates a CorporaMainPanel parented to the given MainWindow
     public CorporaMainPanel(MainWindow parent) {
         super();
 
@@ -50,6 +54,8 @@ public class CorporaMainPanel extends JPanel {
         layoutComponents();
     }
 
+    // MODIFIES: this
+    // EFFECTS: layout out the components in their proper positions
     private void layoutComponents() {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
@@ -58,6 +64,7 @@ public class CorporaMainPanel extends JPanel {
         add(interactionButtons);
     }
 
+    // EFFECTS: creates a button with the given text and ActionListener
     private JButton createInteractionButton(String text, ActionListener actionListener) {
         JButton interactionButton = new JButton(text);
         interactionButton.setVisible(true);
@@ -66,6 +73,7 @@ public class CorporaMainPanel extends JPanel {
         return interactionButton;
     }
 
+    // EFFECTS: creates a button responsible for removing corpora
     private JButton createRemoveButton() {
         return createInteractionButton(
                 "➖    Remove",
@@ -82,6 +90,7 @@ public class CorporaMainPanel extends JPanel {
         );
     }
 
+    // EFFECTS: creates a button responsible for loading corpora
     private JButton createLoadButton() {
         return createInteractionButton(
                 "🔃    Load",
@@ -95,6 +104,7 @@ public class CorporaMainPanel extends JPanel {
         );
     }
 
+    // EFFECTS: creates a button responsible for viewing corpora
     private JButton createViewButton() {
         return createInteractionButton(
                 "👁    View",
@@ -112,6 +122,7 @@ public class CorporaMainPanel extends JPanel {
         );
     }
 
+    // EFFECTS: creates a button responsible for saving corpora
     private JButton createSaveButton() {
         return createInteractionButton(
                 "💾    Save",
@@ -128,6 +139,8 @@ public class CorporaMainPanel extends JPanel {
         );
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates all interaction buttons for the panel
     private void createInteractionButtons() {
         interactionButtons = new JPanel();
         interactionButtons.setLayout(new BoxLayout(interactionButtons, BoxLayout.LINE_AXIS));
@@ -157,6 +170,7 @@ public class CorporaMainPanel extends JPanel {
         interactionButtons.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
+    // EFFECTS: gets the corpus with the given name; if none are found, return null
     private Corpus getCorpusByName(String name) {
         List<Corpus> corpora = parent.getCorpora();
 
@@ -186,6 +200,8 @@ public class CorporaMainPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads a corpus from file and loads it into the application
     public void loadFromFile(String name) {
         Path path = Paths.get(".", "data", "Corpora", name + ".corpus.json");
         Reader reader = new Reader(path.toString());
@@ -200,6 +216,8 @@ public class CorporaMainPanel extends JPanel {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the list view for all corpora
     private void createList() {
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
@@ -217,11 +235,15 @@ public class CorporaMainPanel extends JPanel {
         listScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
+    // MODIFIES: this, parent
+    // EFFECTS: adds a corpora
     public void addCorpus(Corpus corpus) {
         listModel.addElement(corpus.getName());
         parent.getCorpora().add(corpus);
     }
 
+    // MODIFIES: this, parent
+    // EFFECTS: removes a corpora
     public void removeCorpus(String name) {
         listModel.removeElement(name);
 
@@ -229,6 +251,8 @@ public class CorporaMainPanel extends JPanel {
         corpora.remove(getCorpusByName(name));
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the heaader containing the title and a back button
     private void createHeader() {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));

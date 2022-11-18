@@ -11,6 +11,9 @@ import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the main viewing panel for Tournaments
+ */
 public class TournamentPanel extends JPanel {
 
     private MainWindow parent;
@@ -23,6 +26,7 @@ public class TournamentPanel extends JPanel {
     private JList<Tournament> tournamentJList;
     private JPanel interactionButtons;
 
+    // EFFECTS: creates a TournamentPanel which is parented to the MainWindow
     public TournamentPanel(MainWindow parent) {
         super();
 
@@ -35,10 +39,16 @@ public class TournamentPanel extends JPanel {
         layoutComponents();
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the set of interaction buttons that allow you to interact with tournaments
+    //          and create tournaments
     private void createInteractionButtons() {
 
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the list view (in a scrolling panel) that allows you to view all tournaments
+    //          in a list
     private void createList() {
         tournamentListModel = new DefaultListModel<>();
         tournamentJList = new JList<>(tournamentListModel);
@@ -51,12 +61,16 @@ public class TournamentPanel extends JPanel {
         tournamentScrollPane.setVisible(true);
     }
 
+    // MODIFIES: this
+    // EFFECTS: layouts the components in their proper positions
     private void layoutComponents() {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(tournamentScrollPane);
     }
 
+    // MODIFIES: this
+    // EFFECTS: creates the header, which contains the back button and the title
     private void createHeader() {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
@@ -76,7 +90,14 @@ public class TournamentPanel extends JPanel {
         header.setVisible(true);
     }
 
+    /*
+     * A class responsible for producing the Components that render a Tournament item in a JList
+     * Some implementation details were taken from DefaultListCellRenderer in order
+     * to maintain consistency
+     */
     private static class TournamentCellRenderer implements ListCellRenderer<Tournament> {
+
+        // EFFECTS: creates a Component rendering a single Tournament
 
         // Since I wanted to make this CellRenderer render cells as close to the default as possible,
         // many implementation details were taken from DefaultListCellRenderer. Some implementation
@@ -111,6 +132,7 @@ public class TournamentPanel extends JPanel {
             return cell;
         }
 
+        // EFFECTS: creates the panel containing all keyboards in the tournament
         private Component createKeyboardsPanel(Tournament value) {
             List<String> keyboardNames = new ArrayList<>();
 
@@ -123,6 +145,7 @@ public class TournamentPanel extends JPanel {
             return new JScrollPane(keyboards);
         }
 
+        // EFFECTS: creates a line that contains information about what corpus and effort model is used
         private Component createCorpusAndEffortModelIntoPanel(Tournament value) {
             JPanel infoPanel = new JPanel();
             infoPanel.setLayout(new BoxLayout(infoPanel, BoxLayout.LINE_AXIS));
@@ -140,6 +163,7 @@ public class TournamentPanel extends JPanel {
             return infoPanel;
         }
 
+        // EFFECTS: creates the header that contains an identification for the tournament
         private Component createHeader(Tournament value, int index) {
             JPanel header = new JPanel();
             header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
@@ -153,6 +177,7 @@ public class TournamentPanel extends JPanel {
             return header;
         }
 
+        // EFFECTS: creates the panel that contains all of the components
         private JPanel createCellPanel() {
             JPanel cell = new JPanel();
             cell.setLayout(new BoxLayout(cell, BoxLayout.PAGE_AXIS));
