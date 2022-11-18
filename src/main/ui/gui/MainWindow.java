@@ -44,7 +44,11 @@ public class MainWindow {
 
         setUpContentPanel();
         setUpPaddedPanel();
+    }
 
+    // MODIFIES: this
+    // EFFECTS: add all of the base pages
+    public void addPages() {
         addPage(Page.Selection, new SelectionPanel(app));
         addPage(Page.CorporaMain, new CorporaMainPanel(app));
         addPage(Page.KeyboardMain, new KeyboardMainPanel(app));

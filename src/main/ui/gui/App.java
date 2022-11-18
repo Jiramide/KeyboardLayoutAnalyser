@@ -10,6 +10,10 @@ public class App {
     private final MainWindow mainWindow = new MainWindow(this);
     private final AppState appState = new AppState();
 
+    public App() {
+        mainWindow.addPages();
+    }
+
     // EFFECTS: returns the main window the app is using
     public MainWindow getMainWindow() {
         return mainWindow;
