@@ -33,6 +33,7 @@ public class TournamentCreationPanel extends JPanel {
     private String[] keyboardGeometryChoices;
     private String[] layoutChoices;
 
+    private Dimension comboBoxSize;
     private JPanel header;
     private JButton backButton;
     private JLabel title;
@@ -67,6 +68,7 @@ public class TournamentCreationPanel extends JPanel {
         createKeyboardGeometryChoices();
         createLayoutChoices();
         setUpCorpusChooser();
+        comboBoxSize = new Dimension(80000, (int) (12 / 0.75 + 5));
         setUpEffortModelChooser();
         setUpKeyboardGeometryChooser();
         setUpLayoutChooser();
@@ -86,9 +88,22 @@ public class TournamentCreationPanel extends JPanel {
         createLayoutChoices();
 
         corpusChooser.setModel(new DefaultComboBoxModel<>(corporaChoices));
+        corpusChooser.setSelectedIndex(-1);
+
         effortModelChooser.setModel(new DefaultComboBoxModel<>(effortModelChoices));
+        effortModelChooser.setSelectedIndex(-1);
+
         keyboardChooser.setModel(new DefaultComboBoxModel<>(keyboardGeometryChoices));
+        keyboardChooser.setSelectedIndex(-1);
+
         layoutChooser.setModel(new DefaultComboBoxModel<>(layoutChoices));
+        layoutChooser.setSelectedIndex(-1);
+
+        for (KeyboardInformationPanel keyboardInformationPanel : keyboardsInfo) {
+            keyboardsPanel.remove(keyboardInformationPanel);
+        }
+
+        keyboardsInfo = new ArrayList<>();
     }
 
     // EFFECTS: creates a tournament from the input fields
@@ -153,15 +168,17 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates the combo box for corpora
     private void setUpCorpusChooser() {
-        new JComboBox<>(new DefaultComboBoxModel<>());
         corpusChooser = new JComboBox<>(corporaChoices);
         corpusChooser.setVisible(true);
+        corpusChooser.setMaximumSize(comboBoxSize);
 
         corpusChooser.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                String corpusName = (String) e.getItem();
-                corpus = app.getAppState().getCorpora().get(corpusName);
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String corpusName = (String) e.getItem();
+                    corpus = app.getAppState().getCorpora().get(corpusName);
+                }
             }
         });
     }
@@ -171,12 +188,15 @@ public class TournamentCreationPanel extends JPanel {
     private void setUpEffortModelChooser() {
         effortModelChooser = new JComboBox<>(effortModelChoices);
         effortModelChooser.setVisible(true);
+        effortModelChooser.setMaximumSize(comboBoxSize);
 
         effortModelChooser.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                String effortModelName = (String) e.getItem();
-                effortModel = app.getAppState().getEffortModels().get(effortModelName);
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String effortModelName = (String) e.getItem();
+                    effortModel = app.getAppState().getEffortModels().get(effortModelName);
+                }
             }
         });
     }
@@ -184,14 +204,17 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates the combo box for effort models
     private void setUpKeyboardGeometryChooser() {
-        keyboardChooser = new JComboBox<>(effortModelChoices);
+        keyboardChooser = new JComboBox<>(keyboardGeometryChoices);
         keyboardChooser.setVisible(true);
+        keyboardChooser.setMaximumSize(comboBoxSize);
 
         keyboardChooser.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                String keyboardGeometryName = (String) e.getItem();
-                currentGeometry = app.getAppState().getKeyboardGeometries().get(keyboardGeometryName);
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String keyboardGeometryName = (String) e.getItem();
+                    currentGeometry = app.getAppState().getKeyboardGeometries().get(keyboardGeometryName);
+                }
             }
         });
     }
@@ -199,14 +222,17 @@ public class TournamentCreationPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: creates the combo box for effort models
     private void setUpLayoutChooser() {
-        layoutChooser = new JComboBox<>(effortModelChoices);
+        layoutChooser = new JComboBox<>(layoutChoices);
         layoutChooser.setVisible(true);
+        layoutChooser.setMaximumSize(comboBoxSize);
 
-        effortModelChooser.addItemListener(new ItemListener() {
+        layoutChooser.addItemListener(new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
-                String layoutName = (String) e.getItem();
-                currentLayout = app.getAppState().getLayouts().get(layoutName);
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    String layoutName = (String) e.getItem();
+                    currentLayout = app.getAppState().getLayouts().get(layoutName);
+                }
             }
         });
     }
@@ -291,12 +317,12 @@ public class TournamentCreationPanel extends JPanel {
     private void setUpKeyboards() {
         keyboardsPanel = new JPanel();
         keyboardsPanel.setLayout(new BoxLayout(keyboardsPanel, BoxLayout.PAGE_AXIS));
+        keyboardsPanel.setVisible(true);
 
         additionFields = new JPanel();
         additionFields.setLayout(new BoxLayout(additionFields, BoxLayout.LINE_AXIS));
+        additionFields.setVisible(true);
 
-        keyboardChooser = new JComboBox<>(keyboardGeometryChoices);
-        layoutChooser = new JComboBox<>(layoutChoices);
         addKeyboardButton = createAddKeyboardButton();
 
         additionFields.add(keyboardChooser);
@@ -320,7 +346,11 @@ public class TournamentCreationPanel extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 KeyboardInformationPanel infoPanel = new KeyboardInformationPanel(currentGeometry, currentLayout);
+
                 keyboardsPanel.add(infoPanel, keyboardsInfo.size());
+                keyboardsInfo.add(infoPanel);
+
+                keyboardsPanel.revalidate();
             }
         });
 
@@ -480,6 +510,9 @@ public class TournamentCreationPanel extends JPanel {
                             iterator.remove();
                             keyboardsPanel.remove(panel);
                             keyboards.remove(panel);
+
+                            keyboardsPanel.revalidate();
+                            keyboardsPanel.repaint();
 
                             break;
                         }
