@@ -19,6 +19,8 @@ public class CorporaCreationPanel extends JPanel {
     private JButton backButton;
     private JLabel title;
     private JPanel metadata;
+    private JPanel corpusNameLine;
+    private JLabel corpusNameTitle;
     private JTextField corpusName;
     private JScrollPane corpusContentScroll;
     private JTextArea corpusContent;
@@ -40,7 +42,6 @@ public class CorporaCreationPanel extends JPanel {
         setUpCorpusContent();
         setUpInteractionButtons();
         layoutComponents();
-
         setVisible(true);
     }
 
@@ -89,21 +90,23 @@ public class CorporaCreationPanel extends JPanel {
         metadata = new JPanel();
         metadata.setLayout(new BoxLayout(metadata, BoxLayout.PAGE_AXIS));
 
-        JPanel corpusNameLine = new JPanel();
-        corpusNameLine.setLayout(new BoxLayout(corpusNameLine, BoxLayout.LINE_AXIS));
+        corpusNameLine = new JPanel();
+        corpusNameLine.setLayout(new BoxLayout(corpusNameLine, BoxLayout.X_AXIS));
 
-        JLabel corpusNameTitle = new JLabel("Name: ");
+        corpusNameTitle = new JLabel("Name: ");
         corpusNameTitle.setVisible(true);
 
         corpusName = new JTextField();
+        corpusNameLine.setPreferredSize(new Dimension(0, 12));
 
         corpusNameLine.add(corpusNameTitle);
+        corpusNameLine.add(Box.createRigidArea(new Dimension(10, 0)));
         corpusNameLine.add(corpusName);
 
         corpusNameLine.setVisible(true);
+        corpusNameLine.setAlignmentX(Component.LEFT_ALIGNMENT);
 
         metadata.add(corpusNameLine);
-
         metadata.setVisible(true);
         metadata.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
@@ -156,11 +159,23 @@ public class CorporaCreationPanel extends JPanel {
         createButton = mainWindow.createNavigationButton(Page.CorporaMain);
         createButton.setText("Create");
 
+        CorporaCreationPanel panel = this;
+
         createButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = corpusName.getText();
                 String content = corpusContent.getText();
+
+                if (name.trim().equals("") || content.trim().equals("")) {
+                    JOptionPane.showMessageDialog(
+                            panel,
+                            "Name or content can't be blank!",
+                            "Error creating corpus",
+                            JOptionPane.ERROR_MESSAGE
+                    );
+                    return;
+                }
 
                 parent.addCorpus(new StringCorpus(name, "", content));
                 clear();
