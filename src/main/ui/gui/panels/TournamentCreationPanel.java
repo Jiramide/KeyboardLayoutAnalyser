@@ -41,9 +41,9 @@ public class TournamentCreationPanel extends JPanel {
     private JPanel keyboardsPanel;
     protected List<KeyboardInformationPanel> keyboardsInfo;
     private JPanel additionFields;
-    private String currentGeometry;
+    private KeyboardGeometry currentGeometry;
     private JComboBox<String> keyboardChooser;
-    private String currentLayout;
+    private Layout currentLayout;
     private JComboBox<String> layoutChooser;
     private JButton addKeyboardButton;
     private JPanel interactionButtons;
@@ -151,6 +151,36 @@ public class TournamentCreationPanel extends JPanel {
     }
 
     // MODIFIES: this
+    // EFFECTS: creates the combo box for effort models
+    private void setUpKeyboardGeometryChooser() {
+        keyboardChooser = new JComboBox<>(effortModelChoices);
+        keyboardChooser.setVisible(true);
+
+        keyboardChooser.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String keyboardGeometryName = (String) e.getItem();
+                currentGeometry = app.getAppState().getKeyboardGeometries().get(keyboardGeometryName);
+            }
+        });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the combo box for effort models
+    private void setUpLayoutChooser() {
+        layoutChooser = new JComboBox<>(effortModelChoices);
+        layoutChooser.setVisible(true);
+
+        effortModelChooser.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String layoutName = (String) e.getItem();
+                currentLayout = app.getAppState().getLayouts().get(layoutName);
+            }
+        });
+    }
+
+    // MODIFIES: this
     // EFFECTS: creates the metadata panel that asks for the corpus and effort model used
     private void setUpMetadata() {
         metadata = new JPanel();
@@ -203,11 +233,11 @@ public class TournamentCreationPanel extends JPanel {
     // EFFECTS: creates the list of choices for keyboard geometries
     private void createKeyboardGeometryChoices() {
         keyboardGeometryChoices = (String[]) app
-            .getAppState()
-            .getKeyboardGeometries()
-            .stream()
-            .map(GET_NAME)
-            .toArray();
+                .getAppState()
+                .getKeyboardGeometries()
+                .stream()
+                .map(GET_NAME)
+                .toArray();
     }
 
     // MODIFIES: this
@@ -252,7 +282,8 @@ public class TournamentCreationPanel extends JPanel {
         addKeyboardButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                KeyboardInformationPanel infoPanel = new KeyboardInformationPanel();
+                KeyboardInformationPanel infoPanel = new KeyboardInformationPanel(currentGeometry, currentLayout);
+                keyboardsPanel.add(infoPanel, keyboardsInfo.size());
             }
         });
 
