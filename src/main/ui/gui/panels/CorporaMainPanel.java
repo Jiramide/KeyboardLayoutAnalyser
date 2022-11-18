@@ -54,7 +54,7 @@ public class CorporaMainPanel extends JPanel {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
         add(listScrollPane);
-        add(Box.createVerticalGlue());
+        add(Box.createRigidArea(new Dimension(0, 10)));
         add(interactionButtons);
     }
 
