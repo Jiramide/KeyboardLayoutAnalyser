@@ -65,9 +65,13 @@ public class CorporaViewPanel extends JPanel {
     private void setUpContent() {
         corpusContent = new JTextArea();
         corpusContent.setLineWrap(true);
-        corpusContent.setAlignmentX(Component.CENTER_ALIGNMENT);
+        corpusContent.setAlignmentX(Component.LEFT_ALIGNMENT);
 
-        add(corpusContent);
+        JScrollPane contentScrollPane = new JScrollPane(corpusContent);
+        contentScrollPane.setAlignmentX(Component.CENTER_ALIGNMENT);
+        contentScrollPane.setVisible(true);
+
+        add(contentScrollPane);
     }
 
     private void setUpShowMore() {
