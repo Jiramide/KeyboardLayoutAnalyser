@@ -30,9 +30,24 @@ public class Tournament {
         this.scores = null;
     }
 
+    // EFFECTS: returns the corpus used for the tournament
+    public Corpus getCorpus() {
+        return corpus;
+    }
+
+    // EFFECTS: returns the effort model used for the tournament
+    public EffortModel getEffortModel() {
+        return effortCalculator;
+    }
+
+    // EFFECTS: returns the keyboards used for the tournament
+    public List<Keyboard> getKeyboards() {
+        return keyboards;
+    }
+
     // EFFECTS: computes the score for a given keyboard (according to the effort model)
     private Double computeScore(Keyboard keyboard) {
-        return effortCalculator.computeTotalEffort(corpus, keyboard);
+        return getEffortModel().computeTotalEffort(getCorpus(), keyboard);
     }
 
     // MODIFIES: this
@@ -44,7 +59,7 @@ public class Tournament {
 
         Map<Keyboard, Double> scores = new HashMap<>();
 
-        for (Keyboard keyboard : keyboards) {
+        for (Keyboard keyboard : getKeyboards()) {
             scores.put(keyboard, computeScore(keyboard));
         }
 
@@ -57,7 +72,7 @@ public class Tournament {
     public List<Keyboard> getSortedRankings() {
         Map<Keyboard, Double> scores = computeScores();
 
-        ArrayList<Keyboard> keyboardsAsArrayList = (ArrayList<Keyboard>) keyboards;
+        ArrayList<Keyboard> keyboardsAsArrayList = (ArrayList<Keyboard>) getKeyboards();
         List<Keyboard> rankings = (List<Keyboard>) keyboardsAsArrayList.clone();
 
         rankings.sort((a, b) -> (int) (SORTING_MULTIPLIER * scores.get(a) - SORTING_MULTIPLIER * scores.get(b)));
@@ -67,21 +82,21 @@ public class Tournament {
 
     // EFFECTS: determines if the given keyboard is already in the tournament
     public boolean hasKeyboard(Keyboard keyboard) {
-        return keyboards.contains(keyboard);
+        return getKeyboards().contains(keyboard);
     }
 
     // REQUIRES: !hasKeyboard(keyboard)
     // MODIFIES: this
     // EFFECTS: adds keyboard into tournament to test against other keyboards
     public void addKeyboard(Keyboard keyboard) {
-        keyboards.add(keyboard);
+        getKeyboards().add(keyboard);
     }
 
     // REQUIRES: hasKeyboard(keyboard)
     // MODIFIES: this
     // EFFECTS: removes keyboard from the tournament
     public void removeKeyboard(Keyboard keyboard) {
-        keyboards.remove(keyboard);
+        getKeyboards().remove(keyboard);
     }
 
 }
