@@ -28,6 +28,7 @@ public class CorporaMainPanel extends JPanel {
     private CorporaViewPanel viewPanel;
 
     private JComponent header;
+    private JScrollPane listScrollPane;
     private JList<String> list;
     private DefaultListModel<String> listModel;
     private JComponent interactionButtons;
@@ -52,7 +53,7 @@ public class CorporaMainPanel extends JPanel {
     private void layoutComponents() {
         add(header);
         add(Box.createRigidArea(new Dimension(0, 10)));
-        add(list);
+        add(listScrollPane);
         add(Box.createVerticalGlue());
         add(interactionButtons);
     }
@@ -211,6 +212,9 @@ public class CorporaMainPanel extends JPanel {
 
         list.setAlignmentX(Component.LEFT_ALIGNMENT);
         list.setVisible(true);
+
+        listScrollPane = new JScrollPane(list);
+        listScrollPane.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     public void addCorpus(Corpus corpus) {
