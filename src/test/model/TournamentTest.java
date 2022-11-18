@@ -9,6 +9,7 @@ import model.corpora.StringCorpus;
 import model.effortmodel.EffortModel;
 import model.effortmodel.DistanceEffortModel;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -65,6 +66,28 @@ public class TournamentTest {
         drwoleh = new Keyboard(basicKeyboardGeometry, new Layout("", "", "drwoleh"));
         hwordle = new Keyboard(basicKeyboardGeometry, new Layout("", "", "hwordle"));
         worldeh = new Keyboard(basicKeyboardGeometry, new Layout("", "", "worldeh"));
+    }
+
+    @Test
+    public void testGetters() {
+        assertEquals(helloWorldCorpus, helloWorldTournament.getCorpus());
+        assertEquals(distanceEffortModel, helloWorldTournament.getEffortModel());
+
+        helloWorldTournament.addKeyboard(wordleh);
+        helloWorldTournament.addKeyboard(helowrd);
+        helloWorldTournament.addKeyboard(drwoleh);
+        helloWorldTournament.addKeyboard(hwordle);
+        helloWorldTournament.addKeyboard(worldeh);
+
+        List<Keyboard> expected = new ArrayList<>();
+        expected.add(wordleh);
+        expected.add(helowrd);
+        expected.add(drwoleh);
+        expected.add(hwordle);
+        expected.add(worldeh);
+
+        List<Keyboard> keyboards = helloWorldTournament.getKeyboards();
+        assertEquals(expected, keyboards);
     }
 
     @Test
