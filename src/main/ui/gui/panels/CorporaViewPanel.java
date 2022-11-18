@@ -30,7 +30,7 @@ public class CorporaViewPanel extends JPanel {
     private JButton showMore;
 
     // EFFECTS: creates a CorporaViewPanel that's parented to a CorporaMainPanel
-    public CorporaViewPanel(MainWindow mainWindow, CorporaMainPanel parent) {
+    public CorporaViewPanel(CorporaMainPanel parent, MainWindow mainWindow) {
         super();
 
         this.mainWindow = mainWindow;
