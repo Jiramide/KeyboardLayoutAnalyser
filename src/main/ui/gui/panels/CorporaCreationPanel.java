@@ -30,4 +30,46 @@ public class CorporaCreationPanel extends JPanel {
     public CorporaCreationPanel(CorporaMainPanel parent, MainWindow mainWindow) {
 
     }
+
+    // MODIFIES: this
+    // EFFECTS: clears the all data inputted into the panel
+    public void clear() {
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: layouts out the components in their proper positions
+    private void layoutComponents() {
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the header containing the back button and the title
+    private void setUpHeader() {
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the metadata fields
+    private void setUpMetadataInput() {
+
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets up the interaction buttons
+    private void setUpInteractionButtons() {
+
+    }
+
+    // EFFECTS: creates the cancel button
+    private JButton createCancelButton() {
+        return null;
+    }
+
+    // EFFECTS: creates the create button
+    private JButton createCreateButton() {
+        return null;
+    }
+
+
 }
