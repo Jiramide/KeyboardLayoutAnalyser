@@ -10,6 +10,7 @@ import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import model.*;
 import model.corpora.Corpus;
@@ -52,7 +53,26 @@ public class TournamentCreationPanel extends JPanel {
 
     // EFFECTS: creates a TournamentCreationPanel with the parent
     public TournamentCreationPanel(App app, TournamentPanel parent) {
+        super();
 
+        this.app = app;
+        this.parent = parent;
+
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+
+        createCorporaChoices();
+        createEffortModelChoices();
+        createKeyboardGeometryChoices();
+        createLayoutChoices();
+        setUpCorpusChooser();
+        setUpEffortModelChooser();
+        setUpKeyboardGeometryChooser();
+        setUpLayoutChooser();
+        setUpHeader();
+        setUpMetadata();
+        setUpKeyboards();
+        setUpInteractionButtons();
+        layoutComponents();
     }
 
     // MODIFIES: this
@@ -215,6 +235,7 @@ public class TournamentCreationPanel extends JPanel {
                 .getCorpora()
                 .stream()
                 .map(GET_NAME)
+                .collect(Collectors.toList())
                 .toArray();
     }
 
@@ -226,6 +247,7 @@ public class TournamentCreationPanel extends JPanel {
                 .getEffortModels()
                 .stream()
                 .map(GET_NAME)
+                .collect(Collectors.toList())
                 .toArray();
     }
 
@@ -237,6 +259,7 @@ public class TournamentCreationPanel extends JPanel {
                 .getKeyboardGeometries()
                 .stream()
                 .map(GET_NAME)
+                .collect(Collectors.toList())
                 .toArray();
     }
 
@@ -248,6 +271,7 @@ public class TournamentCreationPanel extends JPanel {
                 .getLayouts()
                 .stream()
                 .map(GET_NAME)
+                .collect(Collectors.toList())
                 .toArray();
     }
 
