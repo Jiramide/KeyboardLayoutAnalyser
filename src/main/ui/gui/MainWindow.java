@@ -31,24 +31,24 @@ public class MainWindow {
     public static final int HEIGHT = 400;
     public static final int SIDE_PADDING = 5;
 
+    private App app;
+
     private JFrame frame = new JFrame(TITLE);
     private JPanel mainPanel = new JPanel();
     private CardLayout cardLayout = new CardLayout();
 
-    private List<Corpus> corpora = new ArrayList<>();
-    private List<KeyboardGeometry> keyboardGeometries = new ArrayList<>();
-    private List<Layout> layouts = new ArrayList<>();
-    private List<EffortModel> effortModels = new ArrayList<>();
 
     // EFFECTS: creates a MainWindow
-    public MainWindow() {
+    public MainWindow(App app) {
+        this.app = app;
+
         setUpContentPanel();
         setUpPaddedPanel();
 
-        addPage(Page.Selection, new SelectionPanel(this));
-        addPage(Page.CorporaMain, new CorporaMainPanel(this));
-        addPage(Page.KeyboardMain, new KeyboardMainPanel(this));
-        addPage(Page.Tournament, new TournamentPanel(this));
+        addPage(Page.Selection, new SelectionPanel(app));
+        addPage(Page.CorporaMain, new CorporaMainPanel(app));
+        addPage(Page.KeyboardMain, new KeyboardMainPanel(app));
+        addPage(Page.Tournament, new TournamentPanel(app));
 
         goTo(Page.Selection);
     }
@@ -77,26 +77,6 @@ public class MainWindow {
         mainPanel.setLayout(cardLayout);
 
         mainPanel.setVisible(true);
-    }
-
-    // EFFECTS: returns the list of corpora that the application is working on
-    public List<Corpus> getCorpora() {
-        return corpora;
-    }
-
-    // EFFECTS: returns the list of keyboard geometries that the application is working on
-    public List<KeyboardGeometry> getKeyboardGeometries() {
-        return keyboardGeometries;
-    }
-
-    // EFFECTS: returns the list of layouts that the application is working on
-    public List<Layout> getLayouts() {
-        return layouts;
-    }
-
-    // EFFECTS: returns the list of effort models that the application is working on
-    public List<EffortModel> getEffortModels() {
-        return effortModels;
     }
 
     // MODIFIES: this

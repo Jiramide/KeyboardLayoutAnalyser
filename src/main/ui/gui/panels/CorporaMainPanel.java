@@ -10,12 +10,10 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import model.corpora.Corpus;
-import model.corpora.CorpusReader;
-import model.corpora.StringCorpus;
 import org.json.JSONException;
 import persistence.Reader;
 import persistence.Writer;
-import ui.gui.MainWindow;
+import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
@@ -24,7 +22,7 @@ import static ui.gui.MainWindow.Page;
  */
 public class CorporaMainPanel extends JPanel {
 
-    private MainWindow parent;
+    private App app;
 
     private BoxLayout boxLayout;
 
@@ -38,16 +36,16 @@ public class CorporaMainPanel extends JPanel {
     private JComponent interactionButtons;
 
     // EFFECTS: creates a CorporaMainPanel parented to the given MainWindow
-    public CorporaMainPanel(MainWindow parent) {
+    public CorporaMainPanel(App app) {
         super();
 
-        this.parent = parent;
+        this.app = app;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
-        viewPanel = new CorporaViewPanel(this, parent);
-        creationPanel = new CorporaCreationPanel(this, parent);
+        viewPanel = new CorporaViewPanel(app, this);
+        creationPanel = new CorporaCreationPanel(app, this);
 
-        parent.addPage(Page.CorporaView, viewPanel);
-        parent.addPage(Page.CorporaCreation, creationPanel);
+        app.getMainWindow().addPage(Page.CorporaView, viewPanel);
+        app.getMainWindow().addPage(Page.CorporaCreation, creationPanel);
 
         setLayout(boxLayout);
         setVisible(true);
@@ -118,7 +116,7 @@ public class CorporaMainPanel extends JPanel {
 
                         if (corpus != null) {
                             viewPanel.setCorpus(corpus);
-                            parent.goTo(Page.CorporaView);
+                            app.getMainWindow().goTo(Page.CorporaView);
                         }
                     }
                 }
@@ -144,7 +142,7 @@ public class CorporaMainPanel extends JPanel {
 
     // EFFECTS: creates a create button
     private JButton createCreateButton() {
-        JButton addButton = parent.createNavigationButton(Page.CorporaCreation);
+        JButton addButton = app.getMainWindow().createNavigationButton(Page.CorporaCreation);
         addButton.setText("➕    Create");
 
         return addButton;
@@ -175,7 +173,7 @@ public class CorporaMainPanel extends JPanel {
 
     // EFFECTS: gets the corpus with the given name; if none are found, return null
     private Corpus getCorpusByName(String name) {
-        List<Corpus> corpora = parent.getCorpora();
+        List<Corpus> corpora = app.getAppState().getCorpora();
 
         for (Corpus corpus : corpora) {
             if (corpus.getName().equals(name)) {
@@ -225,7 +223,7 @@ public class CorporaMainPanel extends JPanel {
         listModel = new DefaultListModel<>();
         list = new JList<>(listModel);
 
-        List<Corpus> corpora = parent.getCorpora();
+        List<Corpus> corpora = app.getAppState().getCorpora();
 
         for (Corpus corpus : corpora) {
             listModel.addElement(corpus.getName());
@@ -242,25 +240,23 @@ public class CorporaMainPanel extends JPanel {
     // EFFECTS: adds a corpora
     public void addCorpus(Corpus corpus) {
         listModel.addElement(corpus.getName());
-        parent.getCorpora().add(corpus);
+        app.getAppState().getCorpora().add(corpus);
     }
 
     // MODIFIES: this, parent
     // EFFECTS: removes a corpora
     public void removeCorpus(String name) {
         listModel.removeElement(name);
-
-        List<Corpus> corpora = parent.getCorpora();
-        corpora.remove(getCorpusByName(name));
+        app.getAppState().getCorpora().remove(name);
     }
 
     // MODIFIES: this
-    // EFFECTS: creates the heaader containing the title and a back button
+    // EFFECTS: creates the header containing the title and a back button
     private void createHeader() {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
-        JButton backButton = parent.createNavigationButton(Page.Selection);
+        JButton backButton = app.getMainWindow().createNavigationButton(Page.Selection);
         backButton.setText("<");
 
         JLabel title = new JLabel("Corpora");

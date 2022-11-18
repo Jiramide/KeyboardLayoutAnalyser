@@ -7,7 +7,7 @@ import java.awt.event.ActionListener;
 
 import model.corpora.Corpus;
 import model.corpora.CorpusReader;
-import ui.gui.MainWindow;
+import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
@@ -18,7 +18,8 @@ public class CorporaViewPanel extends JPanel {
 
     public static final int CHARS_PER_READ_ITERATION = 500;
 
-    private MainWindow mainWindow;
+    private App app;
+
     private CorporaMainPanel parent;
     private Corpus corpus;
     private CorpusReader reader;
@@ -30,10 +31,10 @@ public class CorporaViewPanel extends JPanel {
     private JButton showMore;
 
     // EFFECTS: creates a CorporaViewPanel that's parented to a CorporaMainPanel
-    public CorporaViewPanel(CorporaMainPanel parent, MainWindow mainWindow) {
+    public CorporaViewPanel(App app, CorporaMainPanel parent) {
         super();
 
-        this.mainWindow = mainWindow;
+        this.app = app;
         this.parent = parent;
 
         contentBuffer = new StringBuilder();
@@ -53,7 +54,7 @@ public class CorporaViewPanel extends JPanel {
         JPanel header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
-        backButton = mainWindow.createNavigationButton(Page.CorporaMain);
+        backButton = app.getMainWindow().createNavigationButton(Page.CorporaMain);
         backButton.setText("<");
 
         corpusName = new JLabel();

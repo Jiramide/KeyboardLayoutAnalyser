@@ -7,7 +7,7 @@ import model.AppState;
  */
 public class App {
 
-    private final MainWindow mainWindow = new MainWindow();
+    private final MainWindow mainWindow = new MainWindow(this);
     private final AppState appState = new AppState();
 
     // EFFECTS: returns the main window the app is using

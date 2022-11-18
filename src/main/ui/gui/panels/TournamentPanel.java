@@ -9,6 +9,7 @@ import java.util.List;
 
 import model.Keyboard;
 import model.Tournament;
+import ui.gui.App;
 import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
@@ -18,25 +19,26 @@ import static ui.gui.MainWindow.Page;
  */
 public class TournamentPanel extends JPanel {
 
-    private MainWindow parent;
+    private App app;
+
     private BoxLayout boxLayout;
     private List<Tournament> tournaments = new ArrayList<>();
 
     private JPanel header;
     private JScrollPane tournamentScrollPane;
-    private ListModel<Tournament> tournamentListModel;
+    private DefaultListModel<Tournament> tournamentListModel;
     private JList<Tournament> tournamentJList;
     private JPanel interactionButtons;
 
     private TournamentCreationPanel tournamentCreationPanel;
 
     // EFFECTS: creates a TournamentPanel which is parented to the MainWindow
-    public TournamentPanel(MainWindow parent) {
+    public TournamentPanel(App app) {
         super();
 
-        this.parent = parent;
+        this.app = app;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
-        tournamentCreationPanel = new TournamentCreationPanel(this, parent);
+        tournamentCreationPanel = new TournamentCreationPanel(app, this);
 
         setLayout(boxLayout);
         createHeader();
@@ -45,9 +47,16 @@ public class TournamentPanel extends JPanel {
         layoutComponents();
     }
 
+    // MODIFIES: this
+    // EFFECTS: inserts a new tournament into the application
+    public void addTournament(Tournament tournament) {
+        tournaments.add(tournament);
+        tournamentListModel.add(0, tournament);
+    }
+
     // EFFECTS: creates a button responsible for directing you to the TournamentCreation page
     private JButton createNewTournamentButton() {
-        JButton newTournamentButton = parent.createNavigationButton(Page.TournamentCreation);
+        JButton newTournamentButton = app.getMainWindow().createNavigationButton(Page.TournamentCreation);
         newTournamentButton.setText("➕    Create new tournament");
 
         return newTournamentButton;
@@ -102,7 +111,7 @@ public class TournamentPanel extends JPanel {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
-        JButton backButton = parent.createNavigationButton(Page.Selection);
+        JButton backButton = app.getMainWindow().createNavigationButton(Page.Selection);
         backButton.setText("<");
 
         JLabel title = new JLabel();
@@ -204,7 +213,7 @@ public class TournamentPanel extends JPanel {
             return header;
         }
 
-        // EFFECTS: creates the panel that contains all of the components
+        // EFFECTS: creates the panel that contains all the components
         private JPanel createCellPanel() {
             JPanel cell = new JPanel();
             cell.setLayout(new BoxLayout(cell, BoxLayout.PAGE_AXIS));

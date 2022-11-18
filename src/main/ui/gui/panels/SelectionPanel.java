@@ -3,6 +3,7 @@ package ui.gui.panels;
 import java.awt.*;
 import javax.swing.*;
 
+import ui.gui.App;
 import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
@@ -14,7 +15,7 @@ public class SelectionPanel extends JPanel {
 
     private static final Dimension SELECTION_BUTTON_SPACING = new Dimension(0, 10);
 
-    private MainWindow parent;
+    private App app;
 
     private BoxLayout boxLayout;
 
@@ -24,10 +25,10 @@ public class SelectionPanel extends JPanel {
     private JButton tournamentButton;
 
     // EFFECTS: creates the panel for the main navigation page
-    public SelectionPanel(MainWindow parent) {
+    public SelectionPanel(App app) {
         super();
 
-        this.parent = parent;
+        this.app = app;
         boxLayout = new BoxLayout(this, BoxLayout.PAGE_AXIS);
 
         setLayout(boxLayout);
@@ -73,17 +74,19 @@ public class SelectionPanel extends JPanel {
     // EFFECTS: creates the navigation buttons leading to the three main pages (Corpora, Keyboard, Tournament)
     //          and adds them into the panel
     private void createNavigationButtons() {
-        corporaButton = parent.createNavigationButton(Page.CorporaMain);
+        MainWindow mainWindow = app.getMainWindow();
+
+        corporaButton = mainWindow.createNavigationButton(Page.CorporaMain);
         corporaButton.setText("📕    Corpora");
         corporaButton.setVisible(true);
         corporaButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        keyboardButton = parent.createNavigationButton(Page.KeyboardMain);
+        keyboardButton = mainWindow.createNavigationButton(Page.KeyboardMain);
         keyboardButton.setText("⌨    Keyboard");
         keyboardButton.setVisible(true);
         keyboardButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
-        tournamentButton = parent.createNavigationButton(Page.Tournament);
+        tournamentButton = mainWindow.createNavigationButton(Page.Tournament);
         tournamentButton.setText("🏆    Tournament");
         tournamentButton.setVisible(true);
         tournamentButton.setAlignmentX(Component.CENTER_ALIGNMENT);

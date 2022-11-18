@@ -5,28 +5,26 @@ import javax.swing.*;
 import javax.swing.border.EtchedBorder;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.Iterator;
 import java.util.List;
+import java.util.function.Function;
 
-import model.KeyboardGeometry;
-import model.Layout;
-import model.Tournament;
+import model.*;
 import model.corpora.Corpus;
 import model.effortmodel.EffortModel;
-import ui.gui.MainWindow;
+import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
 public class TournamentCreationPanel extends JPanel {
 
-    private MainWindow mainWindow;
+    private App app;
     private TournamentPanel parent;
 
     private Corpus corpus;
     private EffortModel effortModel;
-    private List<KeyboardGeometry> keyboardGeometries;
-    private List<Layout> layouts;
 
     private String[] corporaChoices;
     private String[] effortModelChoices;
@@ -37,21 +35,23 @@ public class TournamentCreationPanel extends JPanel {
     private JButton backButton;
     private JLabel title;
     private JPanel metadata;
-    private JLabel corpusText;
     private JComboBox<String> corpusChooser;
-    private JLabel effortModelText;
     private JComboBox<String> effortModelChooser;
     private JScrollPane keyboards;
+    private JPanel keyboardsPanel;
     protected List<KeyboardInformationPanel> keyboardsInfo;
+    private JPanel additionFields;
+    private String currentGeometry;
     private JComboBox<String> keyboardChooser;
+    private String currentLayout;
     private JComboBox<String> layoutChooser;
-    private JButton addKeyboard;
+    private JButton addKeyboardButton;
     private JPanel interactionButtons;
     private JButton cancelButton;
     private JButton createButton;
 
     // EFFECTS: creates a TournamentCreationPanel with the parent
-    public TournamentCreationPanel(TournamentPanel parent, MainWindow mainWindow) {
+    public TournamentCreationPanel(App app, TournamentPanel parent) {
 
     }
 
@@ -62,14 +62,26 @@ public class TournamentCreationPanel extends JPanel {
     }
 
     // EFFECTS: creates a tournament from the input fields
-    private Tournament createTournamentFromFields() {
-        return null;
+    private Tournament createTournament() {
+        Tournament tournament = new Tournament(corpus, effortModel);
+
+        for (KeyboardInformationPanel keyboardInformationPanel : keyboardsInfo) {
+            tournament.addKeyboard(keyboardInformationPanel.createKeyboard());
+        }
+
+        return tournament;
     }
 
     // MODIFIES: this
     // EFFECTS: layouts the components in their proper positions
     private void layoutComponents() {
-
+        add(header);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(metadata);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(keyboards);
+        add(Box.createRigidArea(new Dimension(0, 10)));
+        add(interactionButtons);
     }
 
     // MODIFIES: this
@@ -78,7 +90,7 @@ public class TournamentCreationPanel extends JPanel {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
-        backButton = mainWindow.createNavigationButton(Page.Tournament);
+        backButton = app.getMainWindow().createNavigationButton(Page.Tournament);
         backButton.setText("<");
 
         title = new JLabel("🏆  Create tournament");
@@ -91,86 +103,210 @@ public class TournamentCreationPanel extends JPanel {
         header.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
+    // EFFECTS: creates a metadata field with the given name and choices
+    private JPanel createMetadataField(String name, JComboBox<String> choices) {
+        JPanel metadataField = new JPanel();
+        metadataField.setLayout(new BoxLayout(metadataField, BoxLayout.LINE_AXIS));
+
+        JLabel metadataName = new JLabel(name + ": ");
+
+        metadataField.add(metadataName);
+        metadataField.add(Box.createRigidArea(new Dimension(10, 0)));
+        metadataField.add(choices);
+
+        metadataField.setVisible(true);
+        metadataField.setAlignmentX(Component.LEFT_ALIGNMENT);
+
+        return metadataField;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the combo box for corpora
+    private void setUpCorpusChooser() {
+        corpusChooser = new JComboBox<>(corporaChoices);
+        corpusChooser.setVisible(true);
+
+        corpusChooser.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String corpusName = (String) e.getItem();
+                corpus = app.getAppState().getCorpora().get(corpusName);
+            }
+        });
+    }
+
+    // MODIFIES: this
+    // EFFECTS: creates the combo box for effort models
+    private void setUpEffortModelChooser() {
+        effortModelChooser = new JComboBox<>(effortModelChoices);
+        effortModelChooser.setVisible(true);
+
+        effortModelChooser.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                String effortModelName = (String) e.getItem();
+                effortModel = app.getAppState().getEffortModels().get(effortModelName);
+            }
+        });
+    }
+
     // MODIFIES: this
     // EFFECTS: creates the metadata panel that asks for the corpus and effort model used
     private void setUpMetadata() {
+        metadata = new JPanel();
+        metadata.setLayout(new BoxLayout(metadata, BoxLayout.LINE_AXIS));
 
+        setUpCorpusChooser();
+        setUpEffortModelChooser();
+
+        JPanel corpusMetadata = createMetadataField("Corpus", corpusChooser);
+        JPanel effortModelMetadata = createMetadataField("EffortModel", effortModelChooser);
+
+        metadata.add(corpusMetadata);
+        metadata.add(Box.createHorizontalGlue());
+        metadata.add(effortModelMetadata);
+
+        metadata.setVisible(true);
+        metadata.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
+
+    private static final Function<INameable, String> GET_NAME = new Function<INameable, String>() {
+        @Override
+        public String apply(INameable nameable) {
+            return nameable.getName();
+        }
+    };
 
     // MODIFIES: this
     // EFFECTS: creates the list of choices for corpora
     private void createCorporaChoices() {
-        List<Corpus> corpora = mainWindow.getCorpora();
-        List<String> corporaNames = new ArrayList<>();
-
-        for (Corpus corpus : corpora) {
-            corporaNames.add(corpus.getName());
-        }
-
-        corporaChoices = (String[]) corporaNames.toArray();
+        corporaChoices = (String[]) app
+                .getAppState()
+                .getCorpora()
+                .stream()
+                .map(GET_NAME)
+                .toArray();
     }
 
     // MODIFIES: this
     // EFFECTS: creates the list of choices for effort models
     private void createEffortModelChoices() {
-        List<EffortModel> effortModels = mainWindow.getEffortModels();
-        List<String> effortModelsNames = new ArrayList<>();
-
-        for (EffortModel effortModel : effortModels) {
-            effortModelsNames.add(effortModel.getName());
-        }
-
-        effortModelChoices = (String[]) effortModelsNames.toArray();
+        effortModelChoices = (String[]) app
+                .getAppState()
+                .getEffortModels()
+                .stream()
+                .map(GET_NAME)
+                .toArray();
     }
 
     // MODIFIES: this
     // EFFECTS: creates the list of choices for keyboard geometries
     private void createKeyboardGeometryChoices() {
-        List<KeyboardGeometry> keyboardGeometries = mainWindow.getKeyboardGeometries();
-        List<String> keyboardGeometryNames = new ArrayList<>();
-
-        for (KeyboardGeometry geometry : keyboardGeometries) {
-            keyboardGeometryNames.add(geometry.getName());
-        }
-
-        effortModelChoices = (String[]) keyboardGeometryNames.toArray();
+        keyboardGeometryChoices = (String[]) app
+            .getAppState()
+            .getKeyboardGeometries()
+            .stream()
+            .map(GET_NAME)
+            .toArray();
     }
 
     // MODIFIES: this
     // EFFECTS: creates the list of choices for effort models
     private void createLayoutChoices() {
-        List<Layout> layouts = mainWindow.getLayouts();
-        List<String> layoutNames = new ArrayList<>();
-
-        for (Layout layout : layouts) {
-            layoutNames.add(layout.getName());
-        }
-
-        effortModelChoices = (String[]) layoutNames.toArray();
+        layoutChoices = (String[]) app
+                .getAppState()
+                .getLayouts()
+                .stream()
+                .map(GET_NAME)
+                .toArray();
     }
-
-
 
     // MODIFIES: this
     // EFFECTS: creates the keyboards list that shows all keyboards
     private void setUpKeyboards() {
+        keyboardsPanel = new JPanel();
+        keyboardsPanel.setLayout(new BoxLayout(keyboardsPanel, BoxLayout.PAGE_AXIS));
 
+        additionFields = new JPanel();
+        additionFields.setLayout(new BoxLayout(additionFields, BoxLayout.LINE_AXIS));
+
+        keyboardChooser = new JComboBox<>(keyboardGeometryChoices);
+        layoutChooser = new JComboBox<>(layoutChoices);
+        addKeyboardButton = createAddKeyboardButton();
+
+        additionFields.add(keyboardChooser);
+        additionFields.add(new JLabel("  +  "));
+        additionFields.add(layoutChooser);
+        additionFields.add(Box.createHorizontalGlue());
+        additionFields.add(addKeyboardButton);
+
+        keyboards = new JScrollPane(keyboardsPanel);
+        keyboards.setVisible(true);
+        keyboards.setAlignmentX(Component.LEFT_ALIGNMENT);
+    }
+
+    private JButton createAddKeyboardButton() {
+        addKeyboardButton = new JButton();
+        addKeyboardButton.setText("Add keyboard");
+
+        addKeyboardButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KeyboardInformationPanel infoPanel = new KeyboardInformationPanel();
+            }
+        });
+
+        return addKeyboardButton;
     }
 
     // MODIFIES: this
     // EFFECTS: set up the interaction buttons that allow you to cancel or run the tournament
     private void setUpInteractionButtons() {
+        interactionButtons = new JPanel();
+        interactionButtons.setLayout(new BoxLayout(interactionButtons, BoxLayout.LINE_AXIS));
 
+        cancelButton = createCancelButton();
+        createButton = createCreateButton();
+
+        interactionButtons.add(Box.createHorizontalGlue());
+        interactionButtons.add(cancelButton);
+        interactionButtons.add(createButton);
+
+        interactionButtons.setVisible(true);
+        interactionButtons.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
     // EFFECTS: creates the cancel button
     private JButton createCancelButton() {
-        return null;
+        cancelButton = app.getMainWindow().createNavigationButton(Page.Tournament);
+        cancelButton.setText("Cancel");
+
+        cancelButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                clear();
+            }
+        });
+
+        return cancelButton;
     }
 
     // EFFECTS: creates the create button
     private JButton createCreateButton() {
-        return null;
+        createButton = app.getMainWindow().createNavigationButton(Page.Tournament);
+        createButton.setText("Create");
+
+        createButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Tournament tournament = createTournament();
+                parent.addTournament(tournament);
+
+                clear();
+            }
+        });
+
+        return createButton;
     }
 
     /*
@@ -203,6 +339,11 @@ public class TournamentCreationPanel extends JPanel {
             setBorder(BorderFactory.createEtchedBorder(EtchedBorder.LOWERED));
             layoutComponents();
             setVisible(true);
+        }
+
+        // EFFECTS: creates a keyboard from the fields
+        public Keyboard createKeyboard() {
+            return new Keyboard(geometry, layout);
         }
 
         // MODIFIES: this
@@ -269,6 +410,7 @@ public class TournamentCreationPanel extends JPanel {
 
                         if (panel == next) {
                             iterator.remove();
+                            keyboardsPanel.remove(panel);
                             keyboards.remove(panel);
 
                             break;

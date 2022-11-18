@@ -6,13 +6,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import model.corpora.*;
-import ui.gui.MainWindow;
+import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
 public class CorporaCreationPanel extends JPanel {
 
-    private MainWindow mainWindow;
+    private App app;
     private CorporaMainPanel parent;
 
     private JPanel header;
@@ -29,12 +29,12 @@ public class CorporaCreationPanel extends JPanel {
     private JButton createButton;
 
     // EFFECTS: creates a CorporaCreationPanel with the given parent
-    public CorporaCreationPanel(CorporaMainPanel parent, MainWindow mainWindow) {
+    public CorporaCreationPanel(App app, CorporaMainPanel parent) {
         super();
 
         setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-        this.mainWindow = mainWindow;
+        this.app = app;
         this.parent = parent;
 
         setUpHeader();
@@ -70,7 +70,7 @@ public class CorporaCreationPanel extends JPanel {
         header = new JPanel();
         header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
-        backButton = mainWindow.createNavigationButton(Page.CorporaMain);
+        backButton = app.getMainWindow().createNavigationButton(Page.CorporaMain);
         backButton.setText("<");
 
         title = new JLabel("📔  Create corpus");
@@ -147,7 +147,7 @@ public class CorporaCreationPanel extends JPanel {
 
     // EFFECTS: creates the cancel button
     private JButton createCancelButton() {
-        cancelButton = mainWindow.createNavigationButton(Page.CorporaMain);
+        cancelButton = app.getMainWindow().createNavigationButton(Page.CorporaMain);
         cancelButton.setText("Cancel");
 
         cancelButton.addActionListener(new ActionListener() {
@@ -162,7 +162,7 @@ public class CorporaCreationPanel extends JPanel {
 
     // EFFECTS: creates the create button
     private JButton createCreateButton() {
-        createButton = mainWindow.createNavigationButton(Page.CorporaMain);
+        createButton = app.getMainWindow().createNavigationButton(Page.CorporaMain);
         createButton.setText("Create");
 
         CorporaCreationPanel panel = this;
