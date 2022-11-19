@@ -67,3 +67,30 @@ and see which keyboard has the best effort.
 corpora that I've created.
 * [X] As a user, I want to be able to load the saved geometries, layouts and
 corpora that I've saved.
+
+---
+
+## Instructions for Grader
+* In order to load application state from file, you can go to the Corpora, 
+Keyboard.Geometry, Keyboard.Layout windows and use the load button located
+at the button. This will show a pop up dialog that queries the user for 
+a name, which the application will load into its app state.
+* In order to save application state to file, you can go to the same windows
+as listed above, select items you want to save and then press the save button.
+This button allows for multiple item selections as well, so you can press
+<Ctrl> or <Shift> while selecting items to select multiple; pressing the save
+button when multiple items are selected will save all of them.
+* To generate the first event (add keyboards to tournament), go to the 
+Tournament tab and press the create tournament button. You will be greeted
+with fields related to constructing a tournament. To add a keyboard, select
+any geometry and layout from the dropdowns then press add keyboard.
+* To generate the second event (remove keyboard from tournament), go to
+the same window as above and create a tournament. After adding keyboards
+into the tournament, a remove button should appear on the same line as
+the keyboard. Pressing that button will remove that keyboard from the
+tournament.
+* To find the visual component, create a tournament with multiple keyboards.
+Afterwards, you'll be directed back to the main tournament page. A tournament
+should now be appearing in the list. Select that tournament, press view
+tournament and a bar graph showing the scores of all of the keyboards will
+appear.
