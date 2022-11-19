@@ -8,37 +8,42 @@ public class AppStateTest {
 
     private AppState appState;
     private KeyboardGeometry testKg;
+    private KeyboardGeometry testKg2;
 
     @BeforeEach
     public void beforeEach() {
         appState = new AppState();
         testKg = new KeyboardGeometry("TestKg", "");
+        testKg2 = new KeyboardGeometry("TestKg2", "");
     }
 
     @Test
     public void testAdd() {
         appState.getKeyboardGeometries().add(testKg);
-        assertEquals(1, appState.getKeyboardGeometries().size());
+        appState.getKeyboardGeometries().add(testKg2);
+        assertEquals(2, appState.getKeyboardGeometries().size());
         assertEquals(0, appState.getCorpora().size());
         assertEquals(0, appState.getLayouts().size());
         assertEquals(0, appState.getEffortModels().size());
         assertEquals(0, appState.getTournaments().size());
 
         assertNull(appState.getEffortModels().remove("ShouldFindNothing"));
-        assertEquals(1, appState.getKeyboardGeometries().size());
+        assertEquals(2, appState.getKeyboardGeometries().size());
         assertEquals(0, appState.getCorpora().size());
         assertEquals(0, appState.getLayouts().size());
         assertEquals(0, appState.getEffortModels().size());
         assertEquals(0, appState.getTournaments().size());
 
         assertNull(appState.getKeyboardGeometries().get("ShouldFindNothing"));
-        assertEquals(1, appState.getKeyboardGeometries().size());
+        assertEquals(2, appState.getKeyboardGeometries().size());
         assertEquals(0, appState.getCorpora().size());
         assertEquals(0, appState.getLayouts().size());
         assertEquals(0, appState.getEffortModels().size());
         assertEquals(0, appState.getTournaments().size());
 
-        assertEquals(testKg, appState.getKeyboardGeometries().get("TestKg"));
+
+        assertEquals(testKg2, appState.getKeyboardGeometries().get("TestKg2"));
+        assertEquals(testKg2, appState.getKeyboardGeometries().remove("TestKg2"));
         assertNull(appState.getKeyboardGeometries().get("ShouldFindNothing"));
 
         assertEquals(testKg, appState.getKeyboardGeometries().remove("TestKg"));
