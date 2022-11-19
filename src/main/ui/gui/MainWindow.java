@@ -1,22 +1,11 @@
 package ui.gui;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
-import model.KeyboardGeometry;
-import model.Layout;
-import model.Tournament;
-import model.corpora.Corpus;
-
-import model.corpora.StringCorpus;
-import model.effortmodel.EffortModel;
 import ui.gui.panels.*;
 
 /*
@@ -52,7 +41,7 @@ public class MainWindow {
         addPage(Page.CorporaMain, new CorporaMainPanel(app));
         addPage(Page.KeyboardMain, new KeyboardMainPanel(app));
         addPage(Page.LayoutMain, new LayoutMainPanel(app));
-        // addPage(Page.KeyboardGeometryMain, new KeyboardGeometryMain(this));
+        addPage(Page.KeyboardGeometryMain, new KeyboardGeometryMainPanel(app));
         addPage(Page.Tournament, new TournamentPanel(app));
 
         goTo(Page.Selection);

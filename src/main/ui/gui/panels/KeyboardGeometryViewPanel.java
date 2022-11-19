@@ -16,7 +16,7 @@ import static ui.gui.MainWindow.Page;
 public class KeyboardGeometryViewPanel extends JPanel {
 
     private static final double CHAR_SIZE_IN_UNITS = 0.10;
-    private static final double KEY_EQUALITY_EPSILON = 0.5;
+    private static final double KEY_EQUALITY_EPSILON = 0.05;
 
     private App app;
     private KeyboardGeometryMainPanel parent;
@@ -45,9 +45,12 @@ public class KeyboardGeometryViewPanel extends JPanel {
         header.add(keyboardGeometryName);
         header.add(Box.createHorizontalGlue());
 
+        JLabel lookAtYourConsole = new JLabel("Look at your console ...");
+        lookAtYourConsole.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(header);
         add(Box.createVerticalGlue());
-        add(new JLabel("Look at your console"));
+        add(lookAtYourConsole);
         add(Box.createVerticalGlue());
         setVisible(true);
     }

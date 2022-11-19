@@ -46,9 +46,12 @@ public class KeyboardGeometryCreationPanel extends JPanel {
         header.add(title);
         header.add(Box.createHorizontalGlue());
 
+        JLabel lookAtYourConsole = new JLabel("Look at your console ...");
+        lookAtYourConsole.setAlignmentX(Component.CENTER_ALIGNMENT);
+
         add(header);
         add(Box.createVerticalGlue());
-        add(new JLabel("Look at your console"));
+        add(lookAtYourConsole);
         add(Box.createVerticalGlue());
         setVisible(true);
     }
