@@ -37,7 +37,6 @@ public class MainWindow {
     private JPanel mainPanel = new JPanel();
     private CardLayout cardLayout = new CardLayout();
 
-
     // EFFECTS: creates a MainWindow
     public MainWindow(App app) {
         this.app = app;
@@ -52,6 +51,8 @@ public class MainWindow {
         addPage(Page.Selection, new SelectionPanel(app));
         addPage(Page.CorporaMain, new CorporaMainPanel(app));
         addPage(Page.KeyboardMain, new KeyboardMainPanel(app));
+        addPage(Page.LayoutMain, new LayoutMainPanel(app));
+        // addPage(Page.KeyboardGeometryMain, new KeyboardGeometryMain(this));
         addPage(Page.Tournament, new TournamentPanel(app));
 
         goTo(Page.Selection);
@@ -124,7 +125,6 @@ public class MainWindow {
         CorporaView,
 
         KeyboardMain,
-        KeyboardCreation,
         KeyboardView,
 
         KeyboardGeometryMain,
