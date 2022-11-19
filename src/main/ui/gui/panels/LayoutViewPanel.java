@@ -12,13 +12,13 @@ public class LayoutViewPanel extends JPanel {
 
     private App app;
 
-    private LayoutMain parent;
+    private LayoutMainPanel parent;
     private JButton backButton;
     private JLabel layoutName;
     private JTextArea layoutContent;
 
     // EFFECTS: creates a LayoutViewPanel that's parented to a LayoutMainPanel
-    public LayoutViewPanel(App app, LayoutMain parent) {
+    public LayoutViewPanel(App app, LayoutMainPanel parent) {
         super();
 
         this.app = app;

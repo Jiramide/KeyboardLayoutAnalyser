@@ -17,12 +17,7 @@ import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
-public class LayoutMain extends JPanel {
-
-    public LayoutMain(App app) {
-
-    }
-
+public class LayoutMainPanel extends JPanel {
 
     private App app;
 
