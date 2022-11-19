@@ -37,9 +37,8 @@ public class KeyboardMainPanel extends JPanel {
     // MODIFIES: this
     // EFFECTS: adds the components in proper order with spacing elements to provide a bit of style
     private void layoutComponents() {
-        add(Box.createVerticalGlue());
         add(header);
-        add(Box.createRigidArea(SELECTION_BUTTON_SPACING));
+        add(Box.createVerticalGlue());
         add(layoutButton);
         add(Box.createRigidArea(SELECTION_BUTTON_SPACING));
         add(geometryButton);
@@ -50,7 +49,7 @@ public class KeyboardMainPanel extends JPanel {
     // EFFECTS: creates the title, which contains an image icon on top of a title label
     private void createHeader() {
         header = new JPanel();
-        header.setLayout(new BoxLayout(header, BoxLayout.PAGE_AXIS));
+        header.setLayout(new BoxLayout(header, BoxLayout.LINE_AXIS));
 
         JButton backButton = app.getMainWindow().createNavigationButton(Page.Selection);
         backButton.setText("<");
@@ -62,6 +61,7 @@ public class KeyboardMainPanel extends JPanel {
         header.add(backButton);
         header.add(Box.createRigidArea(new Dimension(10, 0)));
         header.add(titleLabel);
+        header.add(Box.createHorizontalGlue());
     }
 
     // MODIFIES: this
