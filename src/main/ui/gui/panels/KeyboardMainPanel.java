@@ -8,6 +8,9 @@ import ui.gui.MainWindow;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the main navigation page for keyboard related things
+ */
 public class KeyboardMainPanel extends JPanel {
 
     private static final Dimension SELECTION_BUTTON_SPACING = new Dimension(0, 10);

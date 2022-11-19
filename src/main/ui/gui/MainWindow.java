@@ -91,6 +91,8 @@ public class MainWindow {
         JButton navigationButton = new JButton();
 
         navigationButton.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTS: goes to the given page
             @Override
             public void actionPerformed(ActionEvent e) {
                 goTo(destination);

@@ -17,6 +17,10 @@ import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the main layout panel that shows all layouts and provides
+ * interations to those layouts
+ */
 public class LayoutMainPanel extends JPanel {
 
     private App app;
@@ -76,6 +80,8 @@ public class LayoutMainPanel extends JPanel {
         return createInteractionButton(
                 "➖    Remove",
                 new ActionListener() {
+                    // MODIFIES: this, parent
+                    // EFFECTS: removes all selected layouts
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> layoutsToRemove = list.getSelectedValuesList();
@@ -93,6 +99,8 @@ public class LayoutMainPanel extends JPanel {
         return createInteractionButton(
                 "🔃    Load",
                 new ActionListener() {
+                    // MODIFIES: this, parent
+                    // EFFECTS: queries the user for a layout name and loads it into the app
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String layoutName = JOptionPane.showInputDialog("Layout name:");
@@ -107,6 +115,8 @@ public class LayoutMainPanel extends JPanel {
         return createInteractionButton(
                 "👁    View",
                 new ActionListener() {
+                    // MODIFIES: this, viewPanel
+                    // EFFECTS: views the currently selected layout
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Layout layout = getLayoutByName(list.getSelectedValue());
@@ -125,6 +135,8 @@ public class LayoutMainPanel extends JPanel {
         return createInteractionButton(
                 "💾    Save",
                 new ActionListener() {
+                    // MODIFIES: this, parent
+                    // EFFECTS: saves all selected layouts into file
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         java.util.List<String> layoutToSave = list.getSelectedValuesList();

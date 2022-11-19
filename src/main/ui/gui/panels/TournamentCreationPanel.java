@@ -20,6 +20,9 @@ import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel where you can create tournaments
+ */
 public class TournamentCreationPanel extends JPanel {
 
     private App app;
@@ -173,6 +176,8 @@ public class TournamentCreationPanel extends JPanel {
         corpusChooser.setMaximumSize(comboBoxSize);
 
         corpusChooser.addItemListener(new ItemListener() {
+            // MODIFIES: this
+            // EFFECTS: gets the currently selected corpus
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -191,6 +196,8 @@ public class TournamentCreationPanel extends JPanel {
         effortModelChooser.setMaximumSize(comboBoxSize);
 
         effortModelChooser.addItemListener(new ItemListener() {
+            // MODIFIES: this
+            // EFFECTS: gets the currently selected effort model
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -209,6 +216,8 @@ public class TournamentCreationPanel extends JPanel {
         keyboardChooser.setMaximumSize(comboBoxSize);
 
         keyboardChooser.addItemListener(new ItemListener() {
+            // MODIFIES: this
+            // EFFECTS: gets the currently selected keyboard geometry
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -227,6 +236,8 @@ public class TournamentCreationPanel extends JPanel {
         layoutChooser.setMaximumSize(comboBoxSize);
 
         layoutChooser.addItemListener(new ItemListener() {
+            // MODIFIES: this
+            // EFFECTS: gets the currently selected layout
             @Override
             public void itemStateChanged(ItemEvent e) {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
@@ -257,6 +268,7 @@ public class TournamentCreationPanel extends JPanel {
         metadata.setAlignmentX(Component.LEFT_ALIGNMENT);
     }
 
+    // EFFECTS: returns the name of a named object
     private static final Function<INameable, String> GET_NAME = new Function<INameable, String>() {
         @Override
         public String apply(INameable nameable) {
@@ -343,6 +355,9 @@ public class TournamentCreationPanel extends JPanel {
         addKeyboardButton.setText("Add keyboard");
 
         addKeyboardButton.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTS: creates a KeyboardInfoPanel consisting of the currently selected geometry and layout
+            //          and adds it into the ui
             @Override
             public void actionPerformed(ActionEvent e) {
                 KeyboardInformationPanel infoPanel = new KeyboardInformationPanel(currentGeometry, currentLayout);
@@ -380,6 +395,8 @@ public class TournamentCreationPanel extends JPanel {
         cancelButton.setText("Cancel");
 
         cancelButton.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTS: clears all input fields
             @Override
             public void actionPerformed(ActionEvent e) {
                 clear();
@@ -395,6 +412,8 @@ public class TournamentCreationPanel extends JPanel {
         createButton.setText("Create");
 
         createButton.addActionListener(new ActionListener() {
+            // MODIFIES:  this, parent
+            // EFFECTS: clears all input fields and constructs the tournament from the fields
             @Override
             public void actionPerformed(ActionEvent e) {
                 Tournament tournament = createTournament();
@@ -499,6 +518,9 @@ public class TournamentCreationPanel extends JPanel {
             KeyboardInformationPanel panel = this;
 
             removeButton.addActionListener(new ActionListener() {
+                // MODIFIES: this, parent, tournament
+                // EFFECTS: removes the KeyboardInformationPanel from the ui and the associated keyboard from the
+                //         tournament
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Iterator<KeyboardInformationPanel> iterator = keyboardsInfo.listIterator();

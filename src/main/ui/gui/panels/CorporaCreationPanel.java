@@ -10,6 +10,9 @@ import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel in where you create corpora
+ */
 public class CorporaCreationPanel extends JPanel {
 
     private App app;
@@ -151,6 +154,8 @@ public class CorporaCreationPanel extends JPanel {
         cancelButton.setText("Cancel");
 
         cancelButton.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTS: cancels the creation and clears all input fields
             @Override
             public void actionPerformed(ActionEvent e) {
                 clear();
@@ -168,6 +173,9 @@ public class CorporaCreationPanel extends JPanel {
         CorporaCreationPanel panel = this;
 
         createButton.addActionListener(new ActionListener() {
+            // MODIFIES: parent
+            // EFFECTS: creates the corpus from the input fields, or shows an error message if
+            //          one of the fields is empty
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = corpusName.getText();

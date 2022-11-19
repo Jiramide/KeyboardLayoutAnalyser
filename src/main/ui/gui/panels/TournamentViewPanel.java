@@ -11,6 +11,9 @@ import ui.gui.App;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel where you can view a tournament's details
+ */
 public class TournamentViewPanel extends JPanel {
 
     private App app;
@@ -175,6 +178,8 @@ public class TournamentViewPanel extends JPanel {
             setVisible(true);
         }
 
+        // MODIFIES: g
+        // EFFECTS: draws out the bars for the bar graph and places text
         @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g);

@@ -80,6 +80,8 @@ public class KeyboardGeometryMainPanel extends JPanel {
         return createInteractionButton(
                 "➖    Remove",
                 new ActionListener() {
+                    // MODIFIES: parent
+                    // EFFECTS: removes all selected geometry from the list
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> geometriesToRemove = list.getSelectedValuesList();
@@ -97,6 +99,8 @@ public class KeyboardGeometryMainPanel extends JPanel {
         return createInteractionButton(
                 "🔃    Load",
                 new ActionListener() {
+                    // MODIFIES: this
+                    // EFFECTS: queries the user for a geometry name and loads that geometry into file
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String geometryName = JOptionPane.showInputDialog("KeyboardGeometry name:");
@@ -111,6 +115,8 @@ public class KeyboardGeometryMainPanel extends JPanel {
         return createInteractionButton(
                 "👁    View",
                 new ActionListener() {
+                    // MODIFIES: viewPanel
+                    // EFFECTS: views the selected geometry
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         KeyboardGeometry geometry = getGeometryByName(list.getSelectedValue());
@@ -129,6 +135,8 @@ public class KeyboardGeometryMainPanel extends JPanel {
         return createInteractionButton(
                 "💾    Save",
                 new ActionListener() {
+                    // MODIFIES: this
+                    // EFFECTS: saves the selected geometries into file
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> geometriesToSave = list.getSelectedValuesList();
@@ -147,6 +155,8 @@ public class KeyboardGeometryMainPanel extends JPanel {
         addButton.setText("➕    Create");
 
         addButton.addActionListener(new ActionListener() {
+            // MODIFIES: mainWindow
+            // EFFECTS: switches to the geometry creation window and visits the page
             @Override
             public void actionPerformed(ActionEvent e) {
                 app.getMainWindow().goTo(Page.KeyboardGeometryCreation);

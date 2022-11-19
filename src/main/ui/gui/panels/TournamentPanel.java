@@ -65,6 +65,8 @@ public class TournamentPanel extends JPanel {
         newTournamentButton.setText("➕    Create new tournament");
 
         newTournamentButton.addActionListener(new ActionListener() {
+            // MODIFIES: tournamentCreationPanel
+            // EFFECTS: clears the input fields of the tournamnet creation panel
             @Override
             public void actionPerformed(ActionEvent e) {
                 tournamentCreationPanel.clear();
@@ -82,6 +84,8 @@ public class TournamentPanel extends JPanel {
         TournamentPanel panel = this;
 
         viewButton.addActionListener(new ActionListener() {
+            // MODIFIES: tournamentViewPanel
+            // EFFECTS: views the currently selected tournament panel
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (tournamentJList.getSelectedValue() != null) {

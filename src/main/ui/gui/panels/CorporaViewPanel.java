@@ -89,6 +89,9 @@ public class CorporaViewPanel extends JPanel {
         showMore = new JButton("Show more");
 
         showMore.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTGS: performs a read iteration, which reads more from the corpus and
+            //           adds the text into the corpus viewer
             @Override
             public void actionPerformed(ActionEvent e) {
                 performReadIteration();

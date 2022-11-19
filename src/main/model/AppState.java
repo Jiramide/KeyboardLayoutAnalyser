@@ -6,6 +6,9 @@ import java.util.List;
 import model.corpora.Corpus;
 import model.effortmodel.EffortModel;
 
+/*
+ * A class that holds all of the application state
+ */
 public class AppState {
 
     private final PersistentListState<Corpus> corpora = new PersistentListState<>();

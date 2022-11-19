@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel where you can create layouts
+ */
 public class LayoutCreationPanel extends JPanel {
 
     private App app;
@@ -151,6 +154,8 @@ public class LayoutCreationPanel extends JPanel {
         cancelButton.setText("Cancel");
 
         cancelButton.addActionListener(new ActionListener() {
+            // MODIFIES: this
+            // EFFECTS: clears all input fields
             @Override
             public void actionPerformed(ActionEvent e) {
                 clear();
@@ -168,6 +173,9 @@ public class LayoutCreationPanel extends JPanel {
         LayoutCreationPanel panel = this;
 
         createButton.addActionListener(new ActionListener() {
+            // MODIFIES: this, parent
+            // EFFECTS: creates the layout and inserts it into the list, or shows an error dialog if
+            //          one of the fields is empty
             @Override
             public void actionPerformed(ActionEvent e) {
                 String name = layoutName.getText();

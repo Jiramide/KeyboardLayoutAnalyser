@@ -8,6 +8,9 @@ import java.awt.*;
 
 import static ui.gui.MainWindow.Page;
 
+/*
+ * A class representing the panel where you can view layouts in detail
+ */
 public class LayoutViewPanel extends JPanel {
 
     private App app;

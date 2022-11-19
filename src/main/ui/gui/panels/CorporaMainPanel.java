@@ -79,6 +79,8 @@ public class CorporaMainPanel extends JPanel {
         return createInteractionButton(
                 "➖    Remove",
                 new ActionListener() {
+                    // MODIFIES: this
+                    // EFFECTS: removes all selected corpora from the list
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> corporaToRemove = list.getSelectedValuesList();
@@ -96,6 +98,8 @@ public class CorporaMainPanel extends JPanel {
         return createInteractionButton(
                 "🔃    Load",
                 new ActionListener() {
+                    // MODIFIES: this
+                    // EFFECTS: queries the user for a corpus name and loads that corpus into the app
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         String corpusName = JOptionPane.showInputDialog("Corpus name:");
@@ -110,6 +114,8 @@ public class CorporaMainPanel extends JPanel {
         return createInteractionButton(
                 "👁    View",
                 new ActionListener() {
+                    // MODIFIES: viewPanel
+                    // EFFECTS: views the selected corpus
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         Corpus corpus = getCorpusByName(list.getSelectedValue());
@@ -128,6 +134,8 @@ public class CorporaMainPanel extends JPanel {
         return createInteractionButton(
                 "💾    Save",
                 new ActionListener() {
+                    // MODIFIES: this
+                    // EFFECTS: saves all selected corpora into file
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         List<String> corporaToSave = list.getSelectedValuesList();
