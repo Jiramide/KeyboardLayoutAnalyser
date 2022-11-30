@@ -94,3 +94,56 @@ Afterwards, you'll be directed back to the main tournament page. A tournament
 should now be appearing in the list. Select that tournament, press view
 tournament and a bar graph showing the scores of all of the keyboards will
 appear.
+
+---
+
+## Phase 4: Task 2
+```
+Wed Nov 30 11:44:48 PST 2022
+Added keyboard 'StandardAlphaKeyboard + QWERTY' to tournament #0.
+Wed Nov 30 11:44:49 PST 2022
+Added keyboard 'StandardAlphaKeyboard + QWERTY' to tournament #0.
+Wed Nov 30 11:44:50 PST 2022
+Removed keyboard 'StandardAlphaKeyboard + QWERTY' from tournament #0.
+Wed Nov 30 11:44:53 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #0.
+Wed Nov 30 11:44:55 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Dvorak' to tournament #0.
+Wed Nov 30 11:44:57 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Workman' to tournament #0.
+Wed Nov 30 11:45:10 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:11 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:11 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:12 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:12 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:13 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #1.
+Wed Nov 30 11:45:14 PST 2022
+Removed keyboard 'StandardAlphaKeyboard + Colemak-DH' from tournament #1.
+Wed Nov 30 11:45:14 PST 2022
+Removed keyboard 'StandardAlphaKeyboard + Colemak-DH' from tournament #1.
+Wed Nov 30 11:45:14 PST 2022
+Removed keyboard 'StandardAlphaKeyboard + Colemak-DH' from tournament #1.
+Wed Nov 30 11:45:23 PST 2022
+Added keyboard 'StandardAlphaKeyboard + QWERTY' to tournament #2.
+Wed Nov 30 11:45:25 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Colemak-DH' to tournament #2.
+Wed Nov 30 11:45:28 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Dvorak' to tournament #2.
+Wed Nov 30 11:45:30 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Workman' to tournament #2.
+Wed Nov 30 11:45:34 PST 2022
+Added keyboard 'StandardAlphaKeyboard + Workman' to tournament #2.
+```
+
+Getting a log like this requires some action: you need to import the relevant
+layouts, geometries and corpora. After doing that, go to the Tournament
+page and click "Create new tournament". You can add and remove keyboards
+from that page (which are the two events relating X to Y). The number
+after the tournament serves as a unique identifier rather than an actual
+name.
