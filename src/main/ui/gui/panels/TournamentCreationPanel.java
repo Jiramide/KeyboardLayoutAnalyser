@@ -28,6 +28,8 @@ public class TournamentCreationPanel extends JPanel {
     private App app;
     private TournamentPanel parent;
 
+    private Tournament currentTournament;
+
     private Corpus corpus;
     private EffortModel effortModel;
 
@@ -107,17 +109,7 @@ public class TournamentCreationPanel extends JPanel {
         }
 
         keyboardsInfo = new ArrayList<>();
-    }
-
-    // EFFECTS: creates a tournament from the input fields
-    private Tournament createTournament() {
-        Tournament tournament = new Tournament(corpus, effortModel);
-
-        for (KeyboardInformationPanel keyboardInformationPanel : keyboardsInfo) {
-            tournament.addKeyboard(keyboardInformationPanel.createKeyboard());
-        }
-
-        return tournament;
+        currentTournament = new Tournament();
     }
 
     // MODIFIES: this
@@ -183,6 +175,8 @@ public class TournamentCreationPanel extends JPanel {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String corpusName = (String) e.getItem();
                     corpus = app.getAppState().getCorpora().get(corpusName);
+
+                    currentTournament.setCorpus(corpus);
                 }
             }
         });
@@ -203,6 +197,8 @@ public class TournamentCreationPanel extends JPanel {
                 if (e.getStateChange() == ItemEvent.SELECTED) {
                     String effortModelName = (String) e.getItem();
                     effortModel = app.getAppState().getEffortModels().get(effortModelName);
+
+                    currentTournament.setEffortModel(effortModel);
                 }
             }
         });
@@ -362,6 +358,7 @@ public class TournamentCreationPanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 KeyboardInformationPanel infoPanel = new KeyboardInformationPanel(currentGeometry, currentLayout);
 
+                currentTournament.addKeyboard(infoPanel.getKeyboard());
                 keyboardsPanel.add(infoPanel, keyboardsInfo.size());
                 keyboardsInfo.add(infoPanel);
 
@@ -416,8 +413,7 @@ public class TournamentCreationPanel extends JPanel {
             // EFFECTS: clears all input fields and constructs the tournament from the fields
             @Override
             public void actionPerformed(ActionEvent e) {
-                Tournament tournament = createTournament();
-                parent.addTournament(tournament);
+                parent.addTournament(currentTournament);
 
                 clear();
             }
@@ -432,6 +428,7 @@ public class TournamentCreationPanel extends JPanel {
      */
     private class KeyboardInformationPanel extends JPanel {
 
+        private Keyboard keyboard;
         private KeyboardGeometry geometry;
         private Layout layout;
 
@@ -447,6 +444,7 @@ public class TournamentCreationPanel extends JPanel {
 
             this.geometry = geometry;
             this.layout = layout;
+            this.keyboard = new Keyboard(geometry, layout);
 
             setLayout(new BoxLayout(this, BoxLayout.LINE_AXIS));
 
@@ -458,9 +456,9 @@ public class TournamentCreationPanel extends JPanel {
             setVisible(true);
         }
 
-        // EFFECTS: creates a keyboard from the fields
-        public Keyboard createKeyboard() {
-            return new Keyboard(geometry, layout);
+        // EFFECTS: gets the keyboard that represents this panel
+        public Keyboard getKeyboard() {
+            return keyboard;
         }
 
         // MODIFIES: this
@@ -524,6 +522,8 @@ public class TournamentCreationPanel extends JPanel {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Iterator<KeyboardInformationPanel> iterator = keyboardsInfo.listIterator();
+
+                    currentTournament.removeKeyboard(getKeyboard());
 
                     while (iterator.hasNext()) {
                         KeyboardInformationPanel next = iterator.next();
