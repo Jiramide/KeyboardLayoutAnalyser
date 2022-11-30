@@ -7,6 +7,8 @@ import java.util.HashMap;
 
 import model.corpora.Corpus;
 import model.effortmodel.EffortModel;
+import model.logging.Event;
+import model.logging.EventLog;
 
 /*
  * A class that represents a Tournament between keyboard layouts
@@ -22,12 +24,17 @@ public class Tournament {
 
     private Map<Keyboard, Double> scores;
 
+    // EFFECTS: Creates a tournament with no corpus and no effort computation model
+    public Tournament() {
+        this.keyboards = new ArrayList<>();
+    }
+
     // EFFECTS: Creates an empty tournament with the given corpus and effort computation model
     public Tournament(Corpus corpus, EffortModel effortCalculator) {
-        this.corpus = corpus;
-        this.effortCalculator = effortCalculator;
-        this.keyboards = new ArrayList<>();
-        this.scores = null;
+        this();
+
+        setCorpus(corpus);
+        setEffortModel(effortCalculator);
     }
 
     // EFFECTS: returns the corpus used for the tournament
@@ -35,9 +42,21 @@ public class Tournament {
         return corpus;
     }
 
+    // MODIFIES: this
+    // EFFECTS: sets the corpus the tournament uses
+    public void setCorpus(Corpus corpus) {
+        this.corpus = corpus;
+    }
+
     // EFFECTS: returns the effort model used for the tournament
     public EffortModel getEffortModel() {
         return effortCalculator;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the effort model the tournament uses
+    public void setEffortModel(EffortModel effortModel) {
+        this.effortCalculator = effortModel;
     }
 
     // EFFECTS: returns the keyboards used for the tournament
@@ -45,11 +64,13 @@ public class Tournament {
         return keyboards;
     }
 
+    // REQUIRES: getEffortModel() != null, getCorpus() != null
     // EFFECTS: computes the score for a given keyboard (according to the effort model)
     private Double computeScore(Keyboard keyboard) {
         return getEffortModel().computeTotalEffort(getCorpus(), keyboard);
     }
 
+    // REQUIRES: getEffortModel() != null, getCorpus() != null
     // MODIFIES: this
     // EFFECTS: returns a map associated a keyboard and the total effort spent typing the given corpus
     public Map<Keyboard, Double> computeScores() {
@@ -67,6 +88,7 @@ public class Tournament {
         return scores;
     }
 
+    // REQUIRES: getEffortModel() != null, getCorpus() != null
     // MODIFIES: this
     // EFFECTS: returns the keyboards sorted by minimum effort
     public List<Keyboard> getSortedRankings() {
@@ -89,6 +111,14 @@ public class Tournament {
     // MODIFIES: this
     // EFFECTS: adds keyboard into tournament to test against other keyboards
     public void addKeyboard(Keyboard keyboard) {
+        EventLog.getInstance().logEvent(
+                new Event(
+                        "Added keyboard '"
+                        + keyboard.getGeometry().getName() + " + " + keyboard.getLayout().getName()
+                        + "' to tournament."
+                )
+        );
+
         getKeyboards().add(keyboard);
     }
 
@@ -96,6 +126,14 @@ public class Tournament {
     // MODIFIES: this
     // EFFECTS: removes keyboard from the tournament
     public void removeKeyboard(Keyboard keyboard) {
+        EventLog.getInstance().logEvent(
+                new Event(
+                        "Removed keyboard '"
+                                + keyboard.getGeometry().getName() + " + " + keyboard.getLayout().getName()
+                                + "' from tournament."
+                )
+        );
+
         getKeyboards().remove(keyboard);
     }
 
