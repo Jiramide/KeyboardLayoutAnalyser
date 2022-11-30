@@ -391,15 +391,6 @@ public class TournamentCreationPanel extends JPanel {
         cancelButton = app.getMainWindow().createNavigationButton(Page.Tournament);
         cancelButton.setText("Cancel");
 
-        cancelButton.addActionListener(new ActionListener() {
-            // MODIFIES: this
-            // EFFECTS: clears all input fields
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                clear();
-            }
-        });
-
         return cancelButton;
     }
 
@@ -409,13 +400,11 @@ public class TournamentCreationPanel extends JPanel {
         createButton.setText("Create");
 
         createButton.addActionListener(new ActionListener() {
-            // MODIFIES:  this, parent
-            // EFFECTS: clears all input fields and constructs the tournament from the fields
+            // MODIFIES: this, parent
+            // EFFECTS: adds tournament to the list of tournaments the main panel is using
             @Override
             public void actionPerformed(ActionEvent e) {
                 parent.addTournament(currentTournament);
-
-                clear();
             }
         });
 
