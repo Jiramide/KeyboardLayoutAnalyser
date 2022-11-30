@@ -18,15 +18,21 @@ public class Tournament {
 
     private static final int SORTING_MULTIPLIER = 1000000;
 
+    private static int tournamentUIdCounter = 0;
+
     private EffortModel effortCalculator;
     private Corpus corpus;
     private List<Keyboard> keyboards;
+    private int uid;
 
     private Map<Keyboard, Double> scores;
 
     // EFFECTS: Creates a tournament with no corpus and no effort computation model
     public Tournament() {
+        this.uid = tournamentUIdCounter;
         this.keyboards = new ArrayList<>();
+
+        tournamentUIdCounter += 1;
     }
 
     // EFFECTS: Creates an empty tournament with the given corpus and effort computation model
@@ -115,7 +121,7 @@ public class Tournament {
                 new Event(
                         "Added keyboard '"
                         + keyboard.getGeometry().getName() + " + " + keyboard.getLayout().getName()
-                        + "' to tournament."
+                        + "' to tournament #" + uid + "."
                 )
         );
 
@@ -130,7 +136,7 @@ public class Tournament {
                 new Event(
                         "Removed keyboard '"
                                 + keyboard.getGeometry().getName() + " + " + keyboard.getLayout().getName()
-                                + "' from tournament."
+                                + "' from tournament #" + uid + "."
                 )
         );
 
