@@ -189,3 +189,9 @@ the behaviour can be lifted from those `ActionListeners` to
 the panel itself. While not a refactoring, this also allows me
 to write new behaviour like an actual back button (and not a 
 fake one).
+
+The last refactor I'd like to make is making `App` a singleton.
+Pretty much all panels have an association to `App` in order
+to access the persistent application data. Making `App` a
+singleton class would remove this association for all panels,
+making panels less coupled with `App`.
