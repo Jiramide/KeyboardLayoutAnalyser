@@ -147,3 +147,45 @@ page and click "Create new tournament". You can add and remove keyboards
 from that page (which are the two events relating X to Y). The number
 after the tournament serves as a unique identifier rather than an actual
 name.
+
+---
+
+## Phase 4: Task 3
+There's currently quite a lot of coupling between the UI package and the
+model package, specifically in UI panels responsible for viewing some
+element. 
+
+Similarly, there's currently this awkward island that consists of 
+`INameable` and `Nameable`, of which only serves to provide names
+to objects that extend from it. The existence of `INameable` is 
+an unfortunate necessity in order for 
+`PersistentListState<T extends INameable>` to work for `Corpus`.
+`INameable` and `Nameable` is an awkward pair because `INameable`
+solely exists to allow interfaces to extend from, and `Nameable`
+contains the common implementation that all describable objects
+have.
+
+One refactoring that I can perform in order to address (hopefully)
+both of these issues at the same time is to lift naming behaviour
+from outside of the classes (`Layout`, `KeyboardGeometry`, `Corpus`, etc)
+and into its own `Descriptor` class. This allows us to remove the 
+abstract `Nameable` class and opt for only a single interface:
+`Describeable`. The `Descriptor` class only contains functionality
+for getting names and other descriptive behaviour (e.g. `Description`).
+This allows us to query by a `Descriptor` object 
+(e.g. in a `Map<Descriptor, T>`), allows us to remove the awkward
+pairing stated above (where the interface should not exist, but 
+does in order to account for interfaces) and allow us to remove 
+many of the associations between model elements and their corresponding
+`*ViewPanel` by simply passing a `Descriptor` and querying it from 
+`AppState`.
+
+Another refactor I'd like to make is creating a `Page` UI class that
+all panels in `ui.panels` inherit from. I'm finding that it's very
+useful to have some behaviour executed when leaving and entering a
+panel, so this allows me to clean up a lot of awkward "connect 
+`ActionListeners` after calling `createNavigationButton`" since
+the behaviour can be lifted from those `ActionListeners` to
+the panel itself. While not a refactoring, this also allows me
+to write new behaviour like an actual back button (and not a 
+fake one).
