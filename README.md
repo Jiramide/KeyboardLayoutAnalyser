@@ -151,6 +151,12 @@ name.
 ---
 
 ## Phase 4: Task 3
+
+* Lift naming behaviour up from `Nameable` and `INameable` to a `Descriptor`
+and `Describable` interface.
+* Create a common super class `Page` for all `*Panel` classes
+* Apply the singleton pattern to `App`
+
 There's currently quite a lot of coupling between the UI package and the
 model package, specifically in UI panels responsible for viewing some
 element. 
